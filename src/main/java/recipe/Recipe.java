@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public record Recipe(
+        long id,
         String name,
         String author,
         LocalDate dateOfCreation,
@@ -16,10 +17,11 @@ public record Recipe(
         int rating
 ) {
     public Recipe() {
-        this("Recipe name", "Author", LocalDate.now(), null, "Recipe content", List.of(), LocalTime.now(), 0);
+        this(CookBook.getNextId(), "Recipe name", "Author", LocalDate.now(), null, "Recipe content", List.of(), LocalTime.now(), 0);
     }
 
-    public Recipe(String name, String author, LocalDate dateOfCreation, LocalDateTime lastUpdated, String content, List<String> categories, LocalTime cookingTime, int rating) {
+    public Recipe(long id, String name, String author, LocalDate dateOfCreation, LocalDateTime lastUpdated, String content, List<String> categories, LocalTime cookingTime, int rating) {
+        this.id = id;
         this.name = name;
         this.author = author;
         this.dateOfCreation = dateOfCreation;
