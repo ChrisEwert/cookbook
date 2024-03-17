@@ -1,7 +1,6 @@
 package recipe;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -11,37 +10,25 @@ public class CookBook {
     private LocalDate dateOfCreation;
     private final static AtomicLong ID_COUNTER = new AtomicLong();
     private final Map<Long, Recipe> recipes = new HashMap<>();
-    private String user;
+    private static String user;
 
     public static long getNextId() {
         return ID_COUNTER.incrementAndGet();
     }
 
-    public String getName() {
-        return name;
+    public void createNewRecipe(Recipe recipe) {
+        recipes.put(recipe.id(), recipe);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void updateRecipe(Recipe recipe) {
+        if (recipes.containsKey(recipe.id())) {
+            recipes.put(recipe.id(), Recipe.updatedRecipe(recipe));
+        } else {
+            createNewRecipe(recipe);
+        }
     }
 
-    public LocalDate getDateOfCreation() {
-        return dateOfCreation;
-    }
-
-    public void setDateOfCreation(LocalDate dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
-    }
-
-    public Map<Long, Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public String getUser() {
+    public static String getUser() {
         return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 }
