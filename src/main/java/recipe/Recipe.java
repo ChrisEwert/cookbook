@@ -44,18 +44,6 @@ public record Recipe(
         );
     }
 
-    public Recipe(long id, String name, String author, LocalDate dateOfCreation, LocalDateTime lastUpdated, String content, List<String> categories, LocalTime cookingTime, int rating) {
-        this.id = id;
-        this.name = name;
-        this.author = author;
-        this.dateOfCreation = dateOfCreation;
-        this.lastUpdated = lastUpdated;
-        this.content = content;
-        this.categories = categories;
-        this.cookingTime = cookingTime;
-        this.rating = rating;
-    }
-
     public static Recipe updatedRecipe(Recipe recipe) {
         return new Recipe(
             recipe.id(),
