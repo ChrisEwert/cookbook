@@ -2,10 +2,10 @@
 This is a project for Advanced Software Engineering.
 
 ## Features
-* Add new Recipe
-* Update existing Recipe
-* Delete existing Recipe
-* Categorize Recipe
+* Add new recipe
+* Update existing recipe
+* Delete existing recipe
+* Categorize recipe
 * See all Recipes
 * Filter existing Recipes by Category or User
 * Switch between different Users
@@ -15,7 +15,7 @@ This is a project for Advanced Software Engineering.
 
 ## Ubiquitous Language
 * CookBook: a collection of recipes
-* Recipe: an entry in the CookBook
+* recipe: an entry in the CookBook
 * User: person interacting with the CookBook
 * Author: User who created a recipe
 * Category: Brief description that helps with classifying and grouping recipes
@@ -26,7 +26,7 @@ This is a project for Advanced Software Engineering.
   * Date of creation
   * Recipes
   * Selected user
-* Recipe
+* recipe
   * Name
   * Author
   * Date of creation
