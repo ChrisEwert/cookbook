@@ -31,4 +31,8 @@ public class CookBook {
     public static String getUser() {
         return user;
     }
+
+    public Recipe getRecipe(long id) {
+        return recipes.get(id);
+    }
 }

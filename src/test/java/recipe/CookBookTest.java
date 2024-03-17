@@ -29,4 +29,19 @@ class CookBookTest {
         assertThat(recipe.cookingTime()).isEqualTo(LocalTime.of(0, 0));
         assertThat(recipe.rating()).isEqualTo(0);
     }
+
+    @Test
+    void testUpdateRecipe() {
+        // ARRANGE
+        CookBook cookBook = new CookBook();
+        Recipe recipe = new Recipe();
+
+        // ACT
+        cookBook.createNewRecipe(recipe);
+        cookBook.updateRecipe(recipe);
+
+        // ASSERT
+        Recipe newRecipe = cookBook.getRecipe(recipe.id());
+        assertThat(newRecipe.lastUpdated()).isNotNull();
+    }
 }
