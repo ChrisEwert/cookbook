@@ -25,7 +25,7 @@ public record Recipe(
             null,
             "Recipe content",
             List.of(),
-            LocalTime.now(),
+            LocalTime.of(0, 0),
             0
         );
     }
