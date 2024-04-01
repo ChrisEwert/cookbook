@@ -22,19 +22,17 @@ This is a project for Advanced Software Engineering.
 
 ## Descriptions
 * CookBook 
-  * name
   * date of creation
-  * recipes
-  * selected user
+  * recipe list
+  * active user
 * Recipe
   * name
   * author
   * date of creation
-  * date of last update
   * content
   * categories
   * cooking time
-  * rating
+  * ratings
 * User
   * name
   * date of creation
