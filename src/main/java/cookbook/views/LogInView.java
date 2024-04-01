@@ -1,25 +1,30 @@
 package cookbook.views;
 
+import cookbook.services.UserService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class LogInView implements View {
-    private final List<String> users = new ArrayList<>();
+    private UserService userService;
+
+    public LogInView(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     public void display() {
-        fillUserList();
-
         while(true) {
             String userMenuInput = getUserMenuInput();
             System.out.println();
 
             if (Objects.equals(userMenuInput, "1")) {
-                new SelectAvailableUserView(users).display();
+                new SelectAvailableUserView(userService).display();
                 break;
             } else if (Objects.equals(userMenuInput, "2")) {
-                new CreateNewUserView(users).display();
+                new CreateNewUserView(userService).display();
                 break;
             } else if (Objects.equals(userMenuInput, "0")) {
                 System.out.println("Have a nice day!");
@@ -29,12 +34,6 @@ public class LogInView implements View {
                 System.out.println();
             }
         }
-    }
-
-    private void fillUserList() {
-        users.add("Karl");
-        users.add("Robin");
-        users.add("Tina");
     }
 
     private String getUserMenuInput() {

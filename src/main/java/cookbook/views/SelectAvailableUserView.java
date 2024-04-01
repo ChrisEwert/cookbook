@@ -1,14 +1,14 @@
 package cookbook.views;
 
-import java.util.List;
+import cookbook.services.UserService;
+
 import java.util.Scanner;
 
 public class SelectAvailableUserView implements View {
+    private final UserService userService;
 
-    private final List<String> users;
-
-    public SelectAvailableUserView(List<String> users) {
-        this.users = users;
+    public SelectAvailableUserView(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -17,8 +17,8 @@ public class SelectAvailableUserView implements View {
 
         while (true) {
             int userIndex = getUserIndex();
-            if (userIndex < users.size()) {
-                System.out.println(COLOR_GREEN + "You are now logged in as " + users.get(userIndex) + COLOR_RESET);
+            if (userIndex < userService.getUserCount()) {
+                System.out.println(COLOR_GREEN + "You are now logged in as " + userService.getUser(userIndex) + COLOR_RESET);
                 break;
             } else {
                 System.out.println(COLOR_RED + "Please select the number of a user that exists." + COLOR_RESET);
@@ -29,8 +29,8 @@ public class SelectAvailableUserView implements View {
 
     private void showAvailableUsers() {
         System.out.println("Here is a list of all users:");
-        for (int i = 0 ; i < users.size() ; i++) {
-            System.out.println(i + ": " + users.get(i));
+        for (int i = 0; i < userService.getUserCount(); i++) {
+            System.out.println(i + ": " + userService.getUser(i));
         }
         System.out.println();
     }

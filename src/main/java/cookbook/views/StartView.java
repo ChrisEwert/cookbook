@@ -1,6 +1,13 @@
 package cookbook.views;
 
+import cookbook.services.UserService;
+
 public class StartView implements View {
+    private final UserService userService;
+
+    public StartView(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public void display() {
@@ -14,6 +21,6 @@ public class StartView implements View {
         System.out.println("In this cookbook, users can share recipes.");
         System.out.println();
 
-        new LogInView().display();
+        new LogInView(userService).display();
     }
 }

@@ -1,14 +1,14 @@
 package cookbook.views;
 
-import java.util.List;
+import cookbook.services.UserService;
+
 import java.util.Scanner;
 
 public class CreateNewUserView implements View {
+    private final UserService userService;
 
-    private final List<String> users;
-
-    public CreateNewUserView(List<String> users) {
-        this.users = users;
+    public CreateNewUserView(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -16,10 +16,10 @@ public class CreateNewUserView implements View {
         System.out.print("Please enter the user: ");
         String userName = new Scanner(System.in).nextLine();
 
-        if (users.contains(userName)) {
+        if (userService.containsUser(userName)) {
             System.out.println("This user already exists!");
         } else {
-            users.add(userName);
+            userService.addNewUser(userName);
         }
         System.out.println(COLOR_GREEN + "You are now logged in as " + userName + COLOR_RESET);
     }
