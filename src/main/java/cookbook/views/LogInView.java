@@ -17,8 +17,10 @@ public class LogInView implements View {
 
             if (Objects.equals(userMenuInput, "1")) {
                 new SelectAvailableUserView(users).display();
+                break;
             } else if (Objects.equals(userMenuInput, "2")) {
-                // create new user
+                new CreateNewUserView(users).display();
+                break;
             } else if (Objects.equals(userMenuInput, "0")) {
                 System.out.println("Have a nice day!");
                 break;

@@ -15,12 +15,15 @@ public class SelectAvailableUserView implements View {
     public void display() {
         showAvailableUsers();
 
-        int userIndex = getUserIndex();
-        if (userIndex < users.size()) {
-            System.out.println(COLOR_GREEN + "You are now logged in as " + users.get(userIndex) + COLOR_RESET);
-        } else {
-            System.out.println(COLOR_RED + "Please select the number of a user that exists." + COLOR_RESET);
-            System.out.println();
+        while (true) {
+            int userIndex = getUserIndex();
+            if (userIndex < users.size()) {
+                System.out.println(COLOR_GREEN + "You are now logged in as " + users.get(userIndex) + COLOR_RESET);
+                break;
+            } else {
+                System.out.println(COLOR_RED + "Please select the number of a user that exists." + COLOR_RESET);
+                System.out.println();
+            }
         }
     }
 
@@ -41,6 +44,7 @@ public class SelectAvailableUserView implements View {
                 return Integer.parseInt(userInput);
             } catch (NumberFormatException e) {
                 System.out.println(COLOR_RED + "Please enter a real number." + COLOR_RESET);
+                System.out.println();
             }
         }
     }
