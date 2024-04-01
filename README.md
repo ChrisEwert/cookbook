@@ -42,3 +42,9 @@ This is a project for Advanced Software Engineering.
   * Views only print lines to the console
   * Views do not change values
   * Views can understand and process user input
+
+## Services
+  * UserService: manages users and handles the logic for adding new users
+
+## DataHandlers
+  * UserDataHandler: manages the connection to the file that stores the names of the users (db/users)
