@@ -16,7 +16,7 @@ public class LogInView implements View {
             System.out.println();
 
             if (Objects.equals(userMenuInput, "1")) {
-                // select available user
+                new SelectAvailableUserView(users).display();
             } else if (Objects.equals(userMenuInput, "2")) {
                 // create new user
             } else if (Objects.equals(userMenuInput, "0")) {
