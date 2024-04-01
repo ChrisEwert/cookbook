@@ -1,10 +1,11 @@
 package cookbook.services;
 
-import java.util.ArrayList;
+import cookbook.db.UserDataHandler;
+
 import java.util.List;
 
 public class UserService {
-    private final List<String> users = new ArrayList<>(List.of("Karl", "Anna", "Tom"));
+    private final List<String> users = new UserDataHandler().getUsers();
 
     public int getUserCount() {
         return users.size();
@@ -12,6 +13,7 @@ public class UserService {
 
     public void addNewUser(String newUser) {
         users.add(newUser);
+        new UserDataHandler().saveUsersToFile(users);
     }
 
     public String getUser(int id) {

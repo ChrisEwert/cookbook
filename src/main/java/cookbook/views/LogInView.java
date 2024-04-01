@@ -2,13 +2,11 @@ package cookbook.views;
 
 import cookbook.services.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class LogInView implements View {
-    private UserService userService;
+    private final UserService userService;
 
     public LogInView(UserService userService) {
         this.userService = userService;
