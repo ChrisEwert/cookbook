@@ -37,3 +37,8 @@ This is a project for Advanced Software Engineering.
   * name
   * date of creation
   * recipes
+
+## Views
+  * Views only print lines to the console
+  * Views do not change values
+  * Views can understand and process user input
