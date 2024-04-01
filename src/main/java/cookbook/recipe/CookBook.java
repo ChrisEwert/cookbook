@@ -1,4 +1,4 @@
-package recipe;
+package cookbook.recipe;
 
 import java.time.LocalDate;
 import java.util.HashMap;
