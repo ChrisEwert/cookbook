@@ -10,8 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDataHandler {
-    private final String directoryName = "db";
+public class UserDataHandler implements DataHandler {
     private final String fileName = "users";
     private final Path filePath;
     private final List<String> userList;
@@ -22,19 +21,6 @@ public class UserDataHandler {
             createFile(filePath);
         }
         userList = readUserListFromDB(filePath);
-    }
-
-    private boolean fileExists(Path filePath) {
-        return Files.exists(filePath);
-    }
-
-    private void createFile(Path filePath) {
-        try {
-            Files.createDirectories(filePath.getParent());
-            Files.createFile(filePath);
-        } catch (IOException e) {
-            System.err.println("Could not create file");
-        }
     }
 
     private List<String> readUserListFromDB(Path filePath) {

@@ -28,29 +28,27 @@ public record Recipe(
         );
     }
 
-    public Recipe(String name, String author, LocalDate dateOfCreation, String content, List<String> categories, LocalTime cookingTime, float rating) {
+    public Recipe(long id, String name, String author) {
         this(
-            RecipeRepository.getNextId(),
+            id,
             name,
             author,
-            dateOfCreation,
-            content,
-            categories,
-            cookingTime,
-            rating
+            LocalDate.now(),
+            "content",
+            List.of(),
+            LocalTime.of(0, 0),
+            0f
         );
     }
 
-    //    public static Recipe updateRecipe(Recipe recipe) {
-//        return new Recipe(
-//            recipe.id(),
-//            recipe.name(),
-//            recipe.author(),
-//            recipe.dateOfCreation(),
-//            recipe.content(),
-//            recipe.categories(),
-//            recipe.cookingTime(),
-//            recipe.rating()
-//        );
-//    }
+    public Recipe(long id, String name, String author, LocalDate dateOfCreation, String content, List<String> categories, LocalTime cookingTime, float rating) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.dateOfCreation = dateOfCreation;
+        this.content = content;
+        this.categories = categories;
+        this.cookingTime = cookingTime;
+        this.rating = rating;
+    }
 }

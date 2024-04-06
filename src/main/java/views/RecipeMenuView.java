@@ -1,5 +1,7 @@
 package views;
 
+import db.RecipeDataHandler;
+import recipe.Recipe;
 import services.AuthenticationService;
 import services.UserService;
 
@@ -19,10 +21,18 @@ public class RecipeMenuView implements View {
             System.out.println();
 
             if (input.equals("1")) {
-                // do something
+                // TODO: do something
                 break;
             } else if (input.equals("2")) {
-                // do something
+                System.out.print("Enter id: ");
+                long id = Long.parseLong(getUserInput());
+                System.out.print("Enter name: ");
+                String name = getUserInput();
+                System.out.print("Enter author: ");
+                String author = getUserInput();
+                new RecipeDataHandler().addRecipeToDB(new Recipe(id, name, author));
+                System.out.println();
+                new RecipeDataHandler().getRecipes().forEach(System.out::println);
                 break;
             } else if (input.equals("3")) {
                 authenticationService.logout();
