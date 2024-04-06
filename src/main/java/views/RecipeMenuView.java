@@ -1,26 +1,23 @@
 package views;
 
-import recipe.CookbookRepository;
+import services.AuthenticationService;
 import services.UserService;
 
 public class RecipeMenuView implements View {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
-    public RecipeMenuView(UserService userService) {
+    public RecipeMenuView(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     @Override
     public void display() {
         while(true) {
-            System.out.println("What do you want to do now?");
-            System.out.println("1: I want to read a recipe");
-            System.out.println("2: I want to create a new recipe");
-            System.out.println("3: I want to log out");
-            System.out.println("0: Close cookbook");
+            String input = getRecipeMenuInput();
+            System.out.println();
 
-            System.out.print("Your input: ");
-            String input = getUserInput();
             if (input.equals("1")) {
                 // do something
                 break;
@@ -28,11 +25,10 @@ public class RecipeMenuView implements View {
                 // do something
                 break;
             } else if (input.equals("3")) {
-                userService.logout();
-                System.out.println("Logged out.");
+                authenticationService.logout();
+                writeGreenLine("Logged out.");
                 System.out.println();
-                System.out.println(CookbookRepository.getUser());
-                new LogInView(userService).display();
+                new LogInView(userService, authenticationService).display();
                 break;
             } else if (input.equals("0")) {
                 System.out.println("Have a nice day.");
@@ -41,5 +37,16 @@ public class RecipeMenuView implements View {
                 writeRedLine("Invalid input.");
             }
         }
+    }
+
+    private String getRecipeMenuInput() {
+        System.out.println("What do you want to do now?");
+        System.out.println("1: I want to read a recipe");
+        System.out.println("2: I want to create a new recipe");
+        System.out.println("3: I want to log out");
+        System.out.println("0: Close cookbook");
+
+        System.out.print("Your input: ");
+        return getUserInput();
     }
 }

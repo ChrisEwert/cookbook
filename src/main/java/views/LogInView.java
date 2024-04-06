@@ -1,14 +1,17 @@
 package views;
 
+import services.AuthenticationService;
 import services.UserService;
 
 import java.util.Objects;
 
 public class LogInView implements View {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
-    public LogInView(UserService userService) {
+    public LogInView(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     @Override
@@ -18,10 +21,10 @@ public class LogInView implements View {
             System.out.println();
 
             if (Objects.equals(userMenuInput, "1")) {
-                new SelectAvailableUserView(userService).display();
+                new SelectAvailableUserView(userService, authenticationService).display();
                 break;
             } else if (Objects.equals(userMenuInput, "2")) {
-                new CreateNewUserView(userService).display();
+                new CreateNewUserView(userService, authenticationService).display();
                 break;
             } else if (Objects.equals(userMenuInput, "0")) {
                 System.out.println("Have a nice day.");

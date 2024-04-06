@@ -1,7 +1,6 @@
 package services;
 
 import db.UserDataHandler;
-import recipe.CookbookRepository;
 
 import java.util.List;
 
@@ -23,13 +22,5 @@ public class UserService {
 
     public boolean containsUser(String user) {
         return users.contains(user);
-    }
-
-    public void login(String user) {
-        CookbookRepository.setUser(user);
-    }
-
-    public void logout() {
-        CookbookRepository.setUser("Default User");
     }
 }

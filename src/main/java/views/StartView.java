@@ -1,17 +1,19 @@
 package views;
 
+import services.AuthenticationService;
 import services.UserService;
 
 public class StartView implements View {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
-    public StartView(UserService userService) {
+    public StartView(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     @Override
     public void display() {
-        // TODO: Make this the first step of the CookBook
         System.out.println();
         System.out.println("╔═════════════════════════════════════════════╗");
         System.out.println("║                OPEN COOKBOOK                ║");
@@ -22,6 +24,6 @@ public class StartView implements View {
         System.out.println("In this cookbook, users can share recipes.");
         System.out.println();
 
-        new LogInView(userService).display();
+        new LogInView(userService, authenticationService).display();
     }
 }

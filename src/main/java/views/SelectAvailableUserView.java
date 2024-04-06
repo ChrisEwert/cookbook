@@ -1,12 +1,15 @@
 package views;
 
+import services.AuthenticationService;
 import services.UserService;
 
 public class SelectAvailableUserView implements View {
     private final UserService userService;
+    private final AuthenticationService authenticationService;
 
-    public SelectAvailableUserView(UserService userService) {
+    public SelectAvailableUserView(UserService userService, AuthenticationService authenticationService) {
         this.userService = userService;
+        this.authenticationService = authenticationService;
     }
 
     @Override
@@ -17,10 +20,11 @@ public class SelectAvailableUserView implements View {
             int userIndex = getUserIndex();
             if (userIndex < userService.getUserCount()) {
                 String username = userService.getUser(userIndex);
-                userService.login(username);
+                authenticationService.login(username);
                 writeGreenLine("You are now logged in as " + username);
                 System.out.println();
-                new RecipeMenuView(userService).display();
+
+                new RecipeMenuView(userService, authenticationService).display();
                 break;
             } else {
                 writeRedLine("Please select the number of a user that exists.");
