@@ -1,4 +1,4 @@
-package cookbook.db;
+package db;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,7 +21,7 @@ public class UserDataHandler {
         if (!fileExists(filePath)) {
             createFile(filePath);
         }
-        userList = readListFromFile(filePath);
+        userList = readUserListFromDB(filePath);
     }
 
     private boolean fileExists(Path filePath) {
@@ -37,7 +37,7 @@ public class UserDataHandler {
         }
     }
 
-    private List<String> readListFromFile(Path filePath) {
+    private List<String> readUserListFromDB(Path filePath) {
         List<String> list = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()))) {
@@ -52,11 +52,11 @@ public class UserDataHandler {
         return list;
     }
 
-    public List<String> getUsers() {
+    public List<String> getUserList() {
         return userList;
     }
 
-    public void saveUsersToFile(List<String> userList) {
+    public void saveUserListToDB(List<String> userList) {
         saveListToFile(userList, filePath);
     }
 

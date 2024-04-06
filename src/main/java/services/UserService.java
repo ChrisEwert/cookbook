@@ -1,11 +1,12 @@
-package cookbook.services;
+package services;
 
-import cookbook.db.UserDataHandler;
+import db.UserDataHandler;
+import recipe.CookbookRepository;
 
 import java.util.List;
 
 public class UserService {
-    private final List<String> users = new UserDataHandler().getUsers();
+    private final List<String> users = new UserDataHandler().getUserList();
 
     public int getUserCount() {
         return users.size();
@@ -13,7 +14,7 @@ public class UserService {
 
     public void addNewUser(String newUser) {
         users.add(newUser);
-        new UserDataHandler().saveUsersToFile(users);
+        new UserDataHandler().saveUserListToDB(users);
     }
 
     public String getUser(int id) {
@@ -22,5 +23,9 @@ public class UserService {
 
     public boolean containsUser(String user) {
         return users.contains(user);
+    }
+
+    public void login(String user) {
+        CookbookRepository.setUser(user);
     }
 }
