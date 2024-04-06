@@ -1,8 +1,6 @@
-package cookbook.views;
+package views;
 
-import cookbook.services.UserService;
-
-import java.util.Scanner;
+import services.UserService;
 
 public class SelectAvailableUserView implements View {
     private final UserService userService;
@@ -18,10 +16,12 @@ public class SelectAvailableUserView implements View {
         while (true) {
             int userIndex = getUserIndex();
             if (userIndex < userService.getUserCount()) {
-                System.out.println(COLOR_GREEN + "You are now logged in as " + userService.getUser(userIndex) + COLOR_RESET);
+                String username = userService.getUser(userIndex);
+                userService.login(username);
+                writeGreenLine("You are now logged in as " + username);
                 break;
             } else {
-                System.out.println(COLOR_RED + "Please select the number of a user that exists." + COLOR_RESET);
+                writeRedLine("Please select the number of a user that exists.");
                 System.out.println();
             }
         }
@@ -36,14 +36,13 @@ public class SelectAvailableUserView implements View {
     }
 
     private int getUserIndex() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Please enter the matching number of your user: ");
-            String userInput = scanner.nextLine();
+            String userInput = getUserInput();
             try {
                 return Integer.parseInt(userInput);
             } catch (NumberFormatException e) {
-                System.out.println(COLOR_RED + "Please enter a real number." + COLOR_RESET);
+                writeRedLine("Please enter a real number.");
                 System.out.println();
             }
         }

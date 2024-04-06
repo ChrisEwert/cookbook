@@ -1,6 +1,6 @@
-package cookbook.views;
+package views;
 
-import cookbook.services.UserService;
+import services.UserService;
 
 public class StartView implements View {
     private final UserService userService;
@@ -11,6 +11,7 @@ public class StartView implements View {
 
     @Override
     public void display() {
+        // TODO: Make this the first step of the CookBook
         System.out.println();
         System.out.println("╔═════════════════════════════════════════════╗");
         System.out.println("║                OPEN COOKBOOK                ║");

@@ -1,8 +1,6 @@
-package cookbook.views;
+package views;
 
-import cookbook.services.UserService;
-
-import java.util.Scanner;
+import services.UserService;
 
 public class CreateNewUserView implements View {
     private final UserService userService;
@@ -14,13 +12,15 @@ public class CreateNewUserView implements View {
     @Override
     public void display() {
         System.out.print("Please enter the user: ");
-        String userName = new Scanner(System.in).nextLine();
+        String userName = getUserInput();
 
         if (userService.containsUser(userName)) {
             System.out.println("This user already exists!");
+            // TODO: Add password authentication
         } else {
             userService.addNewUser(userName);
         }
-        System.out.println(COLOR_GREEN + "You are now logged in as " + userName + COLOR_RESET);
+        userService.login(userName);
+        writeGreenLine("You are now logged in as: " + userName);
     }
 }

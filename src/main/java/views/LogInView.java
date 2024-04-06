@@ -1,9 +1,8 @@
-package cookbook.views;
+package views;
 
-import cookbook.services.UserService;
+import services.UserService;
 
 import java.util.Objects;
-import java.util.Scanner;
 
 public class LogInView implements View {
     private final UserService userService;
@@ -28,7 +27,7 @@ public class LogInView implements View {
                 System.out.println("Have a nice day!");
                 break;
             } else {
-                System.out.println(COLOR_RED + "Please enter a number between 0 and 2." + COLOR_RESET);
+                writeRedLine("Please enter a number between 0 and 2.");
                 System.out.println();
             }
         }
@@ -40,6 +39,6 @@ public class LogInView implements View {
         System.out.println("2: I want to create a new account");
         System.out.println("0: Close cookbook");
         System.out.print("Your input: ");
-        return new Scanner(System.in).nextLine();
+        return getUserInput();
     }
 }
