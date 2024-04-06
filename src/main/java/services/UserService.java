@@ -12,7 +12,7 @@ public class UserService {
         return users.size();
     }
 
-    public void addNewUser(String newUser) {
+    public void addNewUserToDB(String newUser) {
         users.add(newUser);
         new UserDataHandler().saveUserListToDB(users);
     }
@@ -27,5 +27,9 @@ public class UserService {
 
     public void login(String user) {
         CookbookRepository.setUser(user);
+    }
+
+    public void logout() {
+        CookbookRepository.setUser("Default User");
     }
 }

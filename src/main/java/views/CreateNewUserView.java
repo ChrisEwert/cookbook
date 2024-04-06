@@ -18,9 +18,11 @@ public class CreateNewUserView implements View {
             System.out.println("This user already exists!");
             // TODO: Add password authentication
         } else {
-            userService.addNewUser(userName);
+            userService.addNewUserToDB(userName);
         }
         userService.login(userName);
         writeGreenLine("You are now logged in as: " + userName);
+        System.out.println();
+        new RecipeMenuView(userService).display();
     }
 }

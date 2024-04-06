@@ -19,6 +19,8 @@ public class SelectAvailableUserView implements View {
                 String username = userService.getUser(userIndex);
                 userService.login(username);
                 writeGreenLine("You are now logged in as " + username);
+                System.out.println();
+                new RecipeMenuView(userService).display();
                 break;
             } else {
                 writeRedLine("Please select the number of a user that exists.");

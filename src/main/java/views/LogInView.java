@@ -24,7 +24,7 @@ public class LogInView implements View {
                 new CreateNewUserView(userService).display();
                 break;
             } else if (Objects.equals(userMenuInput, "0")) {
-                System.out.println("Have a nice day!");
+                System.out.println("Have a nice day.");
                 break;
             } else {
                 writeRedLine("Please enter a number between 0 and 2.");
