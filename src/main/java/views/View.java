@@ -6,6 +6,7 @@ public interface View {
     String COLOR_RESET = "\u001B[0m";
     String COLOR_RED = "\u001B[31m";
     String COLOR_GREEN = "\u001B[32m";
+    String COLOR_YELLOW = "\u001B[33m";
 
     void display();
 
@@ -17,6 +18,10 @@ public interface View {
     default void writeGreenLine(String line) {
         System.out.println(COLOR_GREEN + line + COLOR_RESET);
         System.out.println();
+    }
+
+    default void writeYellowLine(String line) {
+        System.out.println(COLOR_YELLOW + line + COLOR_RESET);
     }
 
     default String getUserInput() {
