@@ -25,6 +25,7 @@ public class LoginMenuView implements View {
 
         if (usernames.isEmpty()) {
             writeYellowLine("You are the first user of this cookbook!");
+            System.out.println();
             new CreateNewUserView(userService, authenticationService).display();
             return;
         }

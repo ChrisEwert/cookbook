@@ -31,8 +31,7 @@ public class CreateNewUserView implements View {
 
             userService.createUser(username, password);
 
-            authenticationService.login(username);
-            writeGreenLine("You are now logged in as " + username);
+            new LoginView(userService, authenticationService, username, password).display();
         }
     }
 }
