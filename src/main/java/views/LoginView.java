@@ -25,17 +25,11 @@ public class LoginView implements View {
 
     @Override
     public void display() {
-        if (password == null) {
-            System.out.println("Please enter the password or type 'q' to quit: ");
-            password = getUserInput();
-
-            if (password.equals("q")) {
-                System.out.println();
-                new LoginMenuView(userService, authenticationService).display();
-                return;
-            }
+        if (password != null) {
+            login();
+            return;
         }
-        while (!authenticationService.credentialsMatch(username, password)) {
+        while (true) {
             writeYellowLine("Selected user: " + username);
             System.out.println("Please enter the password or type 'q' to quit: ");
             password = getUserInput();
@@ -46,9 +40,18 @@ public class LoginView implements View {
                 return;
             }
 
-            writeRedLine("Wrong password. Please try again!");
+            if (authenticationService.credentialsMatch(username, password)) {
+                break;
+            } else {
+                writeRedLine("Wrong password. Please try again!");
+            }
         }
+        login();
+    }
+
+    private void login() {
         authenticationService.login(username);
         writeGreenLine("You are now logged in as " + username);
+        new RecipeMenuView(userService, authenticationService).display();
     }
 }

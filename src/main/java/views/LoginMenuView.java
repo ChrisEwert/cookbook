@@ -17,9 +17,9 @@ public class LoginMenuView implements View {
 
     @Override
     public void display() {
-        System.out.println("┌       ┐");
-        System.out.println("  LOGIN ");
-        System.out.println("└       ┘");
+        System.out.println("┌            ┐");
+        System.out.println("  LOGIN MENU  ");
+        System.out.println("└            ┘");
 
         List<String> usernames = userService.getUsernames();
 
