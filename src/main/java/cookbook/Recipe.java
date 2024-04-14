@@ -11,7 +11,7 @@ public record Recipe(
         LocalDate dateOfCreation,
         String content,
         List<String> categories,
-        LocalTime cookingTime,
+        int cookingTimeInMinutes,
         float rating
 ) {
 
@@ -23,24 +23,21 @@ public record Recipe(
             LocalDate.now(),
             "Recipe content",
             List.of(),
-            LocalTime.of(0, 0),
+            0,
             0f
         );
     }
 
-    // TODO: Remove this constructor (only needed for current state of the RecipeDateHandler)
-    public Recipe(long id, String name, String author) {
+    public Recipe(String name, String content, List<String> categories, int cookingTimeInMinutes) {
         this(
-            id,
+            RecipeRepository.getNextId(),
             name,
-            author,
+            CookbookRepository.getUser(),
             LocalDate.now(),
-            "content",
-            List.of(),
-            LocalTime.of(0, 0),
+            content,
+            categories,
+            cookingTimeInMinutes,
             0f
         );
     }
-
-    // TODO: add the whole recipe logic
 }

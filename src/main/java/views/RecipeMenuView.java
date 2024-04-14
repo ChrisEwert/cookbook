@@ -19,12 +19,13 @@ public class RecipeMenuView implements View {
         System.out.println("└             ┘");
 
         int input = getRecipeMenuInput();
+        System.out.println();
 
         if (input == 1) {
-            // TODO: list all recipes (id, name + author)
+            new ShowRecipesView(userService, authenticationService).display();
         }
         else if (input == 2) {
-            // TODO: Use the RecipeService
+            new CreateNewRecipeView(userService, authenticationService).display();
         }
         else if (input == 3) {
             authenticationService.logout();

@@ -30,7 +30,7 @@ public class UserDataHandler implements DataHandler {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            List<User> listOfUsers = readUsersFromFile();
+            List<User> listOfUsers = readUsersFromDB();
             listOfUsers.add(user);
             objectMapper.writeValue(new File(String.valueOf(filePath)), listOfUsers);
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class UserDataHandler implements DataHandler {
         }
     }
 
-    public List<User> readUsersFromFile() {
+    public List<User> readUsersFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             byte[] usersJsonData = Files.readAllBytes(filePath);
