@@ -22,23 +22,25 @@ public class LoginMenuView implements View {
         System.out.println("└       ┘");
 
         List<String> usernames = userService.getUsernames();
-        if (!usernames.isEmpty()) {
-            showAllUsernames(usernames);
-            System.out.println();
 
-            int userMenuInput = getUserMenuInput();
-            System.out.println();
-
-            if (Objects.equals(userMenuInput, 1)) {
-                new SelectAvailableUserView(userService, authenticationService).display();
-            } else if (Objects.equals(userMenuInput, 2)) {
-                new CreateNewUserView(userService, authenticationService).display();
-            } else {
-                writeYellowLine("Have a nice day.");
-            }
-        } else {
+        if (usernames.isEmpty()) {
             writeYellowLine("You are the first user of this cookbook!");
             new CreateNewUserView(userService, authenticationService).display();
+            return;
+        }
+
+        showAllUsernames(usernames);
+        System.out.println();
+
+        int userMenuInput = getUserMenuInput();
+        System.out.println();
+
+        if (Objects.equals(userMenuInput, 1)) {
+            new SelectAvailableUserView(userService, authenticationService).display();
+        } else if (Objects.equals(userMenuInput, 2)) {
+            new CreateNewUserView(userService, authenticationService).display();
+        } else {
+            writeYellowLine("Have a nice day.");
         }
     }
 

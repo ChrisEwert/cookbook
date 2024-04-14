@@ -17,19 +17,22 @@ public class CreateNewUserView implements View {
         System.out.println("┌             ┐");
         System.out.println("  CREATE USER  ");
         System.out.println("└             ┘");
-        System.out.println("Please enter your username");
-        String userName = getUserInput();
 
-        if (authenticationService.containsUser(userName)) {
+        System.out.println("Please enter your username");
+        String username = getUserInput();
+
+        if (authenticationService.containsUser(username)) {
             System.out.println("This user already exists!");
             System.out.println();
-            new LoginView(userService, authenticationService, userName).display();
+            new LoginView(userService, authenticationService, username).display();
         } else {
             System.out.println("Please enter your password");
             String password = getUserInput();
-            userService.createUser(userName, password);
-            authenticationService.login(userName);
-            writeGreenLine("You are now logged in as " + userName);
+
+            userService.createUser(username, password);
+
+            authenticationService.login(username);
+            writeGreenLine("You are now logged in as " + username);
         }
     }
 }

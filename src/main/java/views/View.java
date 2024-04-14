@@ -25,10 +25,11 @@ public interface View {
     }
 
     default String getUserInput() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Your input: ");
-            String input = new Scanner(System.in).nextLine();
-            if (!input.trim().isEmpty()) {
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) {
                 return input;
             }
             writeRedLine("You have to enter something!");
@@ -41,11 +42,10 @@ public interface View {
             String input = getUserInput();
             try {
                 int asNumber = Integer.parseInt(input);
-                if (asNumber < min || asNumber > max) {
-                    writeRedLine("The number has to be between " + min + " and " + max + "!");
-                } else {
+                if (asNumber >= min && asNumber <= max) {
                     return asNumber;
                 }
+                writeRedLine("The number has to be between " + min + " and " + max + "!");
             } catch (NumberFormatException e) {
                 writeRedLine("You have to enter a number!");
             }

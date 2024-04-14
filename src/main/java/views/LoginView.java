@@ -24,7 +24,7 @@ public class LoginView implements View {
             if (password.equals("q")) {
                 System.out.println();
                 new LoginMenuView(userService, authenticationService).display();
-                break;
+                return;
             }
 
             if (authenticationService.credentialsMatch(username, password)) {
