@@ -1,4 +1,4 @@
-package recipe;
+package cookbook;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public record Cookbook(
         this(
             LocalDate.now(),
             new HashMap<>(),
-            "Default User"
+            null
         );
     }
 

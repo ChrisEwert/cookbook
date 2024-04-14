@@ -1,6 +1,6 @@
 package services;
 
-import recipe.CookbookRepository;
+import cookbook.CookbookRepository;
 
 public class AuthenticationService {
     private final CookbookRepository cookbookRepository;

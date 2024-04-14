@@ -1,15 +1,12 @@
 package views;
 
-import services.AuthenticationService;
 import services.UserService;
 
 public class StartView implements View {
     private final UserService userService;
-    private final AuthenticationService authenticationService;
 
-    public StartView(UserService userService, AuthenticationService authenticationService) {
+    public StartView(UserService userService) {
         this.userService = userService;
-        this.authenticationService = authenticationService;
     }
 
     @Override
@@ -24,6 +21,6 @@ public class StartView implements View {
         System.out.println("In this cookbook, users can share recipes.");
         System.out.println();
 
-        new LogInView(userService, authenticationService).display();
+        new LogInView(userService).display();
     }
 }

@@ -21,11 +21,11 @@
 //        cookBook.createNewRecipe(recipe);
 //
 //        // ASSERT
-//        assertThat(recipe.name()).isEqualTo("recipe.Recipe name");
+//        assertThat(recipe.name()).isEqualTo("cookbook.Recipe name");
 //        assertThat(recipe.author()).isEqualTo("Author");
 //        assertThat(recipe.dateOfCreation()).isEqualTo(LocalDate.now());
 //        assertThat(recipe.lastUpdated()).isNull();
-//        assertThat(recipe.content()).isEqualTo("recipe.Recipe content");
+//        assertThat(recipe.content()).isEqualTo("cookbook.Recipe content");
 //        assertThat(recipe.categories()).isEqualTo(List.of());
 //        assertThat(recipe.cookingTime()).isEqualTo(LocalTime.of(0, 0));
 //        assertThat(recipe.rating()).isEqualTo(0);

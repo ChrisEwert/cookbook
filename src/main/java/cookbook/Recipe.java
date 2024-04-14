@@ -1,4 +1,4 @@
-package recipe;
+package cookbook;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,6 +28,7 @@ public record Recipe(
         );
     }
 
+    // TODO: Remove this constructor (only needed for current state of the RecipeDateHandler)
     public Recipe(long id, String name, String author) {
         this(
             id,
@@ -41,14 +42,5 @@ public record Recipe(
         );
     }
 
-    public Recipe(long id, String name, String author, LocalDate dateOfCreation, String content, List<String> categories, LocalTime cookingTime, float rating) {
-        this.id = id;
-        this.name = name;
-        this.author = author;
-        this.dateOfCreation = dateOfCreation;
-        this.content = content;
-        this.categories = categories;
-        this.cookingTime = cookingTime;
-        this.rating = rating;
-    }
+    // TODO: add the whole recipe logic
 }

@@ -11,20 +11,39 @@ public interface View {
 
     default void writeRedLine(String line) {
         System.out.println(COLOR_RED + line + COLOR_RESET);
+        System.out.println();
     }
 
     default void writeGreenLine(String line) {
         System.out.println(COLOR_GREEN + line + COLOR_RESET);
+        System.out.println();
     }
 
     default String getUserInput() {
         while (true) {
+            System.out.print("Your input: ");
             String input = new Scanner(System.in).nextLine();
             if (!input.trim().isEmpty()) {
                 return input;
             }
-            writeRedLine("Please enter something!");
+            writeRedLine("You have to enter something!");
         }
+    }
 
+    default int getNumberInput(int min, int max) {
+        while (true) {
+            System.out.println("Please enter a number between " + min + " and " + max);
+            String input = getUserInput();
+            try {
+                int asNumber = Integer.parseInt(input);
+                if (asNumber < min || asNumber > max) {
+                    writeRedLine("The number has to be between " + min + " and " + max + "!");
+                } else {
+                    return asNumber;
+                }
+            } catch (NumberFormatException e) {
+                writeRedLine("You have to enter a number!");
+            }
+        }
     }
 }

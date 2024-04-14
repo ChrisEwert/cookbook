@@ -1,8 +1,12 @@
-package recipe;
+package cookbook;
+
+import db.UserDataHandler;
+
+import java.util.List;
 
 public class CookbookRepository {
     private Cookbook cookbook = new Cookbook();
-//
+
     public void setUser(String user) {
         cookbook = cookbook.changeUser(user);
     }
@@ -18,4 +22,14 @@ public class CookbookRepository {
 //            cookbook.user()
 //        );
 //    }
+
+    private final UserDataHandler userDataHandler = new UserDataHandler();
+
+    public void saveUser(User user) {
+        userDataHandler.saveUserToDB(user);
+    }
+
+    public List<User> getUserList() {
+        return userDataHandler.readUsersFromFile();
+    }
 }
