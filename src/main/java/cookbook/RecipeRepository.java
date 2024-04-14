@@ -2,6 +2,7 @@ package cookbook;
 
 import db.RecipeDataHandler;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class RecipeRepository {
@@ -14,5 +15,9 @@ public class RecipeRepository {
 
     public void saveRecipe(Recipe recipe) {
         recipeDataHandler.saveRecipeToDB(recipe);
+    }
+
+    public List<Recipe> getAllRecipes() {
+        return recipeDataHandler.readRecipesFromDB();
     }
 }

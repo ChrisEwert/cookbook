@@ -1,7 +1,6 @@
 package cookbook;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public record Recipe(
@@ -39,5 +38,19 @@ public record Recipe(
             cookingTimeInMinutes,
             0f
         );
+    }
+
+    @Override
+    public String toString() {                          // TODO: Change that
+        return "Recipe{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", author='" + author + '\'' +
+            ", dateOfCreation=" + dateOfCreation +
+            ", content='" + content + '\'' +
+            ", categories=" + categories +
+            ", cookingTimeInMinutes=" + cookingTimeInMinutes +
+            ", rating=" + rating +
+            '}';
     }
 }

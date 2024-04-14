@@ -34,7 +34,6 @@ public class RecipeMenuView implements View {
             new LoginMenuView(userService, authenticationService).display();
         }
         else {
-            System.out.println();
             writeYellowLine("Have a nice day.");
         }
     }

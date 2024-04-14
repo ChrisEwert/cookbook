@@ -32,5 +32,8 @@ public class CreateNewRecipeView implements View{
         int minutes = getNumberInput(0, 120);                   // TODO: No maximum value
 
         recipeService.saveRecipe(name, content, categories, minutes);
+        writeGreenLine("Saved recipe!");
+
+        new RecipeMenuView(userService, authenticationService).display();       // TODO: Other options: rate or leave
     }
 }
