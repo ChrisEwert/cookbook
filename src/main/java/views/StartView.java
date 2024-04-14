@@ -24,6 +24,8 @@ public class StartView implements View {
         System.out.println("In this cookbook, users can share recipes.");
         System.out.println();
 
+        writeYellowLine("To start, please log in.");
+        System.out.println();
         new LoginMenuView(userService, authenticationService).display();
     }
 }

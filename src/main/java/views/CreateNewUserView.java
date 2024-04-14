@@ -14,6 +14,9 @@ public class CreateNewUserView implements View {
 
     @Override
     public void display() {
+        System.out.println("┌             ┐");
+        System.out.println("  CREATE USER  ");
+        System.out.println("└             ┘");
         System.out.println("Please enter your username");
         String userName = getUserInput();
 
@@ -28,6 +31,5 @@ public class CreateNewUserView implements View {
             authenticationService.login(userName);
             writeGreenLine("You are now logged in as " + userName);
         }
-//        new RecipeMenuView(userService, authenticationService).display();
     }
 }

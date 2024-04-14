@@ -30,3 +30,4 @@ bin/
 /db/users
 /.idea/statistic.xml
 /db/recipes.json
+/db/users.json

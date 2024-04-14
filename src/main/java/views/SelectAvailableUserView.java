@@ -16,6 +16,9 @@ public class SelectAvailableUserView implements View {
 
     @Override
     public void display() {
+        System.out.println("┌             ┐");
+        System.out.println("  SELECT USER  ");
+        System.out.println("└             ┘");
         List<String> usernameList = userService.getUsernames();
         if (!usernameList.isEmpty()) {
             showUsernames(usernameList);
