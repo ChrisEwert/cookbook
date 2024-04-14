@@ -15,53 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDataHandler implements DataHandler {
-//    private final String fileName = "users";
-//    private final Path filePath;
-//    private final List<String> userList;
-//
-//    public UserDataHandler() {
-//        this.filePath = Path.of(directoryName, fileName);
-//        if (!fileExists(filePath)) {
-//            createFile(filePath);
-//        }
-//        userList = readUserListFromDB(filePath);
-//    }
-//
-//    private List<String> readUserListFromDB(Path filePath) {
-//        List<String> list = new ArrayList<>();
-//
-//        try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toString()))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                list.add(line);
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Could not read file");
-//        }
-//
-//        return list;
-//    }
-//
-//    public List<String> getUserList() {
-//        return userList;
-//    }
-//
-//    public void saveUserListToDB(List<String> userList) {
-//        saveListToFile(userList, filePath);
-//    }
-//
-//    private void saveListToFile(List<String> list, Path filePath) {
-//        try (BufferedWriter writer = Files.newBufferedWriter(filePath,
-//                StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-//            for (String item : list) {
-//                writer.write(item);
-//                writer.newLine();
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Could not save file");
-//        }
-//    }
-
     private final String fileName = "users.json";
     private final Path filePath;
 
