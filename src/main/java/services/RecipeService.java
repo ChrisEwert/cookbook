@@ -12,8 +12,8 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public void saveRecipe(String name, String content, List<String> categories, int minutes) {
-        Recipe recipe = new Recipe(name, content, categories, minutes);
+    public void saveRecipe(String name, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
+        Recipe recipe = new Recipe(name, ingredients, content, categories, minutes);
         recipeRepository.saveRecipe(recipe);
     }
 

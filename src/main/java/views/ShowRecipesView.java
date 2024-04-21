@@ -35,6 +35,8 @@ public class ShowRecipesView implements View {
 
         writeYellowLine("Enter the number of the recipe to read it or type 0 to leave");
         int recipeIndex = getNumberInput(0, recipeService.recipeCount());
+        System.out.println();
+
         if (recipeIndex > 0) {
             System.out.println(recipeService.getRecipeByIndex(recipeIndex - 1));
         }
