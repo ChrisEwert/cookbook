@@ -3,14 +3,13 @@ package cookbook;
 import db.RecipeDataHandler;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
 
 public class RecipeRepository {
     private final RecipeDataHandler recipeDataHandler = new RecipeDataHandler();
-    private final static AtomicLong ID_COUNTER = new AtomicLong();
 
-    public static long getNextId() {
-        return ID_COUNTER.incrementAndGet();
+    public static String getRandomId() {
+        return UUID.randomUUID().toString();
     }
 
     public void saveRecipe(Recipe recipe) {
@@ -21,7 +20,7 @@ public class RecipeRepository {
         return recipeDataHandler.readRecipesFromDB();
     }
 
-    public Recipe getRecipeById(long id) {
+    public Recipe getRecipeById(String id) {
         return recipeDataHandler.getRecipeById(id);
     }
 }

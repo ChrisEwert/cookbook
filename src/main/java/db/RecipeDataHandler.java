@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RecipeDataHandler implements DataHandler {
     private final String fileName = "recipes.json";
@@ -59,11 +60,11 @@ public class RecipeDataHandler implements DataHandler {
         }
     }
 
-    public Recipe getRecipeById(long id) {
+    public Recipe getRecipeById(String id) {
         List<Recipe> listOfRecipes = readRecipesFromDB();
         Recipe recipe = new Recipe();
         for (Recipe r : listOfRecipes) {
-            if (r.id() == id) {
+            if (Objects.equals(r.id(), id)) {
                 recipe = r;
             }
         }

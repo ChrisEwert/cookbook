@@ -12,7 +12,9 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserDataHandler implements DataHandler {
     private final String fileName = "users.json";
@@ -54,7 +56,19 @@ public class UserDataHandler implements DataHandler {
         return new ArrayList<>();
     }
 
-    public void bookmarkRecipeById(String username, long recipeId) {
+    public Set<String> getBookmarkIds(String username) {
+        Set<String> bookmarkedIds = new HashSet<>();
+        List<User> userList = readUsersFromDB();
+        for (User user : userList) {
+            if (user.username().equals(username)) {
+                bookmarkedIds.addAll(user.bookmarkedRecipeIds());
+                break;
+            }
+        }
+        return bookmarkedIds;
+    }
+
+    public void bookmarkRecipeById(String username, String recipeId) {
         try {
             List<User> userList = readUsersFromDB();
             for (User userObj : userList) {

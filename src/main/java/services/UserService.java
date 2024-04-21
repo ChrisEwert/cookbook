@@ -26,8 +26,12 @@ public class UserService {
         return usernames;
     }
 
+    public Set<String> getBookmarkedIds() {
+        return cookbookRepository.getBookmarkedRecipeIds();
+    }
+
     public void bookmarkRecipe(Recipe recipe) {
-        long id = recipe.id();
+        String id = recipe.id();
         cookbookRepository.bookmarkRecipeById(id);
     }
 }

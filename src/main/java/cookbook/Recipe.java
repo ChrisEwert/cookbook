@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public record Recipe(
-        long id,
+        String id,
         String name,
         String author,
         LocalDate dateOfCreation,
@@ -18,7 +18,7 @@ public record Recipe(
 
     public Recipe() {
         this(
-            RecipeRepository.getNextId(),
+            RecipeRepository.getRandomId(),
             "",
             "",
             LocalDate.now(),
@@ -32,7 +32,7 @@ public record Recipe(
 
     public Recipe(String name, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
         this(
-            RecipeRepository.getNextId(),
+            RecipeRepository.getRandomId(),
             name,
             CookbookRepository.getUsername(),
             LocalDate.now(),

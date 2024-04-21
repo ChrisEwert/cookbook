@@ -3,6 +3,7 @@ package cookbook;
 import db.UserDataHandler;
 
 import java.util.List;
+import java.util.Set;
 
 public class CookbookRepository {
     private final UserDataHandler userDataHandler = new UserDataHandler();
@@ -24,7 +25,11 @@ public class CookbookRepository {
         return userDataHandler.readUsersFromDB();
     }
 
-    public void bookmarkRecipeById(long id) {
+    public void bookmarkRecipeById(String id) {
         userDataHandler.bookmarkRecipeById(getUsername(), id);
+    }
+
+    public Set<String> getBookmarkedRecipeIds() {
+        return userDataHandler.getBookmarkIds(getUsername());
     }
 }

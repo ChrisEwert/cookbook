@@ -50,7 +50,7 @@ public class ShowRecipeListView implements View {
 
     private void listRecipes() {
         for (int i = 0; i < recipeService.recipeCount(); i++) {
-            System.out.println(i+1 + ": " + recipeService.getRecipeTitle(i));
+            System.out.println(i+1 + ": " + recipeService.getRecipeTitleByIndex(i));
         }
     }
 }

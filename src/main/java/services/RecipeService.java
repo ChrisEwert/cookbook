@@ -29,16 +29,21 @@ public class RecipeService {
         return recipeRepository.getAllRecipes().size();
     }
 
-    public String getRecipeTitle(int index) {
-        Recipe recipe = getRecipeByIndex(index);
-        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
-    }
-
     public Recipe getRecipeByIndex(int index) {
         return getAllRecipes().get(index);
     }
 
-    public Recipe getRecipeById(long id) {
+    public String getRecipeTitleByIndex(int index) {
+        Recipe recipe = getRecipeByIndex(index);
+        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
+    }
+
+    public Recipe getRecipeById(String id) {
         return recipeRepository.getRecipeById(id);
+    }
+
+    public String getRecipeTitleById(String id) {
+        Recipe recipe = getRecipeById(id);
+        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 }

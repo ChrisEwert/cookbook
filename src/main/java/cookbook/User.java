@@ -5,6 +5,6 @@ import java.util.Set;
 public record User(
     String username,
     String password,
-    Set<Long> bookmarkedRecipeIds
+    Set<String> bookmarkedRecipeIds
 ) {
 }

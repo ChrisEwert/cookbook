@@ -1,8 +1,13 @@
 package views;
 
+import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class RecipeMenuView implements View {
     private final UserService userService;
@@ -31,6 +36,12 @@ public class RecipeMenuView implements View {
             new CreateNewRecipeView(userService, authenticationService, recipeService).display();
         }
         else if (input == 3) {
+            Set<String> ids = userService.getBookmarkedIds();
+            for (String id : ids) {
+                System.out.println(recipeService.getRecipeTitleById(id));
+            }
+        }
+        else if (input == 4) {
             authenticationService.logout();
             writeGreenLine("Logged out.");
 
@@ -45,9 +56,10 @@ public class RecipeMenuView implements View {
         writeYellowLine("What do you want to do now?");
         System.out.println("1: I want to read a recipe");
         System.out.println("2: I want to create a new recipe");
-        System.out.println("3: I want to log out");
+        System.out.println("3: I want to see my bookmarked recipes");
+        System.out.println("4: I want to log out");
         System.out.println("0: Close cookbook");
         System.out.println();
-        return getNumberInput(0, 3);
+        return getNumberInput(0, 4);
     }
 }
