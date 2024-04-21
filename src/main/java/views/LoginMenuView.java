@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RecipeService;
 import services.UserService;
 
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.Objects;
 public class LoginMenuView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final RecipeService recipeService;
 
-    public LoginMenuView(UserService userService, AuthenticationService authenticationService) {
+    public LoginMenuView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class LoginMenuView implements View {
         if (usernames.isEmpty()) {
             writeYellowLine("You are the first user of this cookbook!");
             System.out.println();
-            new CreateNewUserView(userService, authenticationService).display();
+            new CreateNewUserView(userService, authenticationService, recipeService).display();
             return;
         }
 
@@ -37,9 +40,9 @@ public class LoginMenuView implements View {
         System.out.println();
 
         if (Objects.equals(userMenuInput, 1)) {
-            new SelectAvailableUserView(userService, authenticationService).display();
+            new SelectAvailableUserView(userService, authenticationService, recipeService).display();
         } else if (Objects.equals(userMenuInput, 2)) {
-            new CreateNewUserView(userService, authenticationService).display();
+            new CreateNewUserView(userService, authenticationService, recipeService).display();
         } else {
             writeYellowLine("Have a nice day.");
         }

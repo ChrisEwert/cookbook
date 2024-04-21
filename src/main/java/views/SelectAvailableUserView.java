@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RecipeService;
 import services.UserService;
 
 import java.util.List;
@@ -8,10 +9,12 @@ import java.util.List;
 public class SelectAvailableUserView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final RecipeService recipeService;
 
-    public SelectAvailableUserView(UserService userService, AuthenticationService authenticationService) {
+    public SelectAvailableUserView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class SelectAvailableUserView implements View {
         System.out.println();
 
         String username = usernameList.get(userIndex);
-        new LoginView(userService, authenticationService, username).display();
+        new LoginView(userService, authenticationService, recipeService, username).display();
     }
 
     private void showUsernames(List<String> usernameList) {

@@ -1,24 +1,28 @@
 package views;
 
 import services.AuthenticationService;
+import services.RecipeService;
 import services.UserService;
 
 public class LoginView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final RecipeService recipeService;
     private final String username;
     private String password;
 
-    public LoginView(UserService userService, AuthenticationService authenticationService, String username) {
+    public LoginView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, String username) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
         this.username = username;
         password = null;
     }
 
-    public LoginView(UserService userService, AuthenticationService authenticationService, String username, String password) {
+    public LoginView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, String username, String password) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
         this.username = username;
         this.password = password;
     }
@@ -36,7 +40,7 @@ public class LoginView implements View {
 
             if (password.equals("q")) {
                 System.out.println();
-                new LoginMenuView(userService, authenticationService).display();
+                new LoginMenuView(userService, authenticationService, recipeService).display();
                 return;
             }
 
@@ -52,6 +56,6 @@ public class LoginView implements View {
     private void login() {
         authenticationService.login(username);
         writeGreenLine("You are now logged in as " + username);
-        new RecipeMenuView(userService, authenticationService).display();
+        new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 }

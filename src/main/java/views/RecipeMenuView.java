@@ -1,15 +1,18 @@
 package views;
 
 import services.AuthenticationService;
+import services.RecipeService;
 import services.UserService;
 
 public class RecipeMenuView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final RecipeService recipeService;
 
-    public RecipeMenuView(UserService userService, AuthenticationService authenticationService) {
+    public RecipeMenuView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
     }
 
     @Override
@@ -22,16 +25,16 @@ public class RecipeMenuView implements View {
         System.out.println();
 
         if (input == 1) {
-            new ShowRecipesView(userService, authenticationService).display();
+            new ShowRecipesView(userService, authenticationService, recipeService).display();
         }
         else if (input == 2) {
-            new CreateNewRecipeView(userService, authenticationService).display();
+            new CreateNewRecipeView(userService, authenticationService, recipeService).display();
         }
         else if (input == 3) {
             authenticationService.logout();
             writeGreenLine("Logged out.");
 
-            new LoginMenuView(userService, authenticationService).display();
+            new LoginMenuView(userService, authenticationService, recipeService).display();
         }
         else {
             writeYellowLine("Have a nice day.");

@@ -1,15 +1,18 @@
 package views;
 
 import services.AuthenticationService;
+import services.RecipeService;
 import services.UserService;
 
 public class StartView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final RecipeService recipeService;
 
-    public StartView(UserService userService, AuthenticationService authenticationService) {
+    public StartView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
     }
 
     @Override
@@ -26,6 +29,6 @@ public class StartView implements View {
 
         writeYellowLine("To start, please log in.");
         System.out.println();
-        new LoginMenuView(userService, authenticationService).display();
+        new LoginMenuView(userService, authenticationService, recipeService).display();
     }
 }

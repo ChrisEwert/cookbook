@@ -11,11 +11,12 @@ import java.util.List;
 public class CreateNewRecipeView implements View{
     private final UserService userService;
     private final AuthenticationService authenticationService;
-    private final RecipeService recipeService = new RecipeService(new RecipeRepository());          // TODO: Fix this
+    private final RecipeService recipeService;
 
-    public CreateNewRecipeView(UserService userService, AuthenticationService authenticationService) {
+    public CreateNewRecipeView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
+        this.recipeService = recipeService;
     }
 
     @Override
@@ -34,6 +35,6 @@ public class CreateNewRecipeView implements View{
         recipeService.saveRecipe(name, content, categories, minutes);
         writeGreenLine("Saved recipe!");
 
-        new RecipeMenuView(userService, authenticationService).display();       // TODO: Other options: rate or leave
+        new RecipeMenuView(userService, authenticationService, recipeService).display();       // TODO: Other options: rate or leave
     }
 }
