@@ -31,20 +31,22 @@ public class SelectAvailableUserView implements View {
             return;
         }
 
-        showUsernames(usernameList);
-        System.out.println();
-
-        int userIndex = getNumberInput(0, usernameList.size() - 1);
-        System.out.println();
-
-        String username = usernameList.get(userIndex);
-        new LoginView(userService, authenticationService, recipeService, username).display();
-    }
-
-    private void showUsernames(List<String> usernameList) {
-        writeYellowLine("Here is a list of all users:");
+        writeYellowLine("Select the number of your username or type 0 to go back to the login menu");
         for (int i = 0; i < usernameList.size(); i++) {
-            System.out.println(i + ": " + usernameList.get(i));
+            System.out.println(i+1 + ": " + usernameList.get(i));
         }
+        System.out.println("0: Go back");
+        System.out.println();
+
+        int userIndex = getNumberInput(0, usernameList.size());
+        System.out.println();
+
+        if (userIndex == 0) {
+            new LoginMenuView(userService, authenticationService, recipeService).display();
+            return;
+        }
+
+        String username = usernameList.get(userIndex - 1);
+        new LoginView(userService, authenticationService, recipeService, username).display();
     }
 }
