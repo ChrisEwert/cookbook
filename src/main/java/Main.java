@@ -3,6 +3,7 @@ import cookbook.RecipeRepository;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
+import views.ShowRecipesView;
 import views.StartView;
 
 public class Main {
@@ -14,6 +15,7 @@ public class Main {
         AuthenticationService authenticationService = new AuthenticationService(cookbookRepository);
         RecipeService recipeService = new RecipeService(recipeRepository);
 
-        new StartView(userService, authenticationService, recipeService).display();
+//        new StartView(userService, authenticationService, recipeService).display();
+        new ShowRecipesView(userService, authenticationService, recipeService).display();
     }
 }
