@@ -26,8 +26,8 @@ public class UserService {
         return usernames;
     }
 
-    public Set<String> getBookmarkedIds() {
-        return cookbookRepository.getBookmarkedRecipeIds();
+    public List<String> getBookmarkedIds() {
+        return new ArrayList<>(cookbookRepository.getBookmarkedRecipeIds());
     }
 
     public void bookmarkRecipe(Recipe recipe) {

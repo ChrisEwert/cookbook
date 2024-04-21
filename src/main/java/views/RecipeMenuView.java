@@ -4,8 +4,6 @@ import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
 
-import java.util.Set;
-
 public class RecipeMenuView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
@@ -33,10 +31,7 @@ public class RecipeMenuView implements View {
             new CreateNewRecipeView(userService, authenticationService, recipeService).display();
         }
         else if (input == 3) {
-            Set<String> ids = userService.getBookmarkedIds();
-            for (String id : ids) {
-                System.out.println(recipeService.getRecipeTitleById(id));
-            }
+            new BookmarkView(userService, authenticationService, recipeService).display();
         }
         else if (input == 4) {
             authenticationService.logout();
