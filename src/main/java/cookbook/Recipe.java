@@ -68,7 +68,7 @@ public record Recipe(
         builder.append("\n");
 
         for (int i = 0 ; i < content.size() ; i++) {
-            builder.append("STEP ").append(i).append("\n");
+            builder.append("STEP ").append(i+1).append("\n");
             builder.append("\t").append(content.get(i)).append("\n");
         }
 

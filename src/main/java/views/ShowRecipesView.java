@@ -31,6 +31,7 @@ public class ShowRecipesView implements View {
 
         writeYellowLine("Here is a list of all the recipes");
         listRecipes();
+        System.out.println("0: Go back");
         System.out.println();
 
         writeYellowLine("Enter the number of the recipe to read it or type 0 to leave");
