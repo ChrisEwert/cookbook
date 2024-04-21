@@ -1,6 +1,5 @@
 package views;
 
-import cookbook.RecipeRepository;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
@@ -21,7 +20,10 @@ public class CreateNewRecipeView implements View{
 
     @Override
     public void display() {
-        writeYellowLine("Create new recipe");
+        System.out.println("┌               ┐");
+        System.out.println("  CREATE RECIPE  ");
+        System.out.println("└               ┘");
+
         System.out.println("Enter the name of the recipe");
         String name = getUserInput();
         System.out.println("Enter the content of the recipe");  // TODO: Not a string

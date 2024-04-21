@@ -1,7 +1,6 @@
 package views;
 
 import cookbook.Recipe;
-import cookbook.RecipeRepository;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
@@ -21,6 +20,10 @@ public class ShowRecipesView implements View {
 
     @Override
     public void display() {
+        System.out.println("┌             ┐");
+        System.out.println("  RECIPE LIST  ");
+        System.out.println("└             ┘");
+
         List<Recipe> recipeList = recipeService.getAllRecipes();
 
         if (recipeList.isEmpty()) {
