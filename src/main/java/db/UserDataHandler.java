@@ -34,7 +34,7 @@ public class UserDataHandler implements DataHandler {
             listOfUsers.add(user);
             objectMapper.writeValue(new File(String.valueOf(filePath)), listOfUsers);
         } catch (IOException e) {
-            System.err.println("Error while saving user: " + user.username());
+            System.err.println("Error while saving username: " + user.username());
         }
     }
 
@@ -52,5 +52,26 @@ public class UserDataHandler implements DataHandler {
             System.err.println("Error while reading users from file: " + filePath);
         }
         return new ArrayList<>();
+    }
+
+    public void bookmarkRecipeById(String username, long recipeId) {
+        try {
+            List<User> userList = readUsersFromDB();
+            for (User userObj : userList) {
+                if (userObj.username().equals(username)) {
+                    userObj.bookmarkedRecipeIds().add(recipeId);
+                    break;
+                }
+            }
+            writeUsersToDB(userList);
+        } catch (IOException e) {
+            System.err.println("Error while bookmarking recipe for username: " + username);
+        }
+    }
+
+    private void writeUsersToDB(List<User> userList) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.writeValue(new File(String.valueOf(filePath)), userList);
     }
 }

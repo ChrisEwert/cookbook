@@ -41,13 +41,13 @@ public class CreateNewRecipeView implements View{
         System.out.println();
 
         System.out.println("Enter how many minutes the recipe will take");
-        int minutes = getNumberInput(0, 120);                   // TODO: No maximum value
+        int minutes = getNumberInput(0, 120);                                                                           // TODO: No maximum value
         System.out.println();
 
         recipeService.saveRecipe(name, ingredients, content, categories, minutes);
         writeGreenLine("Saved recipe!");
 
-        new RecipeMenuView(userService, authenticationService, recipeService).display();       // TODO: Other options: rate or leave
+        new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 
     private List<String> getList(String listKind, String nextTopic) {

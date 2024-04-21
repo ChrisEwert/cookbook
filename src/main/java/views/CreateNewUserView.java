@@ -21,20 +21,22 @@ public class CreateNewUserView implements View {
         System.out.println("  CREATE USER  ");
         System.out.println("└             ┘");
 
-        System.out.println("Please enter your username");
+        writeYellowLine("Please enter your username");
         String username = getUserInput();
+        System.out.println();
 
         if (authenticationService.containsUser(username)) {
-            System.out.println("This user already exists!");
-            System.out.println();
+            writeRedLine("This username already exists!");
+
             new LoginView(userService, authenticationService, recipeService, username).display();
-        } else {
-            System.out.println("Please enter your password");
-            String password = getUserInput();
-
-            userService.createUser(username, password);
-
-            new LoginView(userService, authenticationService, recipeService, username, password).display();
+            return;
         }
+
+        writeYellowLine("Please enter your password");
+        String password = getUserInput();
+
+        userService.createUser(username, password);
+
+        new LoginView(userService, authenticationService, recipeService, username, password).display();
     }
 }

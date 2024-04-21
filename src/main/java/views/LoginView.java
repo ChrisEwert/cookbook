@@ -34,7 +34,7 @@ public class LoginView implements View {
             return;
         }
         while (true) {
-            writeYellowLine("Selected user: " + username);
+            writeYellowLine("Selected username: " + username);
             System.out.println("Please enter the password or type 'q' to quit: ");
             password = getUserInput();
 

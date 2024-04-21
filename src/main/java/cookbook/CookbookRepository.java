@@ -8,12 +8,12 @@ public class CookbookRepository {
     private final UserDataHandler userDataHandler = new UserDataHandler();
     private static Cookbook cookbook = new Cookbook();
 
-    public void setUser(String user) {
-        cookbook = cookbook.changeUser(user);
+    public void setUsername(String username) {
+        cookbook = cookbook.changeUser(username);
     }
 
-    public static String getUser() {
-        return cookbook.user();
+    public static String getUsername() {
+        return cookbook.username();
     }
 
     public void saveUser(User user) {
@@ -22,5 +22,9 @@ public class CookbookRepository {
 
     public List<User> getUserList() {
         return userDataHandler.readUsersFromDB();
+    }
+
+    public void bookmarkRecipeById(long id) {
+        userDataHandler.bookmarkRecipeById(getUsername(), id);
     }
 }

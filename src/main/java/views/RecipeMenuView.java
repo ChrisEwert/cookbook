@@ -25,7 +25,7 @@ public class RecipeMenuView implements View {
         System.out.println();
 
         if (input == 1) {
-            new ShowRecipesView(userService, authenticationService, recipeService).display();
+            new ShowRecipeListView(userService, authenticationService, recipeService).display();
         }
         else if (input == 2) {
             new CreateNewRecipeView(userService, authenticationService, recipeService).display();

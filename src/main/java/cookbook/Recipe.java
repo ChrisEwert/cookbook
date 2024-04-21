@@ -34,7 +34,7 @@ public record Recipe(
         this(
             RecipeRepository.getNextId(),
             name,
-            CookbookRepository.getUser(),
+            CookbookRepository.getUsername(),
             LocalDate.now(),
             ingredients,
             content,
@@ -62,11 +62,13 @@ public record Recipe(
         builder.append(categories.get(categories.size() - 1)).append("\t");
         builder.append(formatTime(cookingTimeInMinutes)).append(" hours\n\n");
 
+        builder.append("Ingredients:\n");
         for (String ingredient : ingredients) {
             builder.append("- ").append(ingredient).append("\n");
         }
         builder.append("\n");
 
+        builder.append("Cooking steps:\n");
         for (int i = 0 ; i < content.size() ; i++) {
             builder.append("STEP ").append(i+1).append("\n");
             builder.append("\t").append(content.get(i)).append("\n");

@@ -7,7 +7,7 @@ import java.util.Map;
 public record Cookbook(
         LocalDate dateOfCreation,
         Map<Long, Recipe> recipes,
-        String user
+        String username
 ) {
 
     public Cookbook() {
@@ -26,9 +26,9 @@ public record Cookbook(
         );
     }
 
-//    public Cookbook(LocalDate dateOfCreation, List<Recipe> recipes, String user) {
+//    public Cookbook(LocalDate dateOfCreation, List<Recipe> recipes, String username) {
 //        this.dateOfCreation = dateOfCreation;
 //        this.recipes = recipes;
-//        this.user = user;
+//        this.username = username;
 //    }
 }

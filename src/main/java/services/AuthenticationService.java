@@ -22,12 +22,12 @@ public class AuthenticationService {
         return false;
     }
 
-    public void login(String user) {
-        cookbookRepository.setUser(user);
+    public void login(String username) {
+        cookbookRepository.setUsername(username);
     }
 
     public void logout() {
-        cookbookRepository.setUser(null);
+        cookbookRepository.setUsername(null);
     }
 
     public boolean containsUser(String username) {
