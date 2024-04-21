@@ -23,7 +23,6 @@ public class BookmarkView implements View {
         System.out.println("  BOOKMARKED RECIPES  ");
         System.out.println("└                    ┘");
 
-        writeYellowLine("Here are your bookmarked recipes");
         List<String> ids = userService.getBookmarkedIds();
 
         if (ids.isEmpty()) {
@@ -34,14 +33,20 @@ public class BookmarkView implements View {
             return;
         }
 
-        writeYellowLine("Select the number of the recipe that you want to read");
+        writeYellowLine("Select the number of the recipe that you want to read or type 0 to go back to the recipe menu");
         for (int i = 0; i < ids.size(); i++) {
             System.out.println(i+1 + ": " + recipeService.getRecipeTitleById(ids.get(i)));
         }
+        System.out.println("0: Go back");
         System.out.println();
 
-        int input = getNumberInput(1, ids.size());
+        int input = getNumberInput(0, ids.size());
         System.out.println();
+
+        if (input == 0) {
+            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            return;
+        }
 
         String id = ids.get(input - 1);
         System.out.println(recipeService.getRecipeById(id));
