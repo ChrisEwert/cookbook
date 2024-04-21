@@ -20,4 +20,8 @@ public class RecipeRepository {
     public List<Recipe> getAllRecipes() {
         return recipeDataHandler.readRecipesFromDB();
     }
+
+    public Recipe getRecipeById(long id) {
+        return recipeDataHandler.getRecipeById(id);
+    }
 }

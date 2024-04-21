@@ -58,4 +58,15 @@ public class RecipeDataHandler implements DataHandler {
             System.err.println("Error while saving recipe: " + recipe.name());
         }
     }
+
+    public Recipe getRecipeById(long id) {
+        List<Recipe> listOfRecipes = readRecipesFromDB();
+        Recipe recipe = new Recipe();
+        for (Recipe r : listOfRecipes) {
+            if (r.id() == id) {
+                recipe = r;
+            }
+        }
+        return recipe;
+    }
 }

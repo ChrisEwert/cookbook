@@ -3,7 +3,6 @@ package services;
 import cookbook.Recipe;
 import cookbook.RecipeRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeService {
@@ -18,15 +17,28 @@ public class RecipeService {
         recipeRepository.saveRecipe(recipe);
     }
 
-    public List<String[]> getRecipeData() {
-        List<String[]> data = new ArrayList<>();
-        recipeRepository.getAllRecipes().forEach(recipe -> {
-            data.add(new String[]{recipe.name(), recipe.author()});
-        });
-        return data;
-    }
-
     public List<Recipe> getAllRecipes() {
         return recipeRepository.getAllRecipes();
+    }
+
+    public boolean noRecipesExist() {
+        return recipeRepository.getAllRecipes().isEmpty();
+    }
+
+    public int recipeCount() {
+        return recipeRepository.getAllRecipes().size();
+    }
+
+    public String getRecipeTitle(int index) {
+        Recipe recipe = getRecipeByIndex(index);
+        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
+    }
+
+    public Recipe getRecipeByIndex(int index) {
+        return getAllRecipes().get(index);
+    }
+
+    public Recipe getRecipeById(long id) {
+        return recipeRepository.getRecipeById(id);
     }
 }

@@ -1,11 +1,8 @@
 package views;
 
-import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
-
-import java.util.List;
 
 public class ShowRecipesView implements View {
     private final UserService userService;
@@ -24,30 +21,31 @@ public class ShowRecipesView implements View {
         System.out.println("  RECIPE LIST  ");
         System.out.println("└             ┘");
 
-        List<Recipe> recipeList = recipeService.getAllRecipes();
-
-        if (recipeList.isEmpty()) {
+        if (recipeService.noRecipesExist()) {
             writeYellowLine("There are no recipes as of yet!");
             System.out.println();
+
             new RecipeMenuView(userService, authenticationService, recipeService).display();
             return;
         }
 
         writeYellowLine("Here is a list of all the recipes");
-        listRecipes(recipeList);
+        listRecipes();
         System.out.println();
 
-        writeYellowLine("Which recipe would you like to read?");
-        int recipeIndex = getNumberInput(0, recipeList.size() - 1);
-        System.out.println(recipeList.get(recipeIndex));
+        writeYellowLine("Enter the number of the recipe to read it or type 0 to leave");
+        int recipeIndex = getNumberInput(0, recipeService.recipeCount());
+        if (recipeIndex > 0) {
+            System.out.println(recipeService.getRecipeByIndex(recipeIndex - 1));
+        }
         System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 
-    private void listRecipes(List<Recipe> recipes) {
-        for (int i = 0; i < recipes.size(); i++) {
-            System.out.println(i + ": " + recipes.get(i).name().toUpperCase() + " by " + recipes.get(i).author());
+    private void listRecipes() {
+        for (int i = 0; i < recipeService.recipeCount(); i++) {
+            System.out.println(i+1 + ": " + recipeService.getRecipeTitle(i));
         }
     }
 }
