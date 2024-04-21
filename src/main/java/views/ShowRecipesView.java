@@ -39,8 +39,8 @@ public class ShowRecipesView implements View {
 
         if (recipeIndex > 0) {
             System.out.println(recipeService.getRecipeByIndex(recipeIndex - 1));
+            System.out.println();
         }
-        System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }

@@ -29,41 +29,15 @@ public class CreateNewRecipeView implements View{
         System.out.println();
 
         writeYellowLine("Enter the ingredients of the recipe");
-        List<String> ingredients = new ArrayList<>();
-        while (true) {
-            System.out.println("Enter the next ingredient or type 'q' to continue with the cooking steps");
-            String ingredientsInput = getUserInput();
-            if (ingredientsInput.equalsIgnoreCase("q")) {
-                break;
-            }
-            ingredients.add(ingredientsInput);
-        }
+        List<String> ingredients = getList("ingredient", "cooking steps");
         System.out.println();
 
         writeYellowLine("Enter the cooking steps of the recipe");
-        List<String> content = new ArrayList<>();
-        while (true) {
-            System.out.println("Enter the next cooking step or type 'q' to continue with the categories");
-            System.out.println("STEP " + (content.size() + 1));
-            System.out.print("\t");
-            String contentInput = getUserInput();
-            if (contentInput.equalsIgnoreCase("q")) {
-                break;
-            }
-            content.add(contentInput);
-        }
+        List<String> content = getList("cooking step", "categories");
         System.out.println();
 
         writeYellowLine("Enter the categories of the recipe");
-        List<String> categories = new ArrayList<>();
-        while (true) {
-            System.out.println("Enter the next category or type 'q' to continue with the cooking time");
-            String categoryInput = getUserInput();
-            if (categoryInput.equalsIgnoreCase("q")) {
-                break;
-            }
-            categories.add(categoryInput);
-        }
+        List<String> categories = getList("category", "cooking time");
         System.out.println();
 
         System.out.println("Enter how many minutes the recipe will take");
@@ -74,5 +48,18 @@ public class CreateNewRecipeView implements View{
         writeGreenLine("Saved recipe!");
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();       // TODO: Other options: rate or leave
+    }
+
+    private List<String> getList(String listKind, String nextTopic) {
+        List<String> list = new ArrayList<>();
+        while (true) {
+            System.out.println("Enter the next " + listKind + " or type 'q' to continue with the " + nextTopic);
+            String input = getUserInput();
+            if (input.equalsIgnoreCase("q")) {
+                break;
+            }
+            list.add(input);
+        }
+        return list;
     }
 }
