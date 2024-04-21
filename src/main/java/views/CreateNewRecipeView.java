@@ -47,6 +47,8 @@ public class CreateNewRecipeView implements View{
         recipeService.saveRecipe(name, ingredients, content, categories, minutes);
         writeGreenLine("Saved recipe!");
 
+        System.out.println(recipeService.getLastRecipe());
+
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 

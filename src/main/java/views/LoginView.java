@@ -45,6 +45,7 @@ public class LoginView implements View {
             }
 
             if (authenticationService.credentialsMatch(username, password)) {
+                System.out.println();
                 break;
             } else {
                 writeRedLine("Wrong password. Please try again!");

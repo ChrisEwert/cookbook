@@ -30,5 +30,7 @@ public class StartView implements View {
         writeYellowLine("To start, please log in.");
         System.out.println();
         new LoginMenuView(userService, authenticationService, recipeService).display();
+//        System.out.println(recipeService.recipeCount());
+//        System.out.println(recipeService.getRecipeByIndex(4));
     }
 }

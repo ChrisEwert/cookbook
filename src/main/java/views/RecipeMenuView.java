@@ -1,12 +1,9 @@
 package views;
 
-import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 public class RecipeMenuView implements View {

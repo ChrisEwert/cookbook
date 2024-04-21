@@ -46,4 +46,8 @@ public class RecipeService {
         Recipe recipe = getRecipeById(id);
         return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
+
+    public Recipe getLastRecipe() {
+        return getRecipeByIndex(recipeCount()-1);
+    }
 }
