@@ -18,13 +18,19 @@ It allows users to create and share recipes.
 * delete existing Recipe
 * filter existing Recipes by Category or User
 * rate Recipes of other Users
+* list the Recipes of the active User
+* weekly plan
+  * add Recipe to weekly plan
+  * calculate the ingredients that need to be bought
+  * display weekly plan?
+* create new Categories
 
 ## Ubiquitous Language
 * CookBook: a collection of recipes
 * Recipe: an entry in the CookBook
 * User: person interacting with the CookBook
 * Author: User who created a Recipe
-* Category: brief description that helps with classifying and grouping recipes
+* Category: brief description that helps with classifying and grouping Recipes
 
 ## Descriptions
 * CookBook 
