@@ -1,6 +1,6 @@
 package db;
 
-import cookbook.User;
+import cookbook.CookbookUser;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -27,12 +27,12 @@ public class UserDataHandler implements DataHandler {
         }
     }
 
-    public void saveUserToDB(User user) {
+    public void saveUserToDB(CookbookUser user) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            List<User> listOfUsers = readUsersFromDB();
+            List<CookbookUser> listOfUsers = readUsersFromDB();
             listOfUsers.add(user);
             objectMapper.writeValue(new File(String.valueOf(filePath)), listOfUsers);
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class UserDataHandler implements DataHandler {
         }
     }
 
-    public List<User> readUsersFromDB() {
+    public List<CookbookUser> readUsersFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             byte[] usersJsonData = Files.readAllBytes(filePath);
@@ -48,7 +48,7 @@ public class UserDataHandler implements DataHandler {
                 return new ArrayList<>();
             }
 
-            TypeReference<List<User>> typeReference = new TypeReference<>() {};
+            TypeReference<List<CookbookUser>> typeReference = new TypeReference<>() {};
             return objectMapper.readValue(usersJsonData, typeReference);
         } catch (IOException e) {
             System.err.println("Error while reading users from file: " + filePath);
@@ -58,8 +58,8 @@ public class UserDataHandler implements DataHandler {
 
     public Set<String> getBookmarkIds(String username) {
         Set<String> bookmarkedIds = new HashSet<>();
-        List<User> userList = readUsersFromDB();
-        for (User user : userList) {
+        List<CookbookUser> userList = readUsersFromDB();
+        for (CookbookUser user : userList) {
             if (user.username().equals(username)) {
                 bookmarkedIds.addAll(user.bookmarkedRecipeIds());
                 break;
@@ -70,10 +70,10 @@ public class UserDataHandler implements DataHandler {
 
     public void bookmarkRecipeById(String username, String recipeId) {
         try {
-            List<User> userList = readUsersFromDB();
-            for (User userObj : userList) {
-                if (userObj.username().equals(username)) {
-                    userObj.bookmarkedRecipeIds().add(recipeId);
+            List<CookbookUser> userList = readUsersFromDB();
+            for (CookbookUser UserObj : userList) {
+                if (UserObj.username().equals(username)) {
+                    UserObj.bookmarkedRecipeIds().add(recipeId);
                     break;
                 }
             }
@@ -83,7 +83,7 @@ public class UserDataHandler implements DataHandler {
         }
     }
 
-    private void writeUsersToDB(List<User> userList) throws IOException {
+    private void writeUsersToDB(List<CookbookUser> userList) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.writeValue(new File(String.valueOf(filePath)), userList);

@@ -1,7 +1,7 @@
 package services;
 
 import cookbook.CookbookRepository;
-import cookbook.User;
+import cookbook.CookbookUser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,8 +20,8 @@ public class AuthenticationService {
     }
 
     public boolean credentialsMatch(String username, String password) {
-        List<User> userList = cookbookRepository.getUserList();
-        for (User user : userList) {
+        List<CookbookUser> userList = cookbookRepository.getUserList();
+        for (CookbookUser user : userList) {
             if (user.username().equals(username) && user.password().equals(password)) {
                 return true;
             }
@@ -38,7 +38,7 @@ public class AuthenticationService {
     }
 
     public boolean containsUser(String username) {
-        for (User user : cookbookRepository.getUserList()) {
+        for (CookbookUser user : cookbookRepository.getUserList()) {
             if (user.username().equals(username)) {
                 return true;
             }

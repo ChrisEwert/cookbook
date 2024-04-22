@@ -30,16 +30,16 @@ public class RatingView implements View {
             writeYellowLine("You cannot rate your own recipe!");
             System.out.println();
 
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            new RecipeView(userService, authenticationService, recipeService, recipe).display();
             return;
         }
 
         writeYellowLine("Enter how many stars out of 5 you would give this recipe");
         int stars = getNumberInputMinMax(0, 5);
 
-        recipeService.addRating(recipe, stars);
+        recipeService.addRating(recipe, stars);                                                                         // TODO: Instead of storing the rating in the Recipe, maybe create Review class?
         System.out.println();
-
-        new RecipeMenuView(userService, authenticationService, recipeService).display();
+                                                                                                                        // TODO: Add comment functionality
+        new RecipeView(userService, authenticationService, recipeService, recipe).display();
     }
 }

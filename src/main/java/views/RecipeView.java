@@ -36,6 +36,10 @@ public class RecipeView implements View {
             new RatingView(userService, authenticationService, recipeService, recipe).display();
             return;
         }
+        else if (userInput == 3) {
+            // TODO
+            return;
+        }
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
@@ -43,6 +47,7 @@ public class RecipeView implements View {
     private int getMenuInput() {
         System.out.println("1: Bookmark recipe");
         System.out.println("2: Rate recipe");
+        System.out.println("3: Read comments");
         System.out.println("0: Exit to recipe menu");
         System.out.println();
 

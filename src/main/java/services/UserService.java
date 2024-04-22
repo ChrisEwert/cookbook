@@ -1,8 +1,8 @@
 package services;
 
 import cookbook.CookbookRepository;
+import cookbook.CookbookUser;
 import cookbook.Recipe;
-import cookbook.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class UserService {
     }
 
     public void createUser(String username, String password) {
-        User user = new User(username, password, Set.of());
+        CookbookUser user = new CookbookUser(username, password, Set.of());
         cookbookRepository.saveUser(user);
     }
 

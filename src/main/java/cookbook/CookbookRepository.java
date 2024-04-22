@@ -22,11 +22,11 @@ public class CookbookRepository {
         return cookbook.dateOfCreation();
     }
 
-    public void saveUser(User user) {
+    public void saveUser(CookbookUser user) {
         userDataHandler.saveUserToDB(user);
     }
 
-    public List<User> getUserList() {
+    public List<CookbookUser> getUserList() {
         return userDataHandler.readUsersFromDB();
     }
 

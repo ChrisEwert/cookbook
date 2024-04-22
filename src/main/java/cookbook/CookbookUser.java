@@ -2,7 +2,7 @@ package cookbook;
 
 import java.util.Set;
 
-public record User(
+public record CookbookUser(
     String username,
     String password,
     Set<String> bookmarkedRecipeIds
