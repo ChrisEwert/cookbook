@@ -48,44 +48,71 @@ public record Recipe(
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("═════════════════════════════════════════════\n");
-        builder.append(" ").append(name).append("\n");
-        builder.append("═════════════════════════════════════════════\n");
-
-        builder.append(author).append("\t");
-        builder.append(rating).append("⭑\t");
-        builder.append(dateOfCreation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))).append("\n");
-
-        for (int i = 0; i < categories.size() - 1; i++) {
-            builder.append(categories.get(i)).append(", ");
-        }
-        builder.append(categories.get(categories.size() - 1)).append("\t");
-        builder.append(formatTime(cookingTimeInMinutes)).append(" hours\n\n");
-
-        builder.append("Ingredients:\n");
-        for (String ingredient : ingredients) {
-            builder.append("- ").append(ingredient).append("\n");
-        }
+        showRecipeHeader(builder);
         builder.append("\n");
 
-        builder.append("Cooking steps:\n");
-        for (int i = 0 ; i < content.size() ; i++) {
-            builder.append("STEP ").append(i+1).append("\n");
-            builder.append("\t").append(content.get(i)).append("\n");
-        }
+        showRecipeMetadata(builder);
+        builder.append("\n");
+
+        showRecipeCookingTime(builder);
+        builder.append("\t\t");
+
+        showRecipeCategories(builder);
+        builder.append("\n\n");
+
+        showRecipeIngredients(builder);
+        builder.append("\n");
+
+        showRecipeCookingSteps(builder);
 
         builder.append("═════════════════════════════════════════════");
 
         return builder.toString();
     }
 
-    public String formatTime(int minutes) {
-        int hours = minutes / 60;
-        int remainingMinutes = minutes % 60;
+    private void showRecipeHeader(StringBuilder builder) {
+        builder.append("═════════════════════════════════════════════\n");
+        builder.append(" ").append(name).append("\n");
+        builder.append("═════════════════════════════════════════════");
+    }
+
+    private void showRecipeMetadata(StringBuilder builder) {
+        builder.append(author).append("\t\t");
+        builder.append(rating).append("⭑\t\t");
+        builder.append(dateOfCreation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+    }
+
+    private void showRecipeCategories(StringBuilder builder) {
+        for (int i = 0; i < categories.size() - 1; i++) {
+            builder.append(categories.get(i)).append(", ");
+        }
+        builder.append(categories.get(categories.size() - 1));
+    }
+
+    private void showRecipeCookingTime(StringBuilder builder) {
+        int hours = cookingTimeInMinutes / 60;
+        int remainingMinutes = cookingTimeInMinutes % 60;
 
         String formattedHours = String.format("%02d", hours);
         String formattedMinutes = String.format("%02d", remainingMinutes);
 
-        return formattedHours + ":" + formattedMinutes;
+        String time = formattedHours + ":" + formattedMinutes + " h";
+
+        builder.append(time);
+    }
+
+    private void showRecipeIngredients(StringBuilder builder) {
+        builder.append("Ingredients:\n");
+        for (String ingredient : ingredients) {
+            builder.append("- ").append(ingredient).append("\n");
+        }
+    }
+
+    private void showRecipeCookingSteps(StringBuilder builder) {
+        builder.append("Cooking steps:\n");
+        for (int i = 0 ; i < content.size() ; i++) {
+            builder.append("STEP ").append(i+1).append("\n");
+            builder.append("\t").append(content.get(i)).append("\n");
+        }
     }
 }
