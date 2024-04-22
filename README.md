@@ -1,50 +1,59 @@
 # CookBook
-This is a project for Advanced Software Engineering.
+This is a project for Advanced Software Engineering. 
+It allows users to create and share recipes.
 
 ## Features
+
+### Already implemented
 * add new Recipe
-* update existing Recipe
-* delete existing Recipe
-* categorize Recipe
 * see all Recipes
-* filter existing Recipes by Category or User
+* read Recipes
+* categorize Recipes
+* bookmark Recipes
 * switch between different Users
 * add new Users
-* delete existing Users
+
+### Planned
+* update existing Recipe
+* delete existing Recipe
+* filter existing Recipes by Category or User
 * rate Recipes of other Users
 
 ## Ubiquitous Language
 * CookBook: a collection of recipes
 * Recipe: an entry in the CookBook
 * User: person interacting with the CookBook
-* Author: User who created a recipe
-* Category: Brief description that helps with classifying and grouping recipes
+* Author: User who created a Recipe
+* Category: brief description that helps with classifying and grouping recipes
 
 ## Descriptions
 * CookBook 
   * date of creation
-  * recipe list
   * active user
 * Recipe
   * name
   * author
   * date of creation
+  * ingredients
   * content
   * categories
   * cooking time
-  * ratings
+  * rating
 * User
   * name
-  * date of creation
-  * recipes
+  * password
+  * bookmarked recipes
 
 ## Views
-  * Views only print lines to the console
-  * Views do not change values
-  * Views can understand and process user input
+* Views only print lines to the console
+* Views do not change values
+* Views understand and process user input
 
-## Services
-  * UserService: manages users and handles the logic for adding new users
+## Service List
+* UserService: used for listing existing Users and creating new Users
+* AuthenticationService: used for logging in and logging out of the Cookbook
+* RecipeService: used for listing existing Recipes and creating new Recipes
 
-## DataHandlers
-  * UserDataHandler: manages the connection to the file that stores the names of the users (db/users)
+## DataHandler List
+* UserDataHandler: manages the connection to the file that stores the Users (db/users.json)
+* RecipeDataHandler: manages the connection to the file that stores the Recipes (db/recipes.json)
