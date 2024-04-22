@@ -1,5 +1,6 @@
 package views;
 
+import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
@@ -41,27 +42,34 @@ public class CreateNewRecipeView implements View{
         System.out.println();
 
         System.out.println("Enter how many minutes the recipe will take");
-        int minutes = getNumberInput(0, 120);                                                                           // TODO: No maximum value
+        int minutes = getNumberInput();
         System.out.println();
 
         recipeService.saveRecipe(name, ingredients, content, categories, minutes);
         writeGreenLine("Saved recipe!");
+        System.out.println();
 
-        System.out.println(recipeService.getLastRecipe());
+        Recipe lastRecipe = recipeService.getLastRecipe();
+        System.out.println(lastRecipe);
+        System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 
     private List<String> getList(String listKind, String nextTopic) {
         List<String> list = new ArrayList<>();
+
         while (true) {
             System.out.println("Enter the next " + listKind + " or type 'q' to continue with the " + nextTopic);
+
             String input = getUserInput();
             if (input.equalsIgnoreCase("q")) {
                 break;
             }
+
             list.add(input);
         }
+
         return list;
     }
 }

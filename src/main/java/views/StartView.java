@@ -18,10 +18,11 @@ public class StartView implements View {
     @Override
     public void display() {
         System.out.println();
-        System.out.println("╔═════════════════════════════════════════════╗");
-        System.out.println("║                OPEN COOKBOOK                ║");
-        System.out.println("╚═════════════════════════════════════════════╝");
-        System.out.println();
+        System.out.println("╔═════════════════════════════════════════════════════╗");
+        System.out.println("║                    OPEN COOKBOOK                    ║");
+        System.out.println("╚═════════════════════════════════════════════════════╝");
+        System.out.print  ("                                             ");
+        System.out.println(authenticationService.getCookbookCreationDate());                                            // TODO: Store Cookbook Data (name, dateOfCreation) in file
 
         System.out.println("Hello and welcome to the open cookbook.");
         System.out.println("In this cookbook, users can share recipes.");
@@ -29,8 +30,7 @@ public class StartView implements View {
 
         writeYellowLine("To start, please log in.");
         System.out.println();
+
         new LoginMenuView(userService, authenticationService, recipeService).display();
-//        System.out.println(recipeService.recipeCount());
-//        System.out.println(recipeService.getRecipeByIndex(4));
     }
 }

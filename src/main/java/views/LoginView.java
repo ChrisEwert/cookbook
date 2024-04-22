@@ -33,8 +33,10 @@ public class LoginView implements View {
             login();
             return;
         }
+
         while (true) {
             writeYellowLine("Selected username: " + username);
+
             System.out.println("Please enter the password or type 'q' to quit: ");
             password = getUserInput();
 
@@ -47,16 +49,20 @@ public class LoginView implements View {
             if (authenticationService.credentialsMatch(username, password)) {
                 System.out.println();
                 break;
-            } else {
-                writeRedLine("Wrong password. Please try again!");
             }
+
+            writeRedLine("Wrong password. Please try again!");
+            System.out.println();
         }
+
         login();
     }
 
     private void login() {
         authenticationService.login(username);
         writeGreenLine("You are now logged in as " + username);
+        System.out.println();
+
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 }

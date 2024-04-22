@@ -27,6 +27,7 @@ public class CreateNewUserView implements View {
 
         if (authenticationService.containsUser(username)) {
             writeRedLine("This username already exists!");
+            System.out.println();
 
             new LoginView(userService, authenticationService, recipeService, username).display();
             return;
@@ -36,6 +37,7 @@ public class CreateNewUserView implements View {
         String password = getUserInput();
 
         userService.createUser(username, password);
+        System.out.println();
 
         new LoginView(userService, authenticationService, recipeService, username, password).display();
     }

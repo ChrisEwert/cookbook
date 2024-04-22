@@ -20,6 +20,7 @@ public class RecipeDataHandler implements DataHandler {
 
     public RecipeDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
+
         if (!fileExists(filePath)) {
             createFile(filePath);
         }
@@ -28,16 +29,17 @@ public class RecipeDataHandler implements DataHandler {
     public List<Recipe> readRecipesFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
 
         try {
             byte[] usersJsonData = Files.readAllBytes(filePath);
+
             if (usersJsonData.length == 0) {
                 return new ArrayList<>();
             }
 
-            objectMapper.registerModule(new JavaTimeModule());
-            TypeReference<List<Recipe>> typeReference = new TypeReference<>() {
-            };
+            TypeReference<List<Recipe>> typeReference = new TypeReference<>() {};
+
             return objectMapper.readValue(usersJsonData, typeReference);
         } catch (IOException e) {
             System.err.println("Error while reading recipes from file: " + filePath);
@@ -49,12 +51,15 @@ public class RecipeDataHandler implements DataHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
 
         try {
             List<Recipe> listOfRecipes = readRecipesFromDB();
             listOfRecipes.add(recipe);
-            objectMapper.registerModule(new JavaTimeModule());
-            objectMapper.writeValue(new File(String.valueOf(filePath)), listOfRecipes);
+
+            File file = new File(String.valueOf(filePath));
+
+            objectMapper.writeValue(file, listOfRecipes);
         } catch (IOException e) {
             System.err.println("Error while saving recipe: " + recipe.name());
         }
@@ -62,12 +67,13 @@ public class RecipeDataHandler implements DataHandler {
 
     public Recipe getRecipeById(String id) {
         List<Recipe> listOfRecipes = readRecipesFromDB();
-        Recipe recipe = new Recipe();
+
         for (Recipe r : listOfRecipes) {
             if (Objects.equals(r.id(), id)) {
-                recipe = r;
+                return r;
             }
         }
-        return recipe;
+
+        return null;
     }
 }

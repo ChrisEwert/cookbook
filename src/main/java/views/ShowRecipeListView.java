@@ -31,12 +31,11 @@ public class ShowRecipeListView implements View {
         }
 
         writeYellowLine("Here is a list of all the recipes");
-        listRecipes();
-        System.out.println("0: Go back");
+        printOptions();
         System.out.println();                                                                                           // TODO: Filter mechanic
 
         writeYellowLine("Enter the number of a recipe to read it or type 0 to go back to the recipe menu");
-        int recipeIndex = getNumberInput(0, recipeService.recipeCount());
+        int recipeIndex = getNumberInputMinMax(0, recipeService.recipeCount());
         System.out.println();
 
         if (recipeIndex == 0) {
@@ -48,9 +47,10 @@ public class ShowRecipeListView implements View {
         new RecipeView(userService, authenticationService, recipeService, recipe).display();
     }
 
-    private void listRecipes() {
+    private void printOptions() {
         for (int i = 0; i < recipeService.recipeCount(); i++) {
-            System.out.println(i+1 + ": " + recipeService.getRecipeTitleByIndex(i));
+            System.out.println(i+1 + ": " + recipeService.getRecipeSelectDataByIndex(i));
         }
+        System.out.println("0: Go back");
     }
 }

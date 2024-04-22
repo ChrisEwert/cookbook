@@ -12,12 +12,10 @@ public interface View {
 
     default void writeRedLine(String line) {
         System.out.println(COLOR_RED + line + COLOR_RESET);
-        System.out.println();
     }
 
     default void writeGreenLine(String line) {
         System.out.println(COLOR_GREEN + line + COLOR_RESET);
-        System.out.println();
     }
 
     default void writeYellowLine(String line) {
@@ -26,26 +24,45 @@ public interface View {
 
     default String getUserInput() {
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.print("Your input: ");
             String input = scanner.nextLine().trim();
+
             if (!input.isEmpty()) {
                 return input;
             }
+
             writeRedLine("You have to enter something!");
         }
     }
 
-    default int getNumberInput(int min, int max) {
+    default int getNumberInputMinMax(int min, int max) {
         while (true) {
             System.out.println("Please enter a number between " + min + " and " + max);
             String input = getUserInput();
+
             try {
                 int asNumber = Integer.parseInt(input);
+
                 if (asNumber >= min && asNumber <= max) {
                     return asNumber;
                 }
+
                 writeRedLine("The number has to be between " + min + " and " + max + "!");
+            } catch (NumberFormatException e) {
+                writeRedLine("You have to enter a number!");
+            }
+        }
+    }
+
+    default int getNumberInput() {
+        while (true) {
+            System.out.println("Please enter a whole number");
+            String input = getUserInput();
+
+            try {
+                return Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 writeRedLine("You have to enter a number!");
             }

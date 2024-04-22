@@ -1,5 +1,6 @@
 package views;
 
+import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
@@ -34,13 +35,10 @@ public class BookmarkView implements View {
         }
 
         writeYellowLine("Select the number of the recipe that you want to read or type 0 to go back to the recipe menu");
-        for (int i = 0; i < ids.size(); i++) {
-            System.out.println(i+1 + ": " + recipeService.getRecipeTitleById(ids.get(i)));
-        }
-        System.out.println("0: Go back");
+        printOptions(ids);
         System.out.println();
 
-        int input = getNumberInput(0, ids.size());
+        int input = getNumberInputMinMax(0, ids.size());
         System.out.println();
 
         if (input == 0) {
@@ -49,8 +47,17 @@ public class BookmarkView implements View {
         }
 
         String id = ids.get(input - 1);
-        System.out.println(recipeService.getRecipeById(id));
+        Recipe selectedRecipe = recipeService.getRecipeById(id);
+        System.out.println(selectedRecipe);
+        System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
+    }
+
+    private void printOptions(List<String> idList) {
+        for (int i = 0; i < idList.size(); i++) {
+            System.out.println(i+1 + ": " + recipeService.getRecipeSelectDataById(idList.get(i)));
+        }
+        System.out.println("0: Go back");
     }
 }

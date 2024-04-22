@@ -3,6 +3,8 @@ package services;
 import cookbook.CookbookRepository;
 import cookbook.User;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AuthenticationService {
@@ -10,6 +12,11 @@ public class AuthenticationService {
 
     public AuthenticationService(CookbookRepository cookbookRepository) {
         this.cookbookRepository = cookbookRepository;
+    }
+
+    public String getCookbookCreationDate() {
+        LocalDate date = cookbookRepository.getCreationDate();
+        return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public boolean credentialsMatch(String username, String password) {

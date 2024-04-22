@@ -27,16 +27,18 @@ public class LoginMenuView implements View {
         List<String> usernames = userService.getUsernames();
 
         if (usernames.isEmpty()) {
-            writeYellowLine("You are the first username of this cookbook!");
+            writeYellowLine("You are the first user of this cookbook!");
             System.out.println();
 
             new CreateNewUserView(userService, authenticationService, recipeService).display();
             return;
         }
 
-        showAllUsernames(usernames);
+        writeYellowLine("Here is a list of all current users:");
+        printUsernames(usernames);
         System.out.println();
 
+        writeYellowLine("Are you one of those users?");
         int userMenuInput = getUserMenuInput();
         System.out.println();
 
@@ -49,19 +51,17 @@ public class LoginMenuView implements View {
         }
     }
 
+    private void printUsernames(List<String> usernames) {
+        for (String username : usernames) {
+            System.out.println(username);
+        }
+    }
+
     private int getUserMenuInput() {
-        writeYellowLine("Are you one of those users?");
         System.out.println("1: I am one of those users");
         System.out.println("2: I am a new user");
         System.out.println("0: Close cookbook");
         System.out.println();
-        return getNumberInput(0, 2);
-    }
-
-    private void showAllUsernames(List<String> usernames) {
-        writeYellowLine("Here is a list of all current users:");
-        for (String username : usernames) {
-            System.out.println(username);
-        }
+        return getNumberInputMinMax(0, 2);
     }
  }

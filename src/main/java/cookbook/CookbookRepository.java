@@ -2,6 +2,7 @@ package cookbook;
 
 import db.UserDataHandler;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +16,10 @@ public class CookbookRepository {
 
     public static String getUsername() {
         return cookbook.username();
+    }
+
+    public LocalDate getCreationDate() {
+        return cookbook.dateOfCreation();
     }
 
     public void saveUser(User user) {

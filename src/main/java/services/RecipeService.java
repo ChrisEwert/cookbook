@@ -33,21 +33,25 @@ public class RecipeService {
         return getAllRecipes().get(index);
     }
 
-    public String getRecipeTitleByIndex(int index) {
+    public String getRecipeSelectDataByIndex(int index) {
         Recipe recipe = getRecipeByIndex(index);
-        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
+        return formatRecipeToSelectData(recipe);
     }
 
     public Recipe getRecipeById(String id) {
         return recipeRepository.getRecipeById(id);
     }
 
-    public String getRecipeTitleById(String id) {
+    public String getRecipeSelectDataById(String id) {
         Recipe recipe = getRecipeById(id);
-        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
+        return (recipe != null) ? formatRecipeToSelectData(recipe) : "Recipe not found";
     }
 
     public Recipe getLastRecipe() {
         return getRecipeByIndex(recipeCount()-1);
+    }
+
+    private String formatRecipeToSelectData(Recipe recipe) {
+        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 }
