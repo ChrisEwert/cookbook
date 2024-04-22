@@ -47,13 +47,6 @@ public class RecipeDataHandler implements DataHandler {
         return new ArrayList<>();
     }
 
-    public void saveRecipeToDB(Recipe recipe) {
-        List<Recipe> listOfRecipes = readRecipesFromDB();
-        listOfRecipes.add(recipe);
-
-        saveRecipesToDB(listOfRecipes);
-    }
-
     public Recipe getRecipeById(String id) {
         List<Recipe> listOfRecipes = readRecipesFromDB();
 
@@ -63,6 +56,13 @@ public class RecipeDataHandler implements DataHandler {
             }
         }
         return null;
+    }
+
+    public void saveRecipeToDB(Recipe recipe) {
+        List<Recipe> listOfRecipes = readRecipesFromDB();
+        listOfRecipes.add(recipe);
+
+        saveRecipesToDB(listOfRecipes);
     }
 
     public void updateRecipe(String id, Recipe newRecipe) {

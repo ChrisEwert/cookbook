@@ -34,12 +34,22 @@ public class RatingView implements View {
             return;
         }
 
+        String id = recipe.id();
+
         writeYellowLine("Enter how many stars out of 5 you would give this recipe");
         int stars = getNumberInputMinMax(0, 5);
-
-        recipeService.addRating(recipe, stars);                                                                         // TODO: Instead of storing the rating in the Recipe, maybe create Review class?
         System.out.println();
-                                                                                                                        // TODO: Add comment functionality
+
+        writeYellowLine("Enter a comment about the rating");
+        String comment = getUserInput();
+        System.out.println();
+
+        writeYellowLine("Enter the title of the comment");
+        String title = getUserInput();
+        System.out.println();
+
+        recipeService.addRating(id, stars, title, comment);
+
         new RecipeView(userService, authenticationService, recipeService, recipe).display();
     }
 }

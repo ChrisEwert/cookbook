@@ -1,5 +1,6 @@
 package cookbook;
 
+import db.RatingDataHandler;
 import db.RecipeDataHandler;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.UUID;
 
 public class RecipeRepository {
     private final RecipeDataHandler recipeDataHandler = new RecipeDataHandler();
+    private final RatingDataHandler ratingDataHandler = new RatingDataHandler();
 
     public static String getRandomId() {
         return UUID.randomUUID().toString();
@@ -24,7 +26,7 @@ public class RecipeRepository {
         return recipeDataHandler.getRecipeById(id);
     }
 
-    public void setRating(Recipe recipe, float rating, int ratingCount) {
-        recipeDataHandler.setRating(recipe.id(), rating, ratingCount);
+    public void addRating(RecipeRating rating) {
+        ratingDataHandler.addRatingToDB(rating);
     }
 }

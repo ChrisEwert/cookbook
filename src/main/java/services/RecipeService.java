@@ -1,6 +1,7 @@
 package services;
 
 import cookbook.Recipe;
+import cookbook.RecipeRating;
 import cookbook.RecipeRepository;
 
 import java.util.List;
@@ -55,14 +56,9 @@ public class RecipeService {
         return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 
-    public void addRating(Recipe recipe, int rating) {
-        Recipe r = getRecipeById(recipe.id());
+    public void addRating(String id, int rating, String title, String comment) {
+        RecipeRating newRating = new RecipeRating(id, rating, title, comment);
 
-        float currentRating = r.rating();
-        int currentRatingCount = r.ratingCount();
-        int newRatingCount = currentRatingCount + 1;
-        float newRating = (currentRating * currentRatingCount + rating) / newRatingCount;
-
-        recipeRepository.setRating(recipe, newRating, newRatingCount);
+        recipeRepository.addRating(newRating);
     }
 }

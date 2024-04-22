@@ -31,3 +31,4 @@ bin/
 /.idea/statistic.xml
 /db/recipes.json
 /db/users.json
+/db/ratings.json
