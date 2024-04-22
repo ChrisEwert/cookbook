@@ -50,6 +50,8 @@ public class RatingView implements View {
 
         recipeService.addRating(id, stars, title, comment);
 
-        new RecipeView(userService, authenticationService, recipeService, recipe).display();
+        recipeService.updateStarsOfRecipe(recipe);
+
+        new RecipeView(userService, authenticationService, recipeService, recipeService.getRecipeById(recipe.id())).display();
     }
 }

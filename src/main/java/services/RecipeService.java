@@ -4,7 +4,9 @@ import cookbook.Recipe;
 import cookbook.RecipeRating;
 import cookbook.RecipeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RecipeService {
     private final RecipeRepository recipeRepository;
@@ -60,5 +62,24 @@ public class RecipeService {
         RecipeRating newRating = new RecipeRating(id, rating, title, comment);
 
         recipeRepository.addRating(newRating);
+    }
+
+    public void updateStarsOfRecipe(Recipe recipe) {
+        List<RecipeRating> allRatings = recipeRepository.getAllRatings();
+        List<RecipeRating> ratingsOfRecipe = new ArrayList<>();
+
+        for (RecipeRating rating : allRatings) {
+            if (Objects.equals(rating.recipeId(), recipe.id())) {
+                ratingsOfRecipe.add(rating);
+            }
+        }
+
+        float stars = 0;
+        for (RecipeRating rating : ratingsOfRecipe) {
+            stars += rating.stars();
+        }
+        stars /= ratingsOfRecipe.size();
+
+        recipeRepository.setStars(recipe, stars, ratingsOfRecipe.size());
     }
 }

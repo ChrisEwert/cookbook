@@ -4,6 +4,6 @@ public record RecipeRating(
     String recipeId,
     int stars,
     String title,
-    String comment
-) {
+    String comment                                                                                                      // TODO: Author of comment
+) {                                                                                                                     // TODO: toString()
 }
