@@ -48,21 +48,10 @@ public class RecipeDataHandler implements DataHandler {
     }
 
     public void saveRecipeToDB(Recipe recipe) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.registerModule(new JavaTimeModule());
+        List<Recipe> listOfRecipes = readRecipesFromDB();
+        listOfRecipes.add(recipe);
 
-        try {
-            List<Recipe> listOfRecipes = readRecipesFromDB();
-            listOfRecipes.add(recipe);
-
-            File file = new File(String.valueOf(filePath));
-
-            objectMapper.writeValue(file, listOfRecipes);
-        } catch (IOException e) {
-            System.err.println("Error while saving recipe: " + recipe.name());
-        }
+        saveRecipesToDB(listOfRecipes);
     }
 
     public Recipe getRecipeById(String id) {
@@ -73,7 +62,45 @@ public class RecipeDataHandler implements DataHandler {
                 return r;
             }
         }
-
         return null;
+    }
+
+    public void updateRecipe(String id, Recipe newRecipe) {
+        List<Recipe> listOfRecipes = readRecipesFromDB();
+
+        for (int i = 0; i < listOfRecipes.size(); i++) {
+            Recipe recipe = listOfRecipes.get(i);
+            if (Objects.equals(recipe.id(), id)) {
+                listOfRecipes.set(i, newRecipe);
+                saveRecipesToDB(listOfRecipes);
+                return;
+            }
+        }
+
+        System.err.println("Error: Recipe with ID " + id + " not found.");
+    }
+
+    private void saveRecipesToDB(List<Recipe> recipes) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
+
+        try {
+            File file = new File(String.valueOf(filePath));
+
+            objectMapper.writeValue(file, recipes);
+        } catch (IOException e) {
+            System.err.println("Error while saving recipes to file: " + filePath);
+        }
+    }
+
+
+    public void setRating(String id, float rating, int ratingCount) {
+        Recipe recipe = getRecipeById(id);
+
+        recipe = recipe.changeRating(rating, ratingCount);
+
+        updateRecipe(id, recipe);
     }
 }

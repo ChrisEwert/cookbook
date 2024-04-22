@@ -40,7 +40,7 @@ public class LoginView implements View {
             System.out.println("Please enter the password or type 'q' to quit: ");
             password = getUserInput();
 
-            if (password.equals("q")) {
+            if (password.equalsIgnoreCase("q")) {
                 System.out.println();
                 new LoginMenuView(userService, authenticationService, recipeService).display();
                 return;

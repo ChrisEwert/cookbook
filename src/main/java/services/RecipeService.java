@@ -54,4 +54,15 @@ public class RecipeService {
     private String formatRecipeToSelectData(Recipe recipe) {
         return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
+
+    public void addRating(Recipe recipe, int rating) {
+        Recipe r = getRecipeById(recipe.id());
+
+        float currentRating = r.rating();
+        int currentRatingCount = r.ratingCount();
+        int newRatingCount = currentRatingCount + 1;
+        float newRating = (currentRating * currentRatingCount + rating) / newRatingCount;
+
+        recipeRepository.setRating(recipe, newRating, newRatingCount);
+    }
 }

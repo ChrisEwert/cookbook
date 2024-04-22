@@ -23,4 +23,8 @@ public class RecipeRepository {
     public Recipe getRecipeById(String id) {
         return recipeDataHandler.getRecipeById(id);
     }
+
+    public void setRating(Recipe recipe, float rating, int ratingCount) {
+        recipeDataHandler.setRating(recipe.id(), rating, ratingCount);
+    }
 }

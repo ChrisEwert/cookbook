@@ -1,5 +1,6 @@
 package cookbook;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -13,7 +14,8 @@ public record Recipe(
         List<String> content,
         List<String> categories,
         int cookingTimeInMinutes,
-        float rating
+        float rating,
+        int ratingCount
 ) {
 
     public Recipe() {
@@ -26,7 +28,8 @@ public record Recipe(
             List.of(),
             List.of(),
             0,
-            0f
+            0f,
+            0
         );
     }
 
@@ -40,7 +43,23 @@ public record Recipe(
             content,
             categories,
             cookingTimeInMinutes,
-            0f
+            0f,
+            0
+        );
+    }
+
+    public Recipe changeRating(float rating, int ratingCount) {
+        return new Recipe(
+            this.id,
+            this.name,
+            this.author,
+            this.dateOfCreation,
+            this.ingredients,
+            this.content,
+            this.categories,
+            this.cookingTimeInMinutes,
+            rating,
+            ratingCount
         );
     }
 
@@ -78,8 +97,15 @@ public record Recipe(
 
     private void showRecipeMetadata(StringBuilder builder) {
         builder.append(author).append("\t\t");
-        builder.append(rating).append("⭑\t\t");
+        showRecipeRating(builder);
+        builder.append("/5⭑ (");
+        builder.append(ratingCount).append(" ratings)\t\t");
         builder.append(dateOfCreation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+    }
+
+    private void showRecipeRating(StringBuilder builder) {
+        float roundedRating = (float) Math.round(rating * 10) / 10;
+        builder.append(roundedRating);
     }
 
     private void showRecipeCategories(StringBuilder builder) {

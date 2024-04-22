@@ -64,12 +64,14 @@ public class CreateNewRecipeView implements View{
 
             String input = getUserInput();
             if (input.equalsIgnoreCase("q")) {
+                if (list.isEmpty()) {
+                    writeRedLine("The " + listKind + " list cannot be empty! Please enter at least one item.");
+                    continue;
+                }
                 break;
             }
-
             list.add(input);
         }
-
         return list;
     }
 }

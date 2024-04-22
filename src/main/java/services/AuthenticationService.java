@@ -45,4 +45,8 @@ public class AuthenticationService {
         }
         return false;
     }
+
+    public String getCurrentUsername() {
+        return cookbookRepository.getUsername();
+    }
 }

@@ -33,7 +33,8 @@ public class RecipeView implements View {
             System.out.println();
         }
         else if (userInput == 2) {
-            // TODO: Rating View
+            new RatingView(userService, authenticationService, recipeService, recipe).display();
+            return;
         }
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
