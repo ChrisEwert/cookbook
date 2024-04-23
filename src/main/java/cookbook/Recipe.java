@@ -37,7 +37,6 @@ public record Recipe(
         this(
             UUID.randomUUID().toString(),
             name,
-//            CookbookFileRepository.getUsername(),
             author,
             LocalDate.now(),
             ingredients,

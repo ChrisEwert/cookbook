@@ -1,7 +1,4 @@
-import cookbook.CookbookFileRepository;
-import cookbook.CookbookRepository;
-import cookbook.RecipeFileRepository;
-import cookbook.RecipeRepository;
+import cookbook.*;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
