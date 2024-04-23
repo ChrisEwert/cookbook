@@ -42,6 +42,14 @@ public class RatingView implements View {
             return;
         }
 
+        createRating();
+
+        Recipe updatedRecipe = recipeService.getRecipeById(recipe.id());
+
+        new RecipeView(userService, authenticationService, recipeService, updatedRecipe).display();
+    }
+
+    private void createRating() {
         String id = recipe.id();
 
         String username = authenticationService.getCurrentUsername();
@@ -58,12 +66,12 @@ public class RatingView implements View {
         String title = getUserInput();
         System.out.println();
 
+        addRating(id, username, stars, comment, title);
+    }
+
+    private void addRating(String id, String username, int stars, String title, String comment) {
         recipeService.addRating(id, username, stars, title, comment);
 
         recipeService.updateStarsOfRecipe(recipe);
-
-        Recipe updatedRecipe = recipeService.getRecipeById(id);
-
-        new RecipeView(userService, authenticationService, recipeService, updatedRecipe).display();
     }
 }
