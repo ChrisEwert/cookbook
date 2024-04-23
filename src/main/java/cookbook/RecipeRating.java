@@ -11,6 +11,8 @@ public record RecipeRating(
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
+
+        builder.append("───────────────────\n");
         showTopRow(builder);
         builder.append("\n");
 
@@ -18,13 +20,15 @@ public record RecipeRating(
         builder.append("\n");
 
         builder.append(comment);
+        builder.append("\n");
+        builder.append("───────────────────");
 
         return builder.toString();
     }
 
     private void showTopRow(StringBuilder builder) {
         builder.append(stars);
-        builder.append("⭑\t");
+        builder.append("⭑\t\t\t");
         builder.append(author);
     }
 }

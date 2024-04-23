@@ -45,6 +45,19 @@ public class RecipeService {
         return (recipe != null) ? formatRecipeToSelectData(recipe) : "Recipe not found";
     }
 
+    public List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
+        List<RecipeRating> allRatings = recipeRepository.getAllRatings();
+        List<RecipeRating> ratingsOfRecipe = new ArrayList<>();
+
+        for (RecipeRating rating : allRatings) {
+            if (Objects.equals(rating.recipeId(), recipeId)) {
+                ratingsOfRecipe.add(rating);
+            }
+        }
+
+        return ratingsOfRecipe;
+    }
+
     public Recipe getLastRecipe() {
         return getRecipeByIndex(recipeCount()-1);
     }
@@ -86,19 +99,6 @@ public class RecipeService {
         stars /= ratings.size();
 
         recipeRepository.setStars(recipe, stars, ratings.size());
-    }
-
-    private List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
-        List<RecipeRating> allRatings = recipeRepository.getAllRatings();
-        List<RecipeRating> ratingsOfRecipe = new ArrayList<>();
-
-        for (RecipeRating rating : allRatings) {
-            if (Objects.equals(rating.recipeId(), recipeId)) {
-                ratingsOfRecipe.add(rating);
-            }
-        }
-
-        return ratingsOfRecipe;
     }
 
     private String formatRecipeToSelectData(Recipe recipe) {
