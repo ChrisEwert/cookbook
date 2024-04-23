@@ -10,6 +10,8 @@ It allows users to create and share recipes.
 * read Recipes
 * categorize Recipes
 * bookmark Recipes
+* rate Recipes of other Users
+* read ratings of other Users
 * switch between different Users
 * add new Users
 
@@ -17,7 +19,6 @@ It allows users to create and share recipes.
 * update existing Recipe
 * delete existing Recipe
 * filter existing Recipes by Category or User
-* rate Recipes of other Users
 * list the Recipes of the active User
 * weekly plan
   * add Recipe to weekly plan
