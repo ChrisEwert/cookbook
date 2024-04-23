@@ -7,11 +7,11 @@ import java.nio.file.Path;
 public class FileDataHandler {
     String directoryName = "db";
 
-    boolean fileExists(Path filePath) {
-        return Files.exists(filePath);
-    }
-
     void createFile(Path filePath) {
+        if (Files.exists(filePath)) {
+            return;
+        }
+
         try {
             Files.createFile(filePath);
         } catch (IOException e) {

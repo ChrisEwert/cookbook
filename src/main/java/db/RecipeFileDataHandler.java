@@ -21,9 +21,7 @@ public class RecipeFileDataHandler extends FileDataHandler {
     public RecipeFileDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
 
-        if (!fileExists(filePath)) {
-            createFile(filePath);
-        }
+        createFile(filePath);
     }
 
     public List<Recipe> readRecipesFromDB() {

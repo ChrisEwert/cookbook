@@ -20,9 +20,7 @@ public class RatingFileDataHandler extends FileDataHandler {
     public RatingFileDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
 
-        if (!fileExists(filePath)) {
-            createFile(filePath);
-        }
+        createFile(filePath);
     }
 
     public List<RecipeRating> getAllRatingsFromDB() {

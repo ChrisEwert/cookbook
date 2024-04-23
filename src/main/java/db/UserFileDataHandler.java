@@ -22,9 +22,8 @@ public class UserFileDataHandler extends FileDataHandler {
 
     public UserFileDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
-        if (!fileExists(filePath)) {
-            createFile(filePath);
-        }
+
+        createFile(filePath);
     }
 
     public void saveUserToDB(CookbookUser user) {
