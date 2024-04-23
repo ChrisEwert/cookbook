@@ -36,13 +36,15 @@ public class RatingView implements View {
 
         if (recipeService.hasRated(authenticationService.getCurrentUsername())) {
             writeYellowLine("You have already rated this recipe!");
-            System.out.println();;
+            System.out.println();
 
             new RecipeView(userService, authenticationService, recipeService, recipe).display();
             return;
         }
 
         String id = recipe.id();
+
+        String username = authenticationService.getCurrentUsername();
 
         writeYellowLine("Enter how many stars out of 5 you would give this recipe");
         int stars = getNumberInputMinMax(0, 5);
@@ -56,10 +58,12 @@ public class RatingView implements View {
         String title = getUserInput();
         System.out.println();
 
-        recipeService.addRating(id, authenticationService.getCurrentUsername(), stars, title, comment);
+        recipeService.addRating(id, username, stars, title, comment);
 
         recipeService.updateStarsOfRecipe(recipe);
 
-        new RecipeView(userService, authenticationService, recipeService, recipeService.getRecipeById(recipe.id())).display();
+        Recipe updatedRecipe = recipeService.getRecipeById(id);
+
+        new RecipeView(userService, authenticationService, recipeService, updatedRecipe).display();
     }
 }

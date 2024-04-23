@@ -44,6 +44,13 @@ public class RatingFileDataHandler extends FileDataHandler {
         return new ArrayList<>();
     }
 
+    public void addRatingToDB(RecipeRating rating) {
+        List<RecipeRating> ratings = getAllRatingsFromDB();
+        ratings.add(rating);
+
+        saveRatingsToDB(ratings);
+    }
+
     private void saveRatingsToDB(List<RecipeRating> ratings) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -55,12 +62,5 @@ public class RatingFileDataHandler extends FileDataHandler {
         } catch (IOException e) {
             System.err.println("Error while saving recipes to file: " + filePath);
         }
-    }
-
-    public void addRatingToDB(RecipeRating rating) {
-        List<RecipeRating> ratings = getAllRatingsFromDB();
-        ratings.add(rating);
-
-        saveRatingsToDB(ratings);
     }
 }

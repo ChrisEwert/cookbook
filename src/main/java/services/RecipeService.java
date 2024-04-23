@@ -71,22 +71,28 @@ public class RecipeService {
     }
 
     public void updateStarsOfRecipe(Recipe recipe) {
+        List<RecipeRating> ratings = getRecipeRatingsByRecipeId(recipe.id());
+
+        float stars = 0;
+        for (RecipeRating rating : ratings) {
+            stars += rating.stars();
+        }
+        stars /= ratings.size();
+
+        recipeRepository.setStars(recipe, stars, ratings.size());
+    }
+
+    private List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
         List<RecipeRating> allRatings = recipeRepository.getAllRatings();
         List<RecipeRating> ratingsOfRecipe = new ArrayList<>();
 
         for (RecipeRating rating : allRatings) {
-            if (Objects.equals(rating.recipeId(), recipe.id())) {
+            if (Objects.equals(rating.recipeId(), recipeId)) {
                 ratingsOfRecipe.add(rating);
             }
         }
 
-        float stars = 0;
-        for (RecipeRating rating : ratingsOfRecipe) {
-            stars += rating.stars();
-        }
-        stars /= ratingsOfRecipe.size();
-
-        recipeRepository.setStars(recipe, stars, ratingsOfRecipe.size());
+        return ratingsOfRecipe;
     }
 
     private String formatRecipeToSelectData(Recipe recipe) {
