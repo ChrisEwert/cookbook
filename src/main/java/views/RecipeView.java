@@ -54,6 +54,6 @@ public class RecipeView implements View {
         System.out.println("0: Exit to recipe menu");
         System.out.println();
 
-        return getNumberInputMinMax(0, 2);
+        return getNumberInputMinMax(0, 3);
     }
 }

@@ -25,6 +25,8 @@ public class CreateNewRecipeView implements View{
         System.out.println("  CREATE RECIPE  ");
         System.out.println("└               ┘");
 
+        String author = authenticationService.getCurrentUsername();
+
         writeYellowLine("Enter the name of the recipe");
         String name = getUserInput();
         System.out.println();
@@ -45,7 +47,7 @@ public class CreateNewRecipeView implements View{
         int minutes = getNumberInput();
         System.out.println();
 
-        recipeService.saveRecipe(name, ingredients, content, categories, minutes);
+        recipeService.saveRecipe(name, author, ingredients, content, categories, minutes);
         writeGreenLine("Saved recipe!");
         System.out.println();
 

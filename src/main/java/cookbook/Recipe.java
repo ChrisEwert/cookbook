@@ -33,12 +33,12 @@ public record Recipe(
         );
     }
 
-    public Recipe(String name, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
+    public Recipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
         this(
             UUID.randomUUID().toString(),
             name,
 //            CookbookFileRepository.getUsername(),
-            "Placeholder",                                                                                              // TODO: Recipe should automatically set username -> Add parameter to constructor?
+            author,
             LocalDate.now(),
             ingredients,
             content,

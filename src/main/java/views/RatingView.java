@@ -34,7 +34,7 @@ public class RatingView implements View {
             return;
         }
 
-        if (recipeService.hasRated(authenticationService.getCurrentUsername())) {
+        if (recipeService.hasRated(authenticationService.getCurrentUsername(), recipe.id())) {
             writeYellowLine("You have already rated this recipe!");
             System.out.println();
 

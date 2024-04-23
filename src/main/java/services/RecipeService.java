@@ -49,18 +49,20 @@ public class RecipeService {
         return getRecipeByIndex(recipeCount()-1);
     }
 
-    public void saveRecipe(String name, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
-        Recipe recipe = new Recipe(name, ingredients, content, categories, minutes);
+    public void saveRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
+        Recipe recipe = new Recipe(name, author, ingredients, content, categories, minutes);
         recipeRepository.saveRecipe(recipe);
     }
 
-    public boolean hasRated(String username) {
-        List<RecipeRating> ratings = recipeRepository.getAllRatings();
+    public boolean hasRated(String username, String id) {
+        List<RecipeRating> ratings = getRecipeRatingsByRecipeId(id);
+
         for (RecipeRating rating : ratings) {
             if (Objects.equals(rating.author(), username)) {
                 return true;
             }
         }
+
         return false;
     }
 
