@@ -70,6 +70,10 @@ public class RecipeService {
         RecipeRating newRating = new RecipeRating(id, author, rating, title, comment);
 
         recipeRepository.addRating(newRating);
+
+        Recipe updatedRecipe = recipeRepository.getRecipeById(id);
+
+        updateStarsOfRecipe(updatedRecipe);
     }
 
     public void updateStarsOfRecipe(Recipe recipe) {
