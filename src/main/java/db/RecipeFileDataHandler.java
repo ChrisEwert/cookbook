@@ -14,11 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RecipeDataHandler implements DataHandler {
+public class RecipeFileDataHandler extends FileDataHandler {
     private final String fileName = "recipes.json";
     private final Path filePath;
 
-    public RecipeDataHandler() {
+    public RecipeFileDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
 
         if (!fileExists(filePath)) {

@@ -1,40 +1,23 @@
 package cookbook;
 
-import db.UserDataHandler;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-public class CookbookRepository {
-    private final UserDataHandler userDataHandler = new UserDataHandler();
-    private static Cookbook cookbook = new Cookbook();
+public interface CookbookRepository {
 
-    public void setUsername(String username) {
-        cookbook = cookbook.changeUser(username);
-    }
+    String getUsername();
 
-    public static String getUsername() {
-        return cookbook.username();
-    }
+    void setUsername(String username);
 
-    public LocalDate getCreationDate() {
-        return cookbook.dateOfCreation();
-    }
+    LocalDate getCreationDate();
 
-    public void saveUser(CookbookUser user) {
-        userDataHandler.saveUserToDB(user);
-    }
+    void saveUser(CookbookUser user);
 
-    public List<CookbookUser> getUserList() {
-        return userDataHandler.readUsersFromDB();
-    }
+    List<CookbookUser> getUserList();
 
-    public void bookmarkRecipeById(String id) {
-        userDataHandler.bookmarkRecipeById(getUsername(), id);
-    }
+    void bookmarkRecipeById(String id);
 
-    public Set<String> getBookmarkedRecipeIds() {
-        return userDataHandler.getBookmarkIds(getUsername());
-    }
+    Set<String> getBookmarkedRecipeIds();
+
 }

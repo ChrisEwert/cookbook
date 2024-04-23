@@ -1,4 +1,6 @@
+import cookbook.CookbookFileRepository;
 import cookbook.CookbookRepository;
+import cookbook.RecipeFileRepository;
 import cookbook.RecipeRepository;
 import services.AuthenticationService;
 import services.RecipeService;
@@ -7,8 +9,8 @@ import views.StartView;
 
 public class Main {
     public static void main(String[] args) {
-        CookbookRepository cookbookRepository = new CookbookRepository();
-        RecipeRepository recipeRepository = new RecipeRepository();
+        CookbookRepository cookbookRepository = new CookbookFileRepository();
+        RecipeRepository recipeRepository = new RecipeFileRepository();
 
         UserService userService = new UserService(cookbookRepository);
         AuthenticationService authenticationService = new AuthenticationService(cookbookRepository);

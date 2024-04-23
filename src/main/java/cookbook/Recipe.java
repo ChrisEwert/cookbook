@@ -1,9 +1,9 @@
 package cookbook;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
 
 public record Recipe(
         String id,
@@ -20,7 +20,7 @@ public record Recipe(
 
     public Recipe() {
         this(
-            RecipeRepository.getRandomId(),
+            UUID.randomUUID().toString(),
             "",
             "",
             LocalDate.now(),
@@ -35,9 +35,10 @@ public record Recipe(
 
     public Recipe(String name, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
         this(
-            RecipeRepository.getRandomId(),
+            UUID.randomUUID().toString(),
             name,
-            CookbookRepository.getUsername(),
+//            CookbookFileRepository.getUsername(),
+            "Placeholder",                                                                                              // TODO: Recipe should automatically set username -> Add parameter to constructor?
             LocalDate.now(),
             ingredients,
             content,

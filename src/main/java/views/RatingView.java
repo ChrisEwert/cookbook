@@ -48,7 +48,7 @@ public class RatingView implements View {
         String title = getUserInput();
         System.out.println();
 
-        recipeService.addRating(id, stars, title, comment);
+        recipeService.addRating(id, authenticationService.getCurrentUsername(), stars, title, comment);
 
         recipeService.updateStarsOfRecipe(recipe);
 

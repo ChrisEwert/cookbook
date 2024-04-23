@@ -1,40 +1,18 @@
 package cookbook;
 
-import db.RatingDataHandler;
-import db.RecipeDataHandler;
-
 import java.util.List;
-import java.util.UUID;
 
-public class RecipeRepository {
-    private final RecipeDataHandler recipeDataHandler = new RecipeDataHandler();
-    private final RatingDataHandler ratingDataHandler = new RatingDataHandler();
+public interface RecipeRepository {
 
-    public static String getRandomId() {
-        return UUID.randomUUID().toString();
-    }
+    void saveRecipe(Recipe recipe);
 
-    public void saveRecipe(Recipe recipe) {
-        recipeDataHandler.saveRecipeToDB(recipe);
-    }
+    List<Recipe> getAllRecipes();
 
-    public List<Recipe> getAllRecipes() {
-        return recipeDataHandler.readRecipesFromDB();
-    }
+    Recipe getRecipeById(String id);
 
-    public Recipe getRecipeById(String id) {
-        return recipeDataHandler.getRecipeById(id);
-    }
+    void addRating(RecipeRating rating);
 
-    public void addRating(RecipeRating rating) {
-        ratingDataHandler.addRatingToDB(rating);
-    }
+    void setStars(Recipe recipe, float stars, int ratingsCount);
 
-    public void setStars(Recipe recipe, float stars, int ratingsCount) {
-        recipeDataHandler.setRating(recipe.id(), stars, ratingsCount);
-    }
-
-    public List<RecipeRating> getAllRatings() {
-        return ratingDataHandler.getAllRatingsFromDB();
-    }
+    List<RecipeRating> getAllRatings();
 }

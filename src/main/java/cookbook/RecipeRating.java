@@ -2,8 +2,9 @@ package cookbook;
 
 public record RecipeRating(
     String recipeId,
+    String author,
     int stars,
     String title,
-    String comment                                                                                                      // TODO: Author of comment
+    String comment
 ) {                                                                                                                     // TODO: toString()
 }

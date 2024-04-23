@@ -58,8 +58,8 @@ public class RecipeService {
         return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 
-    public void addRating(String id, int rating, String title, String comment) {
-        RecipeRating newRating = new RecipeRating(id, rating, title, comment);
+    public void addRating(String id, String author, int rating, String title, String comment) {
+        RecipeRating newRating = new RecipeRating(id, author, rating, title, comment);
 
         recipeRepository.addRating(newRating);
     }

@@ -13,11 +13,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RatingDataHandler implements DataHandler {
+public class RatingFileDataHandler extends FileDataHandler {
     private final String fileName = "ratings.json";
     private final Path filePath;
 
-    public RatingDataHandler() {
+    public RatingFileDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
 
         if (!fileExists(filePath)) {

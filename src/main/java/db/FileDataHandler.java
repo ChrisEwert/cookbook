@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public interface DataHandler {
+public class FileDataHandler {
     String directoryName = "db";
 
-    default boolean fileExists(Path filePath) {
+    boolean fileExists(Path filePath) {
         return Files.exists(filePath);
     }
 
-    default void createFile(Path filePath) {
+    void createFile(Path filePath) {
         try {
             Files.createFile(filePath);
         } catch (IOException e) {

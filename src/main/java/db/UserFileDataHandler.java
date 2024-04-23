@@ -16,11 +16,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class UserDataHandler implements DataHandler {
+public class UserFileDataHandler extends FileDataHandler {
     private final String fileName = "users.json";
     private final Path filePath;
 
-    public UserDataHandler() {
+    public UserFileDataHandler() {
         this.filePath = Path.of(directoryName, fileName);
         if (!fileExists(filePath)) {
             createFile(filePath);
@@ -37,6 +37,16 @@ public class UserDataHandler implements DataHandler {
             objectMapper.writeValue(new File(String.valueOf(filePath)), listOfUsers);
         } catch (IOException e) {
             System.err.println("Error while saving username: " + user.username());
+        }
+    }
+
+    public void writeUsersToDB(List<CookbookUser> userList) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        try {
+            objectMapper.writeValue(new File(String.valueOf(filePath)), userList);
+        } catch (IOException e) {
+            System.err.println("Error while bookmarking recipe for username list");
         }
     }
 
@@ -69,23 +79,13 @@ public class UserDataHandler implements DataHandler {
     }
 
     public void bookmarkRecipeById(String username, String recipeId) {
-        try {
-            List<CookbookUser> userList = readUsersFromDB();
-            for (CookbookUser UserObj : userList) {
-                if (UserObj.username().equals(username)) {
-                    UserObj.bookmarkedRecipeIds().add(recipeId);
-                    break;
-                }
+           List<CookbookUser> userList = readUsersFromDB();
+        for (CookbookUser UserObj : userList) {
+            if (UserObj.username().equals(username)) {
+                UserObj.bookmarkedRecipeIds().add(recipeId);
+                break;
             }
-            writeUsersToDB(userList);
-        } catch (IOException e) {
-            System.err.println("Error while bookmarking recipe for username: " + username);
         }
-    }
-
-    private void writeUsersToDB(List<CookbookUser> userList) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.writeValue(new File(String.valueOf(filePath)), userList);
+        writeUsersToDB(userList);
     }
 }
