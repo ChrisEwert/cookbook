@@ -85,22 +85,22 @@ public record Recipe(
 
         showRecipeCookingSteps(builder);
 
-        builder.append("═════════════════════════════════════════════");
+        builder.append("═══════════════════════════════════════════════════════");
 
         return builder.toString();
     }
 
     private void showRecipeHeader(StringBuilder builder) {
-        builder.append("═════════════════════════════════════════════\n");
+        builder.append("═══════════════════════════════════════════════════════\n");
         builder.append(" ").append(name).append("\n");
-        builder.append("═════════════════════════════════════════════");
+        builder.append("═══════════════════════════════════════════════════════");
     }
 
     private void showRecipeMetadata(StringBuilder builder) {
         builder.append(author).append("\t\t");
         showRecipeRating(builder);
-        builder.append("/5⭑ (");
-        builder.append(ratingCount).append(" ratings)\t\t");
+        builder.append("/5⭑ [");
+        builder.append(ratingCount).append(" rating(s)]\t\t");
         builder.append(dateOfCreation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
 

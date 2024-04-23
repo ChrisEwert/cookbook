@@ -31,6 +31,9 @@ public class RecipeView implements View {
             userService.bookmarkRecipe(recipe);
             writeGreenLine("Bookmarked this recipe");
             System.out.println();
+
+            new RecipeView(userService, authenticationService, recipeService, recipe).display();
+            return;
         }
         else if (userInput == 2) {
             new RatingView(userService, authenticationService, recipeService, recipe).display();

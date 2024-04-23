@@ -15,21 +15,16 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public void saveRecipe(String name, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
-        Recipe recipe = new Recipe(name, ingredients, content, categories, minutes);
-        recipeRepository.saveRecipe(recipe);
-    }
-
-    public List<Recipe> getAllRecipes() {
-        return recipeRepository.getAllRecipes();
-    }
-
     public boolean noRecipesExist() {
         return recipeRepository.getAllRecipes().isEmpty();
     }
 
     public int recipeCount() {
         return recipeRepository.getAllRecipes().size();
+    }
+
+    public List<Recipe> getAllRecipes() {
+        return recipeRepository.getAllRecipes();
     }
 
     public Recipe getRecipeByIndex(int index) {
@@ -54,8 +49,19 @@ public class RecipeService {
         return getRecipeByIndex(recipeCount()-1);
     }
 
-    private String formatRecipeToSelectData(Recipe recipe) {
-        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
+    public void saveRecipe(String name, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
+        Recipe recipe = new Recipe(name, ingredients, content, categories, minutes);
+        recipeRepository.saveRecipe(recipe);
+    }
+
+    public boolean hasRated(String username) {
+        List<RecipeRating> ratings = recipeRepository.getAllRatings();
+        for (RecipeRating rating : ratings) {
+            if (Objects.equals(rating.author(), username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addRating(String id, String author, int rating, String title, String comment) {
@@ -81,5 +87,9 @@ public class RecipeService {
         stars /= ratingsOfRecipe.size();
 
         recipeRepository.setStars(recipe, stars, ratingsOfRecipe.size());
+    }
+
+    private String formatRecipeToSelectData(Recipe recipe) {
+        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 }

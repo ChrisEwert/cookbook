@@ -34,6 +34,14 @@ public class RatingView implements View {
             return;
         }
 
+        if (recipeService.hasRated(authenticationService.getCurrentUsername())) {
+            writeYellowLine("You have already rated this recipe!");
+            System.out.println();;
+
+            new RecipeView(userService, authenticationService, recipeService, recipe).display();
+            return;
+        }
+
         String id = recipe.id();
 
         writeYellowLine("Enter how many stars out of 5 you would give this recipe");

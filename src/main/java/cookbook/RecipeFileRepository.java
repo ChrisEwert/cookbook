@@ -21,15 +21,15 @@ public class RecipeFileRepository implements RecipeRepository {
         recipeDataHandler.saveRecipeToDB(recipe);
     }
 
+    public List<RecipeRating> getAllRatings() {
+        return ratingDataHandler.getAllRatingsFromDB();
+    }
+
     public void addRating(RecipeRating rating) {
         ratingDataHandler.addRatingToDB(rating);
     }
 
     public void setStars(Recipe recipe, float stars, int ratingsCount) {
         recipeDataHandler.setRating(recipe.id(), stars, ratingsCount);
-    }
-
-    public List<RecipeRating> getAllRatings() {
-        return ratingDataHandler.getAllRatingsFromDB();
     }
 }
