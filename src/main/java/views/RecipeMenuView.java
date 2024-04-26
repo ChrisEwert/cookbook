@@ -35,6 +35,9 @@ public class RecipeMenuView implements View {
             new BookmarkView(userService, authenticationService, recipeService).display();
         }
         else if (input == 4) {
+            new YourRecipesView(userService, authenticationService, recipeService).display();
+        }
+        else if (input == 5) {
             authenticationService.logout();
             writeGreenLine("Logged out.");
             System.out.println();
@@ -50,9 +53,10 @@ public class RecipeMenuView implements View {
         System.out.println("1: I want to read a recipe");
         System.out.println("2: I want to create a new recipe");
         System.out.println("3: I want to see my bookmarked recipes");
-        System.out.println("4: I want to log out");
+        System.out.println("4: I want to see my recipes");
+        System.out.println("5: I want to log out");
         System.out.println("0: Close cookbook");
         System.out.println();
-        return getNumberInputMinMax(0, 4);
+        return getNumberInputMinMax(0, 5);
     }
 }

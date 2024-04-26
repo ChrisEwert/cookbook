@@ -45,6 +45,19 @@ public class RecipeService {
         return (recipe != null) ? formatRecipeToSelectData(recipe) : "Recipe not found";
     }
 
+    public List<Recipe> getRecipesByUsername(String username) {
+        List<Recipe> recipes = recipeRepository.getAllRecipes();
+        List<Recipe> filteredRecipes = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            if (Objects.equals(recipe.author(), username)) {
+                filteredRecipes.add(recipe);
+            }
+        }
+
+        return filteredRecipes;
+    }
+
     public List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
         List<RecipeRating> allRatings = recipeRepository.getAllRatings();
         List<RecipeRating> ratingsOfRecipe = new ArrayList<>();
