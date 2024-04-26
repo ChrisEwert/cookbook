@@ -10,6 +10,7 @@ It allows users to create and share recipes.
 * read Recipes
 * categorize Recipes
 * bookmark Recipes
+* list the Recipes of the active User
 * rate Recipes of other Users
 * read ratings of other Users
 * switch between different Users
@@ -19,7 +20,6 @@ It allows users to create and share recipes.
 * update existing Recipe
 * delete existing Recipe
 * filter existing Recipes by Category or User
-* list the Recipes of the active User
 * weekly plan
   * add Recipe to weekly plan
   * calculate the ingredients that need to be bought
@@ -32,6 +32,7 @@ It allows users to create and share recipes.
 * User: person interacting with the CookBook
 * Author: User who created a Recipe
 * Category: brief description that helps with classifying and grouping Recipes
+* Rating: combination of a number of stars between 0 and 5, a comment and a title with the purpose of rating a Recipe
 
 ## Descriptions
 * CookBook 
@@ -64,3 +65,4 @@ It allows users to create and share recipes.
 ## DataHandler List
 * UserDataHandler: manages the connection to the file that stores the Users (db/users.json)
 * RecipeDataHandler: manages the connection to the file that stores the Recipes (db/recipes.json)
+* RatingDataHandler: manages the connection to the file that stores the Ratings (db/ratings.json)
