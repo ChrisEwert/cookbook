@@ -27,7 +27,15 @@ public class ShowRatingsView implements View {
         System.out.println("  RATINGS  ");
         System.out.println("└         ┘");
 
-        List<RecipeRating> ratings = recipeService.getRecipeRatingsByRecipeId(recipe.id());                             // TODO: Only show 3 ratings. User has to ask for more if he wants more
+        if (recipeService.hasRatings(recipe.id())) {
+            writeYellowLine("This recipe has not been rated yet.");
+            System.out.println();
+
+            new RecipeView(userService, authenticationService, recipeService, recipe).display();
+            return;
+        }
+
+        List<RecipeRating> ratings = recipeService.getRecipeRatingsByRecipeId(recipe.id());
         ratings.forEach(System.out::println);
         System.out.println();
 

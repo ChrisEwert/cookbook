@@ -52,7 +52,7 @@ public class CreateNewRecipeView implements View{
         System.out.println();
 
         Recipe lastRecipe = recipeService.getLastRecipe();
-        System.out.println(lastRecipe);
+        writeGreenLine(lastRecipe.toString());
         System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();

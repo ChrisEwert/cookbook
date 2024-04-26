@@ -79,6 +79,11 @@ public class RecipeService {
         return false;
     }
 
+    public boolean hasRatings(String id) {
+        List<RecipeRating> ratings = getRecipeRatingsByRecipeId(id);
+        return ratings.isEmpty();
+    }
+
     public void addRating(String id, String author, int rating, String title, String comment) {
         RecipeRating newRating = new RecipeRating(id, author, rating, title, comment);
 

@@ -26,7 +26,7 @@ public interface View {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("Your input: ");
+            System.out.print("> ");
             String input = scanner.nextLine().trim();
 
             if (!input.isEmpty()) {
