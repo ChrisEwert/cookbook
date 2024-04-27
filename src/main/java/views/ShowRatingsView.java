@@ -3,6 +3,7 @@ package views;
 import cookbook.Recipe;
 import cookbook.RecipeRating;
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -12,12 +13,14 @@ public class ShowRatingsView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
     private final Recipe recipe;
 
-    public ShowRatingsView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, Recipe recipe) {
+    public ShowRatingsView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService, Recipe recipe) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
         this.recipe = recipe;
     }
 
@@ -27,13 +30,13 @@ public class ShowRatingsView implements View {
         System.out.println("  RATINGS  ");
         System.out.println("└         ┘");
 
-        List<RecipeRating> ratings = recipeService.getRecipeRatingsByRecipeId(recipe.id());
+        List<RecipeRating> ratings = ratingService.getRatingsByRecipeId(recipe.id());
 
         if (ratings.isEmpty()) {
             writeYellowLine("This recipe has not been rated yet.");
             System.out.println();
 
-            new RecipeView(userService, authenticationService, recipeService, recipe).display();
+            new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
             return;
         }
 
@@ -51,7 +54,7 @@ public class ShowRatingsView implements View {
             // TODO
         }
 
-        new RecipeView(userService, authenticationService, recipeService, recipe).display();
+        new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
     }
 
     private void printRatings(List<RecipeRating> ratings) {

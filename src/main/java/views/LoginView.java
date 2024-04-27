@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -8,21 +9,24 @@ public class LoginView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
     private final String username;
     private String password;
 
-    public LoginView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, String username) {
+    public LoginView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService, String username) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
         this.username = username;
         password = null;
     }
 
-    public LoginView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, String username, String password) {
+    public LoginView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService, String username, String password) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
         this.username = username;
         this.password = password;
     }
@@ -32,7 +36,7 @@ public class LoginView implements View {
         if (password != null) {
             login();
 
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
@@ -44,7 +48,7 @@ public class LoginView implements View {
             if (password.equalsIgnoreCase("q")) {
                 System.out.println();
 
-                new LoginMenuView(userService, authenticationService, recipeService).display();
+                new LoginMenuView(userService, authenticationService, recipeService, ratingService).display();
                 return;
             }
 
@@ -59,7 +63,7 @@ public class LoginView implements View {
 
         login();
 
-        new RecipeMenuView(userService, authenticationService, recipeService).display();
+        new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
     }
 
     private void login() {

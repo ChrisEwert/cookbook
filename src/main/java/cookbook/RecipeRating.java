@@ -1,12 +1,26 @@
 package cookbook;
 
+import java.util.UUID;
+
 public record RecipeRating(
+    String id,
     String recipeId,
     String author,
     int stars,
     String title,
     String comment
 ) {
+    public RecipeRating(String recipeId, String author, int stars, String title, String comment) {
+        this(
+            UUID.randomUUID().toString(),
+            recipeId,
+            author,
+            stars,
+            title,
+            comment
+        );
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

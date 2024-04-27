@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -11,11 +12,13 @@ public class CreateNewRecipeView implements View{
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
 
-    public CreateNewRecipeView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
+    public CreateNewRecipeView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class CreateNewRecipeView implements View{
 //        writeGreenLine(lastRecipe.toString());
 //        System.out.println();
 
-        new RecipeMenuView(userService, authenticationService, recipeService).display();
+        new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
     }
 
     private List<String> getList(String topic, String nextTopic) {

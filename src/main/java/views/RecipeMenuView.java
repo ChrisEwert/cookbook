@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -8,11 +9,13 @@ public class RecipeMenuView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
 
-    public RecipeMenuView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
+    public RecipeMenuView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -29,19 +32,19 @@ public class RecipeMenuView implements View {
         System.out.println();
 
         if (input == 1) {
-            new ShowRecipeListView(userService, authenticationService, recipeService).display();
+            new ShowRecipeListView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
         else if (input == 2) {
-            new CreateNewRecipeView(userService, authenticationService, recipeService).display();
+            new CreateNewRecipeView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
         else if (input == 3) {
-            new BookmarkView(userService, authenticationService, recipeService).display();
+            new BookmarkView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
         else if (input == 4) {
-            new YourRecipesView(userService, authenticationService, recipeService).display();
+            new YourRecipesView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
         else if (input == 5) {
@@ -50,7 +53,7 @@ public class RecipeMenuView implements View {
             writeGreenLine("Logged out.");
             System.out.println();
 
-            new LoginMenuView(userService, authenticationService, recipeService).display();
+            new LoginMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 

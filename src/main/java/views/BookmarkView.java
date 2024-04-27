@@ -2,6 +2,7 @@ package views;
 
 import cookbook.Recipe;
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -11,11 +12,13 @@ public class BookmarkView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
 
-    public BookmarkView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
+    public BookmarkView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class BookmarkView implements View {
             writeYellowLine("There are no bookmarked recipes!");
             System.out.println();
 
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
@@ -43,7 +46,7 @@ public class BookmarkView implements View {
         System.out.println();
 
         if (input == 0) {
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
@@ -52,7 +55,7 @@ public class BookmarkView implements View {
         System.out.println(selectedRecipe);
         System.out.println();
 
-        new RecipeMenuView(userService, authenticationService, recipeService).display();
+        new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
     }
 
     private void printOptions(List<String> bookmarkedIds) {

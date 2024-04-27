@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -8,11 +9,13 @@ public class StartView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
 
-    public StartView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
+    public StartView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -30,6 +33,6 @@ public class StartView implements View {
         writeYellowLine("To start, please log in.");
         System.out.println();
 
-        new LoginMenuView(userService, authenticationService, recipeService).display();
+        new LoginMenuView(userService, authenticationService, recipeService, ratingService).display();
     }
 }

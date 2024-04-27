@@ -3,7 +3,6 @@ package cookbook;
 import db.RatingFileDataHandler;
 import db.RecipeFileDataHandler;
 
-import java.util.List;
 import java.util.Map;
 
 public class RecipeFileRepository implements RecipeRepository {
@@ -18,21 +17,25 @@ public class RecipeFileRepository implements RecipeRepository {
         return recipeDataHandler.getRecipeById(id);
     }
 
-    public void saveRecipe(Recipe recipe) {
-        recipeDataHandler.saveRecipeToDB(recipe);
+    public void addRecipe(Recipe recipe) {
+        recipeDataHandler.addRecipeToDB(recipe);
     }
 
-    public void updateRecipeRating(Recipe recipe, float stars, int ratingCount) {
-        Recipe newRecipe = recipe.changeRating(stars, ratingCount);
-
-        recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
-    }
-
-    public List<RecipeRating> getAllRatings() {
+    public Map<String, RecipeRating> getAllRatings() {
         return ratingDataHandler.getAllRatingsFromDB();
+    }
+
+    public RecipeRating getRatingById(String id) {
+        return ratingDataHandler.getRatingById(id);
     }
 
     public void addRating(RecipeRating rating) {
         ratingDataHandler.addRatingToDB(rating);
+    }
+
+    public void updateRatingOfRecipe(Recipe recipe, float stars, int ratingCount) {
+        Recipe newRecipe = recipe.changeRating(stars, ratingCount);
+
+        recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
     }
 }

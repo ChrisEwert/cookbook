@@ -4,14 +4,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import cookbook.Recipe;
 import cookbook.RecipeRating;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RatingFileDataHandler extends FileDataHandler {
     private final String fileName = "ratings.json";
@@ -23,7 +24,7 @@ public class RatingFileDataHandler extends FileDataHandler {
         createFile(filePath);
     }
 
-    public List<RecipeRating> getAllRatingsFromDB() {
+    public Map<String, RecipeRating> getAllRatingsFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.registerModule(new JavaTimeModule());
@@ -32,26 +33,25 @@ public class RatingFileDataHandler extends FileDataHandler {
             byte[] usersJsonData = Files.readAllBytes(filePath);
 
             if (usersJsonData.length == 0) {
-                return new ArrayList<>();
+                return new HashMap<>();
             }
 
-            TypeReference<List<RecipeRating>> typeReference = new TypeReference<>() {};
+            TypeReference<Map<String, RecipeRating>> typeReference = new TypeReference<>() {};
 
             return objectMapper.readValue(usersJsonData, typeReference);
         } catch (IOException e) {
             System.err.println("Error while reading ratings from file: " + filePath);
         }
-        return new ArrayList<>();
+        return new HashMap<>();
     }
 
-    public void addRatingToDB(RecipeRating rating) {
-        List<RecipeRating> ratings = getAllRatingsFromDB();
-        ratings.add(rating);
+    public RecipeRating getRatingById(String id) {
+        Map<String, RecipeRating> ratings = getAllRatingsFromDB();
 
-        saveRatingsToDB(ratings);
+        return ratings.get(id);
     }
 
-    private void saveRatingsToDB(List<RecipeRating> ratings) {
+    private void saveAllRatingsToDB(Map<String, RecipeRating> ratings) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -62,5 +62,26 @@ public class RatingFileDataHandler extends FileDataHandler {
         } catch (IOException e) {
             System.err.println("Error while saving recipes to file: " + filePath);
         }
+    }
+
+    public void addRatingToDB(RecipeRating rating) {
+        Map<String, RecipeRating> ratings = getAllRatingsFromDB();
+
+        ratings.put(rating.id(), rating);
+
+        saveAllRatingsToDB(ratings);
+    }
+
+    public void updateRatingInDB(String id, RecipeRating newRating) {
+        Map<String, RecipeRating> ratings = getAllRatingsFromDB();
+
+        if (!ratings.containsKey(id)) {
+            System.err.println("Error: Rating with ID " + id + " not found.");
+            return;
+        }
+
+        ratings.put(id, newRating);
+
+        saveAllRatingsToDB(ratings);
     }
 }

@@ -2,6 +2,7 @@ package views;
 
 import cookbook.Recipe;
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -9,12 +10,14 @@ public class RatingView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
     private final Recipe recipe;
 
-    public RatingView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, Recipe recipe) {
+    public RatingView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService, Recipe recipe) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
         this.recipe = recipe;
     }
 
@@ -30,15 +33,15 @@ public class RatingView implements View {
             writeYellowLine("You cannot rate your own recipe!");
             System.out.println();
 
-            new RecipeView(userService, authenticationService, recipeService, recipe).display();
+            new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
             return;
         }
 
-        if (recipeService.hasRated(currentUsername, recipe.id())) {
+        if (ratingService.hasRated(currentUsername, recipe.id())) {
             writeYellowLine("You have already rated this recipe!");
             System.out.println();
 
-            new RecipeView(userService, authenticationService, recipeService, recipe).display();
+            new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
             return;
         }
 
@@ -46,7 +49,7 @@ public class RatingView implements View {
 
         Recipe updatedRecipe = recipeService.getRecipeById(recipe.id());
 
-        new RecipeView(userService, authenticationService, recipeService, updatedRecipe).display();
+        new RecipeView(userService, authenticationService, recipeService, ratingService, updatedRecipe).display();
     }
 
     private void createRating() {
@@ -66,6 +69,6 @@ public class RatingView implements View {
         String title = getUserInput();
         System.out.println();
 
-        recipeService.addRating(id, username, stars, title, comment);
+        ratingService.addRating(id, username, stars, title, comment);
     }
 }

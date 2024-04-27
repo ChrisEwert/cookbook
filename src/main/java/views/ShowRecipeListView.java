@@ -2,6 +2,7 @@ package views;
 
 import cookbook.Recipe;
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -11,11 +12,13 @@ public class ShowRecipeListView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
 
-    public ShowRecipeListView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
+    public ShowRecipeListView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class ShowRecipeListView implements View {
             writeYellowLine("There are no recipes yet!");
             System.out.println();
 
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
@@ -43,14 +46,14 @@ public class ShowRecipeListView implements View {
         System.out.println();
 
         if (recipeIndex == 0) {
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
         String recipeId = recipeService.getRecipeIdByIndex(recipeIndex);
         Recipe recipe = recipeService.getRecipeById(recipeId);
 
-        new RecipeView(userService, authenticationService, recipeService, recipe).display();
+        new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
     }
 
     private void printOptions(Map<String, Recipe> allRecipes) {

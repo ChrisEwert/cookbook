@@ -64,7 +64,7 @@ public class RecipeFileDataHandler extends FileDataHandler {
         }
     }
 
-    public void saveRecipeToDB(Recipe recipe) {
+    public void addRecipeToDB(Recipe recipe) {
         Map<String, Recipe> recipes = getAllRecipesFromDB();
 
         recipes.put(recipe.id(), recipe);

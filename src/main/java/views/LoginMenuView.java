@@ -1,6 +1,7 @@
 package views;
 
 import services.AuthenticationService;
+import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
@@ -11,11 +12,13 @@ public class LoginMenuView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
+    private final RatingService ratingService;
 
-    public LoginMenuView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService) {
+    public LoginMenuView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class LoginMenuView implements View {
             writeYellowLine("You are the first user of this cookbook!");
             System.out.println();
 
-            new CreateNewUserView(userService, authenticationService, recipeService).display();
+            new CreateNewUserView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
@@ -46,11 +49,11 @@ public class LoginMenuView implements View {
         System.out.println();
 
         if (Objects.equals(userMenuInput, 1)) {
-            new SelectAvailableUserView(userService, authenticationService, recipeService).display();
+            new SelectAvailableUserView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
         else if (Objects.equals(userMenuInput, 2)) {
-            new CreateNewUserView(userService, authenticationService, recipeService).display();
+            new CreateNewUserView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
