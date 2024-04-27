@@ -5,6 +5,8 @@ import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
 
+import java.util.List;
+
 public class ShowRecipeListView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;
@@ -30,7 +32,7 @@ public class ShowRecipeListView implements View {
             return;
         }
 
-        writeYellowLine("Here is a list of all the recipes");
+        writeYellowLine("Here is a list of all recipes");
         printOptions();
         System.out.println();                                                                                           // TODO: Filter mechanic
 
@@ -43,13 +45,16 @@ public class ShowRecipeListView implements View {
             return;
         }
 
-        Recipe recipe = recipeService.getRecipeByIndex(recipeIndex - 1);
+        String recipeId = recipeService.getRecipeIdByIndex(recipeIndex);
+        Recipe recipe = recipeService.getRecipeById(recipeId);
+
         new RecipeView(userService, authenticationService, recipeService, recipe).display();
     }
 
     private void printOptions() {
-        for (int i = 0; i < recipeService.recipeCount(); i++) {
-            System.out.println(i+1 + ": " + recipeService.getRecipeSelectDataByIndex(i));
+        List<String> recipeData = recipeService.getAllRecipeSelectData();
+        for (int i = 0; i < recipeData.size(); i++) {
+            System.out.println(i+1 + ": " + recipeData.get(i));
         }
         System.out.println("0: Go back");
     }

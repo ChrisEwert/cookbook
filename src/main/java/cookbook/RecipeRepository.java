@@ -1,12 +1,13 @@
 package cookbook;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RecipeRepository {
 
     void saveRecipe(Recipe recipe);
 
-    List<Recipe> getAllRecipes();
+    Map<String, Recipe> getAllRecipes();
 
     Recipe getRecipeById(String id);
 

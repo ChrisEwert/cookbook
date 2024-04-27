@@ -6,6 +6,7 @@ import cookbook.RecipeRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class RecipeService {
@@ -15,25 +16,29 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public boolean noRecipesExist() {
-        return recipeRepository.getAllRecipes().isEmpty();
-    }
-
-    public int recipeCount() {
-        return recipeRepository.getAllRecipes().size();
-    }
-
-    public List<Recipe> getAllRecipes() {
+    public Map<String, Recipe> getAllRecipes() {
         return recipeRepository.getAllRecipes();
     }
 
-    public Recipe getRecipeByIndex(int index) {
-        return getAllRecipes().get(index);
+    public List<String> getAllRecipeSelectData() {
+        List<String> data = new ArrayList<>();
+
+        for (Recipe recipe : getAllRecipes().values()) {
+            data.add(formatRecipeToSelectData(recipe));
+        }
+
+        return data;
     }
 
-    public String getRecipeSelectDataByIndex(int index) {
-        Recipe recipe = getRecipeByIndex(index);
-        return formatRecipeToSelectData(recipe);
+    public String getRecipeIdByIndex(int index) {
+        int count = 1;
+        for (Recipe recipe : getAllRecipes().values()) {
+            if (count == index) {
+                return recipe.id();
+            }
+            count++;
+        }
+        return null;
     }
 
     public Recipe getRecipeById(String id) {
@@ -45,17 +50,16 @@ public class RecipeService {
         return (recipe != null) ? formatRecipeToSelectData(recipe) : "Recipe not found";
     }
 
-    public List<Recipe> getRecipesByUsername(String username) {
-        List<Recipe> recipes = recipeRepository.getAllRecipes();
-        List<Recipe> filteredRecipes = new ArrayList<>();
+//    public List<Recipe> getRecipesByUsername(String username) {
+//        return List.of();       // TODO
+//    }
 
-        for (Recipe recipe : recipes) {
-            if (Objects.equals(recipe.author(), username)) {
-                filteredRecipes.add(recipe);
-            }
-        }
+    public int recipeCount() {
+        return recipeRepository.getAllRecipes().size();
+    }
 
-        return filteredRecipes;
+    public boolean noRecipesExist() {
+        return recipeCount() == 0;
     }
 
     public List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
@@ -69,10 +73,6 @@ public class RecipeService {
         }
 
         return ratingsOfRecipe;
-    }
-
-    public Recipe getLastRecipe() {
-        return getRecipeByIndex(recipeCount()-1);
     }
 
     public void saveRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {

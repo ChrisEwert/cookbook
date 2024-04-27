@@ -10,9 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class RecipeFileDataHandler extends FileDataHandler {
     private final String fileName = "recipes.json";
@@ -24,7 +22,7 @@ public class RecipeFileDataHandler extends FileDataHandler {
         createFile(filePath);
     }
 
-    public List<Recipe> readRecipesFromDB() {
+    public Map<String, Recipe> readAllRecipesFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.registerModule(new JavaTimeModule());
@@ -33,52 +31,45 @@ public class RecipeFileDataHandler extends FileDataHandler {
             byte[] usersJsonData = Files.readAllBytes(filePath);
 
             if (usersJsonData.length == 0) {
-                return new ArrayList<>();
+                return new HashMap<>();
             }
 
-            TypeReference<List<Recipe>> typeReference = new TypeReference<>() {};
+            TypeReference<Map<String, Recipe>> typeReference = new TypeReference<>() {};
 
             return objectMapper.readValue(usersJsonData, typeReference);
         } catch (IOException e) {
             System.err.println("Error while reading recipes from file: " + filePath);
         }
-        return new ArrayList<>();
+        return new HashMap<>();
     }
 
     public Recipe getRecipeById(String id) {
-        List<Recipe> listOfRecipes = readRecipesFromDB();
+        Map<String, Recipe> recipes = readAllRecipesFromDB();
 
-        for (Recipe r : listOfRecipes) {
-            if (Objects.equals(r.id(), id)) {
-                return r;
-            }
-        }
-        return null;
+        return recipes.get(id);
     }
 
     public void saveRecipeToDB(Recipe recipe) {
-        List<Recipe> listOfRecipes = readRecipesFromDB();
-        listOfRecipes.add(recipe);
+        Map<String, Recipe> recipes = readAllRecipesFromDB();
+        recipes.put(recipe.id(), recipe);
 
-        saveRecipesToDB(listOfRecipes);
+        saveRecipesToDB(recipes);
     }
 
     public void updateRecipe(String id, Recipe newRecipe) {
-        List<Recipe> listOfRecipes = readRecipesFromDB();
+        Map<String, Recipe> recipes = readAllRecipesFromDB();
 
-        for (int i = 0; i < listOfRecipes.size(); i++) {
-            Recipe recipe = listOfRecipes.get(i);
-            if (Objects.equals(recipe.id(), id)) {
-                listOfRecipes.set(i, newRecipe);
-                saveRecipesToDB(listOfRecipes);
-                return;
-            }
+        if (!recipes.containsKey(id)) {
+            System.err.println("Error: Recipe with ID " + id + " not found.");
+            return;
         }
 
-        System.err.println("Error: Recipe with ID " + id + " not found.");
+        recipes.put(id, newRecipe);
+        saveRecipesToDB(recipes);
     }
 
-    private void saveRecipesToDB(List<Recipe> recipes) {
+
+    private void saveRecipesToDB(Map<String, Recipe> recipes) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);

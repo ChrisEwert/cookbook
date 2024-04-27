@@ -24,17 +24,17 @@ public class YourRecipesView implements View {
         System.out.println("  YOUR RECIPES  ");
         System.out.println("└              ┘");
 
-        List<Recipe> recipes = recipeService.getRecipesByUsername(authenticationService.getCurrentUsername());
-
-        if (recipes.isEmpty()) {
-            writeYellowLine("You have not created any recipes.");
-            System.out.println();
-
-            new RecipeMenuView(userService, authenticationService, recipeService).display();
-            return;
-        }
-
-        recipes.forEach(System.out::println);
+//        List<Recipe> recipes = recipeService.getRecipesByUsername(authenticationService.getCurrentUsername());
+//
+//        if (recipes.isEmpty()) {
+//            writeYellowLine("You have not created any recipes.");
+//            System.out.println();
+//
+//            new RecipeMenuView(userService, authenticationService, recipeService).display();
+//            return;
+//        }
+//
+//        recipes.forEach(System.out::println);
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }

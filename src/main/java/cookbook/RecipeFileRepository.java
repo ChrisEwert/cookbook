@@ -4,13 +4,14 @@ import db.RatingFileDataHandler;
 import db.RecipeFileDataHandler;
 
 import java.util.List;
+import java.util.Map;
 
 public class RecipeFileRepository implements RecipeRepository {
     private final RecipeFileDataHandler recipeDataHandler = new RecipeFileDataHandler();
     private final RatingFileDataHandler ratingDataHandler = new RatingFileDataHandler();
 
-    public List<Recipe> getAllRecipes() {
-        return recipeDataHandler.readRecipesFromDB();
+    public Map<String, Recipe> getAllRecipes() {
+        return recipeDataHandler.readAllRecipesFromDB();
     }
 
     public Recipe getRecipeById(String id) {
