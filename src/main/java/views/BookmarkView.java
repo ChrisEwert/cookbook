@@ -57,7 +57,10 @@ public class BookmarkView implements View {
 
     private void printOptions(List<String> bookmarkedIds) {
         for (int i = 0; i < bookmarkedIds.size(); i++) {
-            System.out.println(i+1 + ": " + recipeService.getRecipeSelectDataById(bookmarkedIds.get(i)));
+            String id = bookmarkedIds.get(i);
+            Recipe recipe = recipeService.getRecipeById(id);
+            String data = recipeService.formatRecipeToSelectData(recipe);
+            System.out.println(i+1 + ": " + data);
         }
         System.out.println("0: Go back");
     }

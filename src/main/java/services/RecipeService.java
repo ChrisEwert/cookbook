@@ -37,10 +37,8 @@ public class RecipeService {
         return recipeRepository.getRecipeById(id);
     }
 
-    public String getRecipeSelectDataById(String id) {
-        Recipe recipe = getRecipeById(id);
-
-        return formatRecipeToSelectData(recipe);
+    public String formatRecipeToSelectData(Recipe recipe) {
+        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 
     public List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
@@ -98,9 +96,5 @@ public class RecipeService {
         stars /= ratings.size();
 
         recipeRepository.updateRecipeRating(recipe, stars, ratings.size());
-    }
-
-    public String formatRecipeToSelectData(Recipe recipe) {
-        return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 }
