@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class FileDataHandler {
-    String directoryName = "db";
+    final String directoryName = "db";
 
     void createFile(Path filePath) {
         if (Files.exists(filePath)) {

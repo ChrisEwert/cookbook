@@ -5,8 +5,6 @@ import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
 
-import java.util.Objects;
-
 public class RatingView implements View {
     private final UserService userService;
     private final AuthenticationService authenticationService;

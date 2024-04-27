@@ -20,16 +20,6 @@ public class RecipeService {
         return recipeRepository.getAllRecipes();
     }
 
-    public List<String> getAllRecipeSelectData() {
-        List<String> data = new ArrayList<>();
-
-        for (Recipe recipe : getAllRecipes().values()) {
-            data.add(formatRecipeToSelectData(recipe));
-        }
-
-        return data;
-    }
-
     public String getRecipeIdByIndex(int index) {
         int count = 1;
 
@@ -51,16 +41,6 @@ public class RecipeService {
         Recipe recipe = getRecipeById(id);
 
         return formatRecipeToSelectData(recipe);
-    }
-
-    public int recipeCount() {
-        Map<String, Recipe> recipes = getAllRecipes();
-
-        return recipes.size();
-    }
-
-    public boolean noRecipesExist() {
-        return recipeCount() == 0;
     }
 
     public List<RecipeRating> getRecipeRatingsByRecipeId(String recipeId) {
@@ -96,12 +76,6 @@ public class RecipeService {
         }
 
         return false;
-    }
-
-    public boolean hasRatings(String id) {
-        List<RecipeRating> ratings = getRecipeRatingsByRecipeId(id);
-
-        return ratings.isEmpty();
     }
 
     public void addRating(String id, String author, int rating, String title, String comment) {

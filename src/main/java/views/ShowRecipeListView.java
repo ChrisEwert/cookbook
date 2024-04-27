@@ -5,7 +5,6 @@ import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
 
-import java.util.List;
 import java.util.Map;
 
 public class ShowRecipeListView implements View {

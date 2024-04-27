@@ -26,22 +26,6 @@ public class UserService {
         return new ArrayList<>(usernames);
     }
 
-    public String getUsernameByIndex(int index) {
-        List<String> usernames = getAllUsernames();
-
-        return usernames.get(index);
-    }
-
-    public int getUserCount() {
-        Map<String, CookbookUser> users = getAllUsers();
-
-        return users.size();
-    }
-
-    public boolean noUsersExist() {
-        return getUserCount() == 0;
-    }
-
     public void createNewUser(String username, String password) {
         CookbookUser user = new CookbookUser(username, password);
 
