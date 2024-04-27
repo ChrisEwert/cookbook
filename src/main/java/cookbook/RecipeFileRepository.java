@@ -21,6 +21,10 @@ public class RecipeFileRepository implements RecipeRepository {
         recipeDataHandler.addRecipeToDB(recipe);
     }
 
+    public void updateRecipe(String id, Recipe newRecipe) {
+        recipeDataHandler.updateRecipeInDB(id, newRecipe);
+    }
+
     public Map<String, RecipeRating> getAllRatings() {
         return ratingDataHandler.getAllRatingsFromDB();
     }

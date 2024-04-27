@@ -10,6 +10,8 @@ public interface RecipeRepository {
 
     void addRecipe(Recipe recipe);
 
+    void updateRecipe(String id, Recipe newRecipe);
+
     Map<String, RecipeRating> getAllRatings();
 
     void addRating(RecipeRating rating);

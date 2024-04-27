@@ -62,4 +62,11 @@ public class RecipeService {
     public boolean isAuthor(String username, Recipe recipe) {
         return Objects.equals(recipe.author(), username);
     }
+
+    public void updateRecipe(String id, String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
+        Recipe newRecipe = getRecipeById(id);
+        newRecipe = newRecipe.updateRecipe(name, author, ingredients, content, categories, minutes);
+
+        recipeRepository.updateRecipe(id, newRecipe);
+    }
 }

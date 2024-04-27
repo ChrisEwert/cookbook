@@ -51,16 +51,14 @@ public class YourRecipesView implements View {
         }
 
         Recipe selectedRecipe = recipes.get(input - 1);
-        System.out.println(selectedRecipe);
-        System.out.println();
 
-        new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
+        new YourSelectedRecipeView(userService, authenticationService, recipeService, ratingService, selectedRecipe).display();
     }
 
     private void printOptions(List<Recipe> recipes) {
         for (int i=0 ; i<recipes.size() ; i++) {
             System.out.println(i+1 + ": " + recipes.get(i).name());
         }
-        System.out.println("0: Go back");
+        System.out.println("0: Go back to recipe menu");
     }
 }

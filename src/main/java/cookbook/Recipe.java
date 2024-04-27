@@ -48,6 +48,21 @@ public record Recipe(
         );
     }
 
+    public Recipe updateRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
+        return new Recipe(
+            this.id,
+            name,
+            author,
+            this.dateOfCreation,
+            ingredients,
+            content,
+            categories,
+            cookingTimeInMinutes,
+            this.rating,
+            this.ratingCount
+        );
+    }
+
     public Recipe changeRating(float rating, int ratingCount) {
         return new Recipe(
             this.id,
