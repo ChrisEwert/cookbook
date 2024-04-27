@@ -82,6 +82,10 @@ public class RecipeService {
         recipeRepository.saveRecipe(recipe);
     }
 
+    public boolean isAuthor(String username, Recipe recipe) {
+        return Objects.equals(recipe.author(), username);
+    }
+
     public boolean hasRated(String username, String id) {
         List<RecipeRating> ratings = getRecipeRatingsByRecipeId(id);
 
@@ -122,7 +126,7 @@ public class RecipeService {
         recipeRepository.updateRecipeRating(recipe, stars, ratings.size());
     }
 
-    private String formatRecipeToSelectData(Recipe recipe) {
+    public String formatRecipeToSelectData(Recipe recipe) {
         return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 }

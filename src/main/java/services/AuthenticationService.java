@@ -21,6 +21,7 @@ public class AuthenticationService {
 
     public String getCookbookCreationDate() {
         LocalDate date = cookbookRepository.getCreationDate();
+
         return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
@@ -28,8 +29,10 @@ public class AuthenticationService {
         return cookbookRepository.getCurrentUsername();
     }
 
-    public boolean containsUser(String username) {
-        return getAllUsers().containsKey(username);
+    public boolean userExists(String username) {
+        Map<String, CookbookUser> users = getAllUsers();
+
+        return users.containsKey(username);
     }
 
     public boolean credentialsMatch(String username, String password) {

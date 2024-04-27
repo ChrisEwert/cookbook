@@ -58,22 +58,23 @@ public class CreateNewRecipeView implements View{
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 
-    private List<String> getList(String listKind, String nextTopic) {
+    private List<String> getList(String topic, String nextTopic) {
         List<String> list = new ArrayList<>();
 
         while (true) {
-            System.out.println("Enter the next " + listKind + " or type 'q' to continue with the " + nextTopic);
+            System.out.println("Enter the next " + topic + " or type 'q' to continue with the " + nextTopic);
 
             String input = getUserInput();
             if (input.equalsIgnoreCase("q")) {
                 if (list.isEmpty()) {
-                    writeRedLine("The " + listKind + " list cannot be empty! Please enter at least one item.");
+                    writeRedLine("The " + topic + " list cannot be empty! Please enter at least one item.");
                     continue;
                 }
                 break;
             }
             list.add(input);
         }
+
         return list;
     }
 }

@@ -25,7 +25,7 @@ public class CreateNewUserView implements View {
         String username = getUserInput();
         System.out.println();
 
-        if (authenticationService.containsUser(username)) {
+        if (authenticationService.userExists(username)) {
             writeRedLine("This username already exists!");
             System.out.println();
 

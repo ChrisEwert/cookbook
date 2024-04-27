@@ -31,26 +31,13 @@ public class LoginView implements View {
     public void display() {
         if (password != null) {
             login();
+
+            new RecipeMenuView(userService, authenticationService, recipeService).display();
             return;
         }
 
-        askForPassword();
-
-        login();
-    }
-
-    private void login() {
-        authenticationService.login(username);
-        writeGreenLine("You are now logged in as " + username);
-        System.out.println();
-
-        new RecipeMenuView(userService, authenticationService, recipeService).display();
-    }
-
-    private void askForPassword() {
         while (true) {
             writeYellowLine("Selected username: " + username);
-
             System.out.println("Please enter the password or type 'q' to quit: ");
             password = getUserInput();
 
@@ -63,12 +50,22 @@ public class LoginView implements View {
 
             if (authenticationService.credentialsMatch(username, password)) {
                 System.out.println();
-
                 break;
             }
 
             writeRedLine("Wrong password. Please try again!");
             System.out.println();
         }
+
+        login();
+
+        new RecipeMenuView(userService, authenticationService, recipeService).display();
+    }
+
+    private void login() {
+        authenticationService.login(username);
+
+        writeGreenLine("You are now logged in as " + username);
+        System.out.println();
     }
 }

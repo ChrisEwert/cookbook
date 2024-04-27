@@ -23,7 +23,9 @@ public class SelectAvailableUserView implements View {
         System.out.println("  SELECT USER  ");
         System.out.println("└             ┘");
 
-        if (userService.noUsersExist()) {
+        List<String> usernames = userService.getAllUsernames();
+
+        if (usernames.isEmpty()) {
             writeYellowLine("There are no users yet.");
             System.out.println();
 
@@ -32,10 +34,10 @@ public class SelectAvailableUserView implements View {
         }
 
         writeYellowLine("Select the number of your username or type 0 to go back to the login menu");
-        printOptions();
+        printOptions(usernames);
         System.out.println();
 
-        int userIndex = getNumberInputMinMax(0, userService.getUserCount());
+        int userIndex = getNumberInputMinMax(0, usernames.size());
         System.out.println();
 
         if (userIndex == 0) {
@@ -43,14 +45,12 @@ public class SelectAvailableUserView implements View {
             return;
         }
 
-        String username = userService.getUsernameByIndex(userIndex - 1);
+        String username = usernames.get(userIndex - 1);
 
         new LoginView(userService, authenticationService, recipeService, username).display();
     }
 
-    private void printOptions() {
-        List<String> usernames = userService.getAllUsernames();
-
+    private void printOptions(List<String> usernames) {
         for (int i = 0; i < usernames.size(); i++) {
             System.out.println(i+1 + ": " + usernames.get(i));
         }

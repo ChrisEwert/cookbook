@@ -6,6 +6,7 @@ import services.RecipeService;
 import services.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShowRecipeListView implements View {
     private final UserService userService;
@@ -24,8 +25,10 @@ public class ShowRecipeListView implements View {
         System.out.println("  RECIPE LIST  ");
         System.out.println("└             ┘");
 
-        if (recipeService.noRecipesExist()) {
-            writeYellowLine("There are no recipes as of yet!");
+        Map<String, Recipe> allRecipes = recipeService.getAllRecipes();
+
+        if (allRecipes.isEmpty()) {
+            writeYellowLine("There are no recipes yet!");
             System.out.println();
 
             new RecipeMenuView(userService, authenticationService, recipeService).display();
@@ -33,11 +36,11 @@ public class ShowRecipeListView implements View {
         }
 
         writeYellowLine("Here is a list of all recipes");
-        printOptions();
+        printOptions(allRecipes);
         System.out.println();                                                                                           // TODO: Filter mechanic
 
         writeYellowLine("Enter the number of a recipe to read it or type 0 to go back to the recipe menu");
-        int recipeIndex = getNumberInputMinMax(0, recipeService.recipeCount());
+        int recipeIndex = getNumberInputMinMax(0, allRecipes.size());
         System.out.println();
 
         if (recipeIndex == 0) {
@@ -51,10 +54,12 @@ public class ShowRecipeListView implements View {
         new RecipeView(userService, authenticationService, recipeService, recipe).display();
     }
 
-    private void printOptions() {
-        List<String> recipeData = recipeService.getAllRecipeSelectData();
-        for (int i = 0; i < recipeData.size(); i++) {
-            System.out.println(i+1 + ": " + recipeData.get(i));
+    private void printOptions(Map<String, Recipe> allRecipes) {
+        int counter = 1;
+        for (Recipe recipe : allRecipes.values()) {
+            String data = recipeService.formatRecipeToSelectData(recipe);
+            System.out.println(counter + ": " + data);
+            counter++;
         }
         System.out.println("0: Go back");
     }

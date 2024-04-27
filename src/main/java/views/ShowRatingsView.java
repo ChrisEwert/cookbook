@@ -27,7 +27,9 @@ public class ShowRatingsView implements View {
         System.out.println("  RATINGS  ");
         System.out.println("└         ┘");
 
-        if (recipeService.hasRatings(recipe.id())) {
+        List<RecipeRating> ratings = recipeService.getRecipeRatingsByRecipeId(recipe.id());
+
+        if (ratings.isEmpty()) {
             writeYellowLine("This recipe has not been rated yet.");
             System.out.println();
 
@@ -35,8 +37,7 @@ public class ShowRatingsView implements View {
             return;
         }
 
-        List<RecipeRating> ratings = recipeService.getRecipeRatingsByRecipeId(recipe.id());
-        ratings.forEach(System.out::println);
+        printRatings(ratings);
         System.out.println();
 
         writeYellowLine("What do you want to do now?");
@@ -51,6 +52,12 @@ public class ShowRatingsView implements View {
         }
 
         new RecipeView(userService, authenticationService, recipeService, recipe).display();
+    }
+
+    private void printRatings(List<RecipeRating> ratings) {
+        for (RecipeRating rating : ratings) {
+            System.out.println(rating);
+        }
     }
 
     private void printOptions() {

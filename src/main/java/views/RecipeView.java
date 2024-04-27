@@ -32,6 +32,7 @@ public class RecipeView implements View {
 
         if (userInput == 1) {
             userService.bookmarkRecipe(authenticationService.getCurrentUsername(), recipe);
+
             writeGreenLine("Bookmarked this recipe");
             System.out.println();
 

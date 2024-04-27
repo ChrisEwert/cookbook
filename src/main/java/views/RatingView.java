@@ -26,7 +26,9 @@ public class RatingView implements View {
         System.out.println("  RATE RECIPE  ");
         System.out.println("└             ┘");
 
-        if (Objects.equals(recipe.author(), authenticationService.getCurrentUsername())) {
+        String currentUsername = authenticationService.getCurrentUsername();
+
+        if (recipeService.isAuthor(currentUsername, recipe)) {
             writeYellowLine("You cannot rate your own recipe!");
             System.out.println();
 
@@ -34,7 +36,7 @@ public class RatingView implements View {
             return;
         }
 
-        if (recipeService.hasRated(authenticationService.getCurrentUsername(), recipe.id())) {
+        if (recipeService.hasRated(currentUsername, recipe.id())) {
             writeYellowLine("You have already rated this recipe!");
             System.out.println();
 

@@ -24,9 +24,10 @@ public class BookmarkView implements View {
         System.out.println("  BOOKMARKED RECIPES  ");
         System.out.println("└                    ┘");
 
-        List<String> ids = userService.getBookmarkedRecipeIdsByUsername(authenticationService.getCurrentUsername());
+        String username = authenticationService.getCurrentUsername();
+        List<String> bookmarkedIds = userService.getBookmarkedRecipeIdsByUsername(username);
 
-        if (ids.isEmpty()) {
+        if (bookmarkedIds.isEmpty()) {
             writeYellowLine("There are no bookmarked recipes!");
             System.out.println();
 
@@ -35,10 +36,10 @@ public class BookmarkView implements View {
         }
 
         writeYellowLine("Select the number of the recipe that you want to read or type 0 to go back to the recipe menu");
-        printOptions(ids);
+        printOptions(bookmarkedIds);
         System.out.println();
 
-        int input = getNumberInputMinMax(0, ids.size());
+        int input = getNumberInputMinMax(0, bookmarkedIds.size());
         System.out.println();
 
         if (input == 0) {
@@ -46,7 +47,7 @@ public class BookmarkView implements View {
             return;
         }
 
-        String id = ids.get(input - 1);
+        String id = bookmarkedIds.get(input - 1);
         Recipe selectedRecipe = recipeService.getRecipeById(id);
         System.out.println(selectedRecipe);
         System.out.println();
@@ -54,9 +55,9 @@ public class BookmarkView implements View {
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 
-    private void printOptions(List<String> idList) {
-        for (int i = 0; i < idList.size(); i++) {
-            System.out.println(i+1 + ": " + recipeService.getRecipeSelectDataById(idList.get(i)));
+    private void printOptions(List<String> bookmarkedIds) {
+        for (int i = 0; i < bookmarkedIds.size(); i++) {
+            System.out.println(i+1 + ": " + recipeService.getRecipeSelectDataById(bookmarkedIds.get(i)));
         }
         System.out.println("0: Go back");
     }
