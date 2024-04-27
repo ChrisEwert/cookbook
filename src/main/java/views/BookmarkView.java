@@ -6,7 +6,6 @@ import services.RecipeService;
 import services.UserService;
 
 import java.util.List;
-import java.util.Set;
 
 public class BookmarkView implements View {
     private final UserService userService;
