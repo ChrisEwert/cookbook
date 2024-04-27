@@ -1,6 +1,5 @@
 package views;
 
-import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;

@@ -116,7 +116,7 @@ public class RecipeService {
         }
         stars /= ratings.size();
 
-        recipeRepository.setStars(recipe, stars, ratings.size());
+        recipeRepository.updateRecipeRating(recipe, stars, ratings.size());
     }
 
     private String formatRecipeToSelectData(Recipe recipe) {

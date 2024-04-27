@@ -4,7 +4,6 @@ import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
 
-import java.util.List;
 import java.util.Objects;
 
 public class LoginMenuView implements View {
@@ -24,9 +23,7 @@ public class LoginMenuView implements View {
         System.out.println("  LOGIN MENU  ");
         System.out.println("└            ┘");
 
-        List<String> usernames = userService.getUsernames();
-
-        if (usernames.isEmpty()) {
+        if (userService.noUsersExist()) {
             writeYellowLine("You are the first user of this cookbook!");
             System.out.println();
 
@@ -34,12 +31,15 @@ public class LoginMenuView implements View {
             return;
         }
 
-        writeYellowLine("Here is a list of all current users:");
-        printUsernames(usernames);
+        writeYellowLine("Here is a list of all current users");
+        printUsernames();
         System.out.println();
 
         writeYellowLine("Are you one of those users?");
-        int userMenuInput = getUserMenuInput();
+        printOptions();
+        System.out.println();
+
+        int userMenuInput = getNumberInputMinMax(0, 2);
         System.out.println();
 
         if (Objects.equals(userMenuInput, 1)) {
@@ -51,17 +51,15 @@ public class LoginMenuView implements View {
         }
     }
 
-    private void printUsernames(List<String> usernames) {
-        for (String username : usernames) {
+    private void printUsernames() {
+        for (String username : userService.getAllUsernames()) {
             System.out.println(username);
         }
     }
 
-    private int getUserMenuInput() {
+    private void printOptions() {
         System.out.println("1: I am one of those users");
         System.out.println("2: I am a new user");
         System.out.println("0: Close cookbook");
-        System.out.println();
-        return getNumberInputMinMax(0, 2);
     }
  }

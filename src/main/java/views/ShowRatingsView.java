@@ -39,6 +39,22 @@ public class ShowRatingsView implements View {
         ratings.forEach(System.out::println);
         System.out.println();
 
+        writeYellowLine("What do you want to do now?");
+        printOptions();
+        System.out.println();
+
+        int input = getNumberInputMinMax(0, 1);
+        System.out.println();
+
+        if (input == 1) {
+            // TODO
+        }
+
         new RecipeView(userService, authenticationService, recipeService, recipe).display();
+    }
+
+    private void printOptions() {
+        System.out.println("1: Show only my rating");
+        System.out.println("0: Return to recipe");
     }
 }

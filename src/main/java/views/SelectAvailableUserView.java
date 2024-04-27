@@ -1,5 +1,6 @@
 package views;
 
+import cookbook.CookbookUser;
 import services.AuthenticationService;
 import services.RecipeService;
 import services.UserService;
@@ -23,19 +24,19 @@ public class SelectAvailableUserView implements View {
         System.out.println("  SELECT USER  ");
         System.out.println("└             ┘");
 
-        List<String> usernameList = userService.getUsernames();
-
-        if (usernameList.isEmpty()) {
+        if (userService.noUsersExist()) {
             writeYellowLine("There are no users yet.");
             System.out.println();
+
+            new CreateNewUserView(userService, authenticationService, recipeService).display();
             return;
         }
 
         writeYellowLine("Select the number of your username or type 0 to go back to the login menu");
-        printOptions(usernameList);
+        printOptions();
         System.out.println();
 
-        int userIndex = getNumberInputMinMax(0, usernameList.size());
+        int userIndex = getNumberInputMinMax(0, userService.getUserCount());
         System.out.println();
 
         if (userIndex == 0) {
@@ -43,13 +44,16 @@ public class SelectAvailableUserView implements View {
             return;
         }
 
-        String username = usernameList.get(userIndex - 1);
+        String username = userService.getUsernameByIndex(userIndex - 1);
+
         new LoginView(userService, authenticationService, recipeService, username).display();
     }
 
-    private void printOptions(List<String> usernameList) {
-        for (int i = 0; i < usernameList.size(); i++) {
-            System.out.println(i+1 + ": " + usernameList.get(i));
+    private void printOptions() {
+        List<String> usernames = userService.getAllUsernames();
+
+        for (int i = 0; i < usernames.size(); i++) {
+            System.out.println(i+1 + ": " + usernames.get(i));
         }
         System.out.println("0: Go back");
     }

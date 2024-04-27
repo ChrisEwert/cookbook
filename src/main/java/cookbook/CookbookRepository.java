@@ -1,23 +1,22 @@
 package cookbook;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface CookbookRepository {
 
-    String getUsername();
+    String getCurrentUsername();
 
-    void setUsername(String username);
+    void setCurrentUsername(String username);
 
     LocalDate getCreationDate();
 
-    void saveUser(CookbookUser user);
+    Map<String, CookbookUser> getAllUsers();
 
-    List<CookbookUser> getUserList();
+    void createNewUser(CookbookUser user);
 
-    void bookmarkRecipeById(String id);
+    Set<String> getBookmarkedRecipeIdsByUsername(String username);
 
-    Set<String> getBookmarkedRecipeIds();
-
+    void addBookmarkedRecipeId(String username, String recipeId);
 }

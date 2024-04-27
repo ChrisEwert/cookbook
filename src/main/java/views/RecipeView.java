@@ -24,11 +24,14 @@ public class RecipeView implements View {
         System.out.println();
 
         writeYellowLine("What do you want to do?");
-        int userInput = getMenuInput();
+        printOptions();
+        System.out.println();
+
+        int userInput = getNumberInputMinMax(0, 3);
         System.out.println();
 
         if (userInput == 1) {
-            userService.bookmarkRecipe(recipe);
+            userService.bookmarkRecipe(authenticationService.getCurrentUsername(), recipe);
             writeGreenLine("Bookmarked this recipe");
             System.out.println();
 
@@ -47,13 +50,10 @@ public class RecipeView implements View {
         new RecipeMenuView(userService, authenticationService, recipeService).display();
     }
 
-    private int getMenuInput() {
+    private void printOptions() {
         System.out.println("1: Bookmark recipe");
         System.out.println("2: Rate recipe");
         System.out.println("3: Read ratings");
         System.out.println("0: Exit to recipe menu");
-        System.out.println();
-
-        return getNumberInputMinMax(0, 3);
     }
 }

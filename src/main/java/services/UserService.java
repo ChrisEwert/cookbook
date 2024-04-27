@@ -6,7 +6,7 @@ import cookbook.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 public class UserService {
     private final CookbookRepository cookbookRepository;
@@ -15,23 +15,37 @@ public class UserService {
         this.cookbookRepository = cookbookRepository;
     }
 
-    public void createUser(String username, String password) {
-        CookbookUser user = new CookbookUser(username, password, Set.of());
-        cookbookRepository.saveUser(user);
+    private Map<String, CookbookUser> getAllUsers() {
+        return cookbookRepository.getAllUsers();
     }
 
-    public List<String> getUsernames() {
-        List<String> usernames = new ArrayList<>();
-        cookbookRepository.getUserList().forEach(user -> usernames.add(user.username()));
-        return usernames;
+    public List<String> getAllUsernames() {
+        return new ArrayList<>(getAllUsers().keySet());
     }
 
-    public List<String> getBookmarkedIds() {
-        return new ArrayList<>(cookbookRepository.getBookmarkedRecipeIds());
+    public String getUsernameByIndex(int index) {
+        return getAllUsernames().get(index);
     }
 
-    public void bookmarkRecipe(Recipe recipe) {
-        String id = recipe.id();
-        cookbookRepository.bookmarkRecipeById(id);
+    public int getUserCount() {
+        return getAllUsers().size();
+    }
+
+    public boolean noUsersExist() {
+        return getUserCount() == 0;
+    }
+
+    public void createNewUser(String username, String password) {
+        CookbookUser user = new CookbookUser(username, password);
+        cookbookRepository.createNewUser(user);
+    }
+
+    public List<String> getBookmarkedRecipeIdsByUsername(String username) {
+        return new ArrayList<>(cookbookRepository.getBookmarkedRecipeIdsByUsername(username));
+    }
+
+    public void bookmarkRecipe(String username, Recipe recipe) {
+        String recipeId = recipe.id();
+        cookbookRepository.addBookmarkedRecipeId(username, recipeId);
     }
 }

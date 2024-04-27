@@ -11,10 +11,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserFileDataHandler extends FileDataHandler {
     private final String fileName = "users.json";
@@ -26,65 +24,63 @@ public class UserFileDataHandler extends FileDataHandler {
         createFile(filePath);
     }
 
-    public void saveUserToDB(CookbookUser user) {
+    public Map<String, CookbookUser> getAllUsersFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            List<CookbookUser> listOfUsers = readUsersFromDB();
-            listOfUsers.add(user);
-            objectMapper.writeValue(new File(String.valueOf(filePath)), listOfUsers);
+            byte[] usersJsonData = Files.readAllBytes(filePath);
+
+            if (usersJsonData.length == 0) {
+                return new HashMap<>();
+            }
+
+            TypeReference<Map<String, CookbookUser>> typeReference = new TypeReference<>() {};
+
+            return objectMapper.readValue(usersJsonData, typeReference);
         } catch (IOException e) {
-            System.err.println("Error while saving username: " + user.username());
+            System.err.println("Error while reading users from file: " + filePath);
         }
+
+        return new HashMap<>();
     }
 
-    public void writeUsersToDB(List<CookbookUser> userList) {
+    public CookbookUser getUserByUsername(String username) {
+        Map<String, CookbookUser> users = getAllUsersFromDB();
+
+        return users.get(username);
+    }
+
+    public void saveAllUsersToDB(Map<String, CookbookUser> userList) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
         try {
-            objectMapper.writeValue(new File(String.valueOf(filePath)), userList);
+            File file = new File(String.valueOf(filePath));
+
+            objectMapper.writeValue(file, userList);
         } catch (IOException e) {
             System.err.println("Error while bookmarking recipe for username list");
         }
     }
 
-    public List<CookbookUser> readUsersFromDB() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            byte[] usersJsonData = Files.readAllBytes(filePath);
-            if (usersJsonData.length == 0) {
-                return new ArrayList<>();
-            }
+    public void saveUserToDB(CookbookUser user) {
+        Map<String, CookbookUser> listOfUsers = getAllUsersFromDB();
 
-            TypeReference<List<CookbookUser>> typeReference = new TypeReference<>() {};
-            return objectMapper.readValue(usersJsonData, typeReference);
-        } catch (IOException e) {
-            System.err.println("Error while reading users from file: " + filePath);
-        }
-        return new ArrayList<>();
+        listOfUsers.put(user.username(), user);
+
+        saveAllUsersToDB(listOfUsers);
     }
 
-    public Set<String> getBookmarkIds(String username) {
-        Set<String> bookmarkedIds = new HashSet<>();
-        List<CookbookUser> userList = readUsersFromDB();
-        for (CookbookUser user : userList) {
-            if (user.username().equals(username)) {
-                bookmarkedIds.addAll(user.bookmarkedRecipeIds());
-                break;
-            }
-        }
-        return bookmarkedIds;
-    }
+    public void updateUserInDB(String username, CookbookUser user) {
+        Map<String, CookbookUser> users = getAllUsersFromDB();
 
-    public void bookmarkRecipeById(String username, String recipeId) {
-           List<CookbookUser> userList = readUsersFromDB();
-        for (CookbookUser UserObj : userList) {
-            if (UserObj.username().equals(username)) {
-                UserObj.bookmarkedRecipeIds().add(recipeId);
-                break;
-            }
+        if (!users.containsKey(username)) {
+            System.err.println("Error: User " + username + " not found.");
+            return;
         }
-        writeUsersToDB(userList);
+
+        users.put(username, user);
+
+        saveAllUsersToDB(users);
     }
 }

@@ -6,6 +6,7 @@ import services.RecipeService;
 import services.UserService;
 
 import java.util.List;
+import java.util.Set;
 
 public class BookmarkView implements View {
     private final UserService userService;
@@ -24,7 +25,7 @@ public class BookmarkView implements View {
         System.out.println("  BOOKMARKED RECIPES  ");
         System.out.println("└                    ┘");
 
-        List<String> ids = userService.getBookmarkedIds();
+        List<String> ids = userService.getBookmarkedRecipeIdsByUsername(authenticationService.getCurrentUsername());
 
         if (ids.isEmpty()) {
             writeYellowLine("There are no bookmarked recipes!");

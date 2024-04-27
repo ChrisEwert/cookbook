@@ -5,7 +5,8 @@ import cookbook.CookbookUser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class AuthenticationService {
     private final CookbookRepository cookbookRepository;
@@ -14,39 +15,35 @@ public class AuthenticationService {
         this.cookbookRepository = cookbookRepository;
     }
 
+    private Map<String, CookbookUser> getAllUsers() {
+        return cookbookRepository.getAllUsers();
+    }
+
     public String getCookbookCreationDate() {
         LocalDate date = cookbookRepository.getCreationDate();
         return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
-    public boolean credentialsMatch(String username, String password) {
-        List<CookbookUser> userList = cookbookRepository.getUserList();
-        for (CookbookUser user : userList) {
-            if (user.username().equals(username) && user.password().equals(password)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void login(String username) {
-        cookbookRepository.setUsername(username);
-    }
-
-    public void logout() {
-        cookbookRepository.setUsername(null);
+    public String getCurrentUsername() {
+        return cookbookRepository.getCurrentUsername();
     }
 
     public boolean containsUser(String username) {
-        for (CookbookUser user : cookbookRepository.getUserList()) {
-            if (user.username().equals(username)) {
-                return true;
-            }
-        }
-        return false;
+        return getAllUsers().containsKey(username);
     }
 
-    public String getCurrentUsername() {
-        return cookbookRepository.getUsername();
+    public boolean credentialsMatch(String username, String password) {
+        Map<String, CookbookUser> users = getAllUsers();
+        CookbookUser user = users.get(username);
+
+        return Objects.equals(user.password(), password);
+    }
+
+    public void login(String username) {
+        cookbookRepository.setCurrentUsername(username);
+    }
+
+    public void logout() {
+        cookbookRepository.setCurrentUsername(null);
     }
 }

@@ -3,38 +3,51 @@ package cookbook;
 import db.UserFileDataHandler;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class CookbookFileRepository implements CookbookRepository {
     private final UserFileDataHandler userFileDataHandler = new UserFileDataHandler();
     private Cookbook cookbook = new Cookbook();
 
-    public String getUsername() {
-        return cookbook.username();
+    public String getCurrentUsername() {
+        return cookbook.currentUsername();
     }
 
-    public void setUsername(String username) {
-        cookbook = cookbook.changeUser(username);
+    public void setCurrentUsername(String newUsername) {
+        cookbook = cookbook.changeCurrentUsername(newUsername);           // TODO: remove "cookbook =" ???
     }
 
     public LocalDate getCreationDate() {
         return cookbook.dateOfCreation();
     }
 
-    public void saveUser(CookbookUser user) {
+    public Map<String, CookbookUser> getAllUsers() {
+        return userFileDataHandler.getAllUsersFromDB();
+    }
+
+    public CookbookUser getUserByUsername(String username) {
+        return userFileDataHandler.getUserByUsername(username);
+    }
+
+    public void createNewUser(CookbookUser user) {
         userFileDataHandler.saveUserToDB(user);
     }
 
-    public List<CookbookUser> getUserList() {
-        return userFileDataHandler.readUsersFromDB();
+    public Set<String> getBookmarkedRecipeIdsByUsername(String username) {
+        CookbookUser user = getUserByUsername(username);
+
+        return user.bookmarkedRecipeIds();
     }
 
-    public void bookmarkRecipeById(String id) {
-        userFileDataHandler.bookmarkRecipeById(getUsername(), id);
-    }
+    public void addBookmarkedRecipeId(String username, String recipeId) {
+        CookbookUser currentUser = getUserByUsername(username);
 
-    public Set<String> getBookmarkedRecipeIds() {
-        return userFileDataHandler.getBookmarkIds(getUsername());
+        Set<String> bookmarkedRecipeIds = getBookmarkedRecipeIdsByUsername(username);
+        bookmarkedRecipeIds.add(recipeId);
+
+        CookbookUser newUser = currentUser.updateBookmarkedRecipeIds(bookmarkedRecipeIds);
+
+        userFileDataHandler.updateUserInDB(username, newUser);
     }
 }

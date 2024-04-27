@@ -11,7 +11,7 @@ public class RecipeFileRepository implements RecipeRepository {
     private final RatingFileDataHandler ratingDataHandler = new RatingFileDataHandler();
 
     public Map<String, Recipe> getAllRecipes() {
-        return recipeDataHandler.readAllRecipesFromDB();
+        return recipeDataHandler.getAllRecipesFromDB();
     }
 
     public Recipe getRecipeById(String id) {
@@ -22,15 +22,17 @@ public class RecipeFileRepository implements RecipeRepository {
         recipeDataHandler.saveRecipeToDB(recipe);
     }
 
+    public void updateRecipeRating(Recipe recipe, float stars, int ratingCount) {
+        Recipe newRecipe = recipe.changeRating(stars, ratingCount);
+
+        recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
+    }
+
     public List<RecipeRating> getAllRatings() {
         return ratingDataHandler.getAllRatingsFromDB();
     }
 
     public void addRating(RecipeRating rating) {
         ratingDataHandler.addRatingToDB(rating);
-    }
-
-    public void setStars(Recipe recipe, float stars, int ratingsCount) {
-        recipeDataHandler.setRating(recipe.id(), stars, ratingsCount);
     }
 }

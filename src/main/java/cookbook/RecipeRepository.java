@@ -11,9 +11,9 @@ public interface RecipeRepository {
 
     Recipe getRecipeById(String id);
 
+    List<RecipeRating> getAllRatings();
+
     void addRating(RecipeRating rating);
 
-    void setStars(Recipe recipe, float stars, int ratingsCount);
-
-    List<RecipeRating> getAllRatings();
+    void updateRecipeRating(Recipe recipe, float stars, int ratingsCount);
 }

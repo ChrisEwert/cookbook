@@ -22,7 +22,7 @@ public class RecipeFileDataHandler extends FileDataHandler {
         createFile(filePath);
     }
 
-    public Map<String, Recipe> readAllRecipesFromDB() {
+    public Map<String, Recipe> getAllRecipesFromDB() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.registerModule(new JavaTimeModule());
@@ -44,32 +44,12 @@ public class RecipeFileDataHandler extends FileDataHandler {
     }
 
     public Recipe getRecipeById(String id) {
-        Map<String, Recipe> recipes = readAllRecipesFromDB();
+        Map<String, Recipe> recipes = getAllRecipesFromDB();
 
         return recipes.get(id);
     }
 
-    public void saveRecipeToDB(Recipe recipe) {
-        Map<String, Recipe> recipes = readAllRecipesFromDB();
-        recipes.put(recipe.id(), recipe);
-
-        saveRecipesToDB(recipes);
-    }
-
-    public void updateRecipe(String id, Recipe newRecipe) {
-        Map<String, Recipe> recipes = readAllRecipesFromDB();
-
-        if (!recipes.containsKey(id)) {
-            System.err.println("Error: Recipe with ID " + id + " not found.");
-            return;
-        }
-
-        recipes.put(id, newRecipe);
-        saveRecipesToDB(recipes);
-    }
-
-
-    private void saveRecipesToDB(Map<String, Recipe> recipes) {
+    public void saveAllRecipesToDB(Map<String, Recipe> recipes) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -84,12 +64,24 @@ public class RecipeFileDataHandler extends FileDataHandler {
         }
     }
 
+    public void saveRecipeToDB(Recipe recipe) {
+        Map<String, Recipe> recipes = getAllRecipesFromDB();
 
-    public void setRating(String id, float rating, int ratingCount) {
-        Recipe recipe = getRecipeById(id);
+        recipes.put(recipe.id(), recipe);
 
-        recipe = recipe.changeRating(rating, ratingCount);
+        saveAllRecipesToDB(recipes);
+    }
 
-        updateRecipe(id, recipe);
+    public void updateRecipeInDB(String id, Recipe newRecipe) {
+        Map<String, Recipe> recipes = getAllRecipesFromDB();
+
+        if (!recipes.containsKey(id)) {
+            System.err.println("Error: Recipe with ID " + id + " not found.");
+            return;
+        }
+
+        recipes.put(id, newRecipe);
+
+        saveAllRecipesToDB(recipes);
     }
 }

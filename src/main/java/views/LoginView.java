@@ -34,26 +34,7 @@ public class LoginView implements View {
             return;
         }
 
-        while (true) {
-            writeYellowLine("Selected username: " + username);
-
-            System.out.println("Please enter the password or type 'q' to quit: ");
-            password = getUserInput();
-
-            if (password.equalsIgnoreCase("q")) {
-                System.out.println();
-                new LoginMenuView(userService, authenticationService, recipeService).display();
-                return;
-            }
-
-            if (authenticationService.credentialsMatch(username, password)) {
-                System.out.println();
-                break;
-            }
-
-            writeRedLine("Wrong password. Please try again!");
-            System.out.println();
-        }
+        askForPassword();
 
         login();
     }
@@ -64,5 +45,30 @@ public class LoginView implements View {
         System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService).display();
+    }
+
+    private void askForPassword() {
+        while (true) {
+            writeYellowLine("Selected username: " + username);
+
+            System.out.println("Please enter the password or type 'q' to quit: ");
+            password = getUserInput();
+
+            if (password.equalsIgnoreCase("q")) {
+                System.out.println();
+
+                new LoginMenuView(userService, authenticationService, recipeService).display();
+                return;
+            }
+
+            if (authenticationService.credentialsMatch(username, password)) {
+                System.out.println();
+
+                break;
+            }
+
+            writeRedLine("Wrong password. Please try again!");
+            System.out.println();
+        }
     }
 }

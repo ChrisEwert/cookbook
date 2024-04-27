@@ -36,7 +36,7 @@ public class CreateNewUserView implements View {
         writeYellowLine("Please enter your password");
         String password = getUserInput();
 
-        userService.createUser(username, password);
+        userService.createNewUser(username, password);
         System.out.println();
 
         new LoginView(userService, authenticationService, recipeService, username, password).display();

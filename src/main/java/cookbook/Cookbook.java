@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public record Cookbook(
         LocalDate dateOfCreation,
-        String username
+        String currentUsername
 ) {
 
     public Cookbook() {
@@ -14,10 +14,10 @@ public record Cookbook(
         );
     }
 
-    public Cookbook changeUser(String user) {
+    public Cookbook changeCurrentUsername(String newUsername) {
         return new Cookbook(
             this.dateOfCreation(),
-            user
+            newUsername
         );
     }
 }
