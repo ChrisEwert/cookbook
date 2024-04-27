@@ -1,9 +1,12 @@
 package views;
 
+import cookbook.Recipe;
 import services.AuthenticationService;
 import services.RatingService;
 import services.RecipeService;
 import services.UserService;
+
+import java.util.List;
 
 public class YourRecipesView implements View {
     private final UserService userService;
@@ -24,18 +27,40 @@ public class YourRecipesView implements View {
         System.out.println("  YOUR RECIPES  ");
         System.out.println("└              ┘");
 
-//        List<Recipe> recipes = recipeService.getRecipesByUsername(authenticationService.getCurrentUsername());
-//
-//        if (recipes.isEmpty()) {
-//            writeYellowLine("You have not created any recipes.");
-//            System.out.println();
-//
-//            new RecipeMenuView(userService, authenticationService, recipeService).display();
-//            return;
-//        }
-//
-//        recipes.forEach(System.out::println);
+        String currentUsername = authenticationService.getCurrentUsername();
+        List<Recipe> recipes = recipeService.getRecipesByAuthor(currentUsername);
+
+        if (recipes.isEmpty()) {
+            writeYellowLine("You have not created any recipes.");
+            System.out.println();
+
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
+            return;
+        }
+
+        writeYellowLine("Select the recipe that you want to read");
+        printOptions(recipes);
+        System.out.println();
+
+        int input = getNumberInputMinMax(0, recipes.size());
+        System.out.println();
+
+        if (input == 0) {
+            new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
+            return;
+        }
+
+        Recipe selectedRecipe = recipes.get(input - 1);
+        System.out.println(selectedRecipe);
+        System.out.println();
 
         new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
+    }
+
+    private void printOptions(List<Recipe> recipes) {
+        for (int i=0 ; i<recipes.size() ; i++) {
+            System.out.println(i+1 + ": " + recipes.get(i).name());
+        }
+        System.out.println("0: Go back");
     }
 }

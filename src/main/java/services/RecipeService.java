@@ -3,6 +3,7 @@ package services;
 import cookbook.Recipe;
 import cookbook.RecipeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +34,19 @@ public class RecipeService {
 
     public Recipe getRecipeById(String id) {
         return recipeRepository.getRecipeById(id);
+    }
+
+    public List<Recipe> getRecipesByAuthor(String username) {
+        Map<String, Recipe> recipes = getAllRecipes();
+        List<Recipe> recipesList = new ArrayList<>();
+
+        for (Recipe recipe : recipes.values()) {
+            if (recipe.author().equals(username)) {
+                recipesList.add(recipe);
+            }
+        }
+
+        return recipesList;
     }
 
     public String formatRecipeToSelectData(Recipe recipe) {
