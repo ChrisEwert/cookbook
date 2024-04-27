@@ -15,7 +15,7 @@ public class CookbookFileRepository implements CookbookRepository {
     }
 
     public void setCurrentUsername(String newUsername) {
-        cookbook = cookbook.changeCurrentUsername(newUsername);           // TODO: remove "cookbook =" ???
+        cookbook = cookbook.changeCurrentUsername(newUsername);
     }
 
     public LocalDate getCreationDate() {

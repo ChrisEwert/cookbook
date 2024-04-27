@@ -32,12 +32,14 @@ public class RecipeService {
 
     public String getRecipeIdByIndex(int index) {
         int count = 1;
+
         for (Recipe recipe : getAllRecipes().values()) {
             if (count == index) {
                 return recipe.id();
             }
             count++;
         }
+
         return null;
     }
 
@@ -47,15 +49,14 @@ public class RecipeService {
 
     public String getRecipeSelectDataById(String id) {
         Recipe recipe = getRecipeById(id);
-        return (recipe != null) ? formatRecipeToSelectData(recipe) : "Recipe not found";
+
+        return formatRecipeToSelectData(recipe);
     }
 
-//    public List<Recipe> getRecipesByUsername(String username) {
-//        return List.of();       // TODO
-//    }
-
     public int recipeCount() {
-        return recipeRepository.getAllRecipes().size();
+        Map<String, Recipe> recipes = getAllRecipes();
+
+        return recipes.size();
     }
 
     public boolean noRecipesExist() {
@@ -77,6 +78,7 @@ public class RecipeService {
 
     public void saveRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
         Recipe recipe = new Recipe(name, author, ingredients, content, categories, minutes);
+
         recipeRepository.saveRecipe(recipe);
     }
 
@@ -94,6 +96,7 @@ public class RecipeService {
 
     public boolean hasRatings(String id) {
         List<RecipeRating> ratings = getRecipeRatingsByRecipeId(id);
+
         return ratings.isEmpty();
     }
 
