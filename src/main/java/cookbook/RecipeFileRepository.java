@@ -3,7 +3,10 @@ package cookbook;
 import db.RatingFileDataHandler;
 import db.RecipeFileDataHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class RecipeFileRepository implements RecipeRepository {
     private final RecipeFileDataHandler recipeDataHandler = new RecipeFileDataHandler();
@@ -25,12 +28,42 @@ public class RecipeFileRepository implements RecipeRepository {
         recipeDataHandler.updateRecipeInDB(id, newRecipe);
     }
 
+    public void deleteRecipe(String recipeId) {
+        recipeDataHandler.deleteRecipeFromDB(recipeId);
+    }
+
+
     public Map<String, RecipeRating> getAllRatings() {
         return ratingDataHandler.getAllRatingsFromDB();
     }
 
     public RecipeRating getRatingById(String id) {
         return ratingDataHandler.getRatingById(id);
+    }
+
+    public RecipeRating getRatingByName(String recipeId, String name) {
+        List<RecipeRating> ratings = getRatingsOfRecipe(recipeId);
+
+        for (RecipeRating rating : ratings) {
+            if (Objects.equals(rating.author(), name)) {
+                return rating;
+            }
+        }
+
+        return null;
+    }
+
+    public List<RecipeRating> getRatingsOfRecipe(String recipeId) {
+        Map<String, RecipeRating> allRatings = getAllRatings();
+        List<RecipeRating> ratings = new ArrayList<>();
+
+        for (RecipeRating rating : allRatings.values()) {
+            if (Objects.equals(rating.recipeId(), recipeId)) {
+                ratings.add(rating);
+            }
+        }
+
+        return ratings;
     }
 
     public void addRating(RecipeRating rating) {
@@ -43,7 +76,11 @@ public class RecipeFileRepository implements RecipeRepository {
         recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
     }
 
-    public void deleteRecipe(String id) {
-        recipeDataHandler.deleteRecipeFromDB(id);
+    public void deleteRatingsOfRecipe(String recipeId) {
+        List<RecipeRating> ratings = getRatingsOfRecipe(recipeId);
+
+        for (RecipeRating rating : ratings) {
+            ratingDataHandler.deleteRatingFromDB(rating.id());
+        }
     }
 }

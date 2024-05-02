@@ -44,17 +44,17 @@ public class YourSelectedRecipeView extends AbstractView {
         else if (input == 2) {
             writeYellowLine("Are you sure that you want to delete the recipe " + recipe.name() + "? Type 1 to delete it. Type 0 to go back");
             int deleteInput = getNumberInputMinMax(0, 1);
+            System.out.println();
+
             if (deleteInput == 1) {
                 recipeService.deleteRecipe(recipe.id());
+                ratingService.deleteRatingsOfRecipe(recipe.id());
 
                 writeGreenLine("Deleted the recipe");
                 System.out.println();
 
                 new YourRecipesView(userService, authenticationService, recipeService, ratingService).display();
-            } else {
-                new ChangeYourRecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
             }
-            return;
         }
 
         new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();

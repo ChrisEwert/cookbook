@@ -18,16 +18,7 @@ public class RatingService {
     }
 
     public List<RecipeRating> getRatingsByRecipeId(String recipeId) {
-        Map<String, RecipeRating> allRatings = getAllRatings();
-        List<RecipeRating> ratings = new ArrayList<>();
-
-        for (RecipeRating rating : allRatings.values()) {
-            if (Objects.equals(rating.recipeId(), recipeId)) {
-                ratings.add(rating);
-            }
-        }
-
-        return ratings;
+        return recipeRepository.getRatingsOfRecipe(recipeId);
     }
 
     public boolean hasRated(String username, String id) {
@@ -40,6 +31,10 @@ public class RatingService {
         }
 
         return false;
+    }
+
+    public RecipeRating getRatingByName(String recipeId, String name) {
+        return recipeRepository.getRatingByName(recipeId, name);
     }
 
     public void addRating(String id, String author, int rating, String title, String comment) {
@@ -62,5 +57,9 @@ public class RatingService {
         stars /= ratings.size();
 
         recipeRepository.updateRatingOfRecipe(recipe, stars, ratings.size());
+    }
+
+    public void deleteRatingsOfRecipe(String recipeId) {
+        recipeRepository.deleteRatingsOfRecipe(recipeId);
     }
 }

@@ -83,4 +83,15 @@ public class RatingFileDataHandler extends FileDataHandler {
 
         saveAllRatingsToDB(ratings);
     }
+
+    public void deleteRatingFromDB(String id) {
+        Map<String, RecipeRating> ratings = getAllRatingsFromDB();
+
+        if (!ratings.containsKey(id)) {
+            System.err.println("Error: Rating with ID " + id + " not found.");
+        }
+
+        ratings.remove(id);
+        saveAllRatingsToDB(ratings);
+    }
 }
