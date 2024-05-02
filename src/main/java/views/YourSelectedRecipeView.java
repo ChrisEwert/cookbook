@@ -42,7 +42,16 @@ public class YourSelectedRecipeView extends AbstractView {
             return;
         }
         else if (input == 2) {
-            // TODO: Delete your recipes
+            writeYellowLine("Are you sure that you want to delete the recipe " + recipe.name() + "? Type 1 to delete it. Type 0 to go back");
+            int deleteInput = getNumberInputMinMax(0, 1);
+            if (deleteInput == 1) {
+                recipeService.deleteRecipe(recipe.id());
+
+                writeGreenLine("Deleted the recipe");
+
+                new YourRecipesView(userService, authenticationService, recipeService, ratingService).display();
+                return;
+            }
         }
 
         new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();

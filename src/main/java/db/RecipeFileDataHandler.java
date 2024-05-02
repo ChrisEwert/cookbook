@@ -84,4 +84,15 @@ public class RecipeFileDataHandler extends FileDataHandler {
 
         saveAllRecipesToDB(recipes);
     }
+
+    public void deleteRecipeFromDB(String id) {
+        Map<String, Recipe> recipes = getAllRecipesFromDB();
+
+        if (!recipes.containsKey(id)) {
+            System.err.println("Error: Recipe with ID " + id + " not found.");
+        }
+
+        recipes.remove(id);
+        saveAllRecipesToDB(recipes);
+    }
 }

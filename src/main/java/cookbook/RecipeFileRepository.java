@@ -42,4 +42,8 @@ public class RecipeFileRepository implements RecipeRepository {
 
         recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
     }
+
+    public void deleteRecipe(String id) {
+        recipeDataHandler.deleteRecipeFromDB(id);
+    }
 }

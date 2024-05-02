@@ -69,4 +69,8 @@ public class RecipeService {
 
         recipeRepository.updateRecipe(id, newRecipe);
     }
+
+    public void deleteRecipe(String id) {
+        recipeRepository.deleteRecipe(id);
+    }
 }

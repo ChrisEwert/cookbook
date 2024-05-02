@@ -17,4 +17,6 @@ public interface RecipeRepository {
     void addRating(RecipeRating rating);
 
     void updateRatingOfRecipe(Recipe recipe, float stars, int ratingsCount);
+
+    void deleteRecipe(String id);
 }
