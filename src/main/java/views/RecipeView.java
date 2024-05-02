@@ -6,7 +6,7 @@ import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
-public class RecipeView implements View {
+public class RecipeView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;

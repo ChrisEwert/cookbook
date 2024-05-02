@@ -8,7 +8,7 @@ import services.UserService;
 import java.util.List;
 import java.util.Objects;
 
-public class LoginMenuView implements View {
+public class LoginMenuView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;

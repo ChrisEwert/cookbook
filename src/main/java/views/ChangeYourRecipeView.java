@@ -9,7 +9,7 @@ import services.UserService;
 import java.util.List;
 import java.util.Objects;
 
-public class ChangeYourRecipeView implements View {
+public class ChangeYourRecipeView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;

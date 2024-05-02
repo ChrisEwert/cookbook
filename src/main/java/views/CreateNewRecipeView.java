@@ -8,7 +8,7 @@ import services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateNewRecipeView implements View{
+public class CreateNewRecipeView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
@@ -53,7 +53,7 @@ public class CreateNewRecipeView implements View{
         writeGreenLine("Saved recipe!");
         System.out.println();
 
-        // TODO
+        // TODO Show last recipe
 //        Recipe lastRecipe = recipeService.getLastRecipe();
 //        writeGreenLine(lastRecipe.toString());
 //        System.out.println();

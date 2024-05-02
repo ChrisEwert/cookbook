@@ -7,7 +7,7 @@ import services.UserService;
 
 import java.util.List;
 
-public class SelectAvailableUserView implements View {
+public class SelectAvailableUserView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;

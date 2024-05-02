@@ -8,7 +8,7 @@ import services.UserService;
 
 import java.util.List;
 
-public class BookmarkView implements View {
+public class BookmarkView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;

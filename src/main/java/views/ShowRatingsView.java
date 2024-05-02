@@ -9,7 +9,7 @@ import services.UserService;
 
 import java.util.List;
 
-public class ShowRatingsView implements View {
+public class ShowRatingsView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
@@ -51,7 +51,7 @@ public class ShowRatingsView implements View {
         System.out.println();
 
         if (input == 1) {
-            // TODO
+            // TODO show only my ratings
         }
 
         new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();

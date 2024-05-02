@@ -5,7 +5,7 @@ import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
-public class StartView implements View {
+public class StartView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
@@ -24,7 +24,7 @@ public class StartView implements View {
         System.out.println("╔═════════════════════════════════════════════════════╗");
         System.out.println("║                    OPEN COOKBOOK                    ║");
         System.out.println("╚═════════════════════════════════════════════════════╝");
-        System.out.println("                                             " + authenticationService.getCookbookCreationDate());                                            // TODO: Store Cookbook Data (name, dateOfCreation) in file
+        System.out.println("                                             " + authenticationService.getCookbookCreationDate());
 
         System.out.println("Hello and welcome to the open cookbook.");
         System.out.println("In this cookbook, users can share recipes.");

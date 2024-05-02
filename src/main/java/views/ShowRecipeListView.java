@@ -8,7 +8,7 @@ import services.UserService;
 
 import java.util.Map;
 
-public class ShowRecipeListView implements View {
+public class ShowRecipeListView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
