@@ -7,16 +7,14 @@ import services.RatingService;
 import services.RecipeService;
 import services.UserService;
 
-import java.util.List;
-
-public class ShowRatingsView extends AbstractView {
+public class YourSelectedRatingView extends AbstractView {
     private final UserService userService;
     private final AuthenticationService authenticationService;
     private final RecipeService recipeService;
     private final RatingService ratingService;
     private final Recipe recipe;
 
-    public ShowRatingsView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService, Recipe recipe) {
+    public YourSelectedRatingView(UserService userService, AuthenticationService authenticationService, RecipeService recipeService, RatingService ratingService, Recipe recipe) {
         this.userService = userService;
         this.authenticationService = authenticationService;
         this.recipeService = recipeService;
@@ -26,46 +24,45 @@ public class ShowRatingsView extends AbstractView {
 
     @Override
     public void display() {
-        System.out.println("┌         ┐");
-        System.out.println("  RATINGS  ");
-        System.out.println("└         ┘");
+        System.out.println("┌             ┐");
+        System.out.println("  YOUR RATING  ");
+        System.out.println("└             ┘");
 
-        List<RecipeRating> ratings = ratingService.getRatingsByRecipeId(recipe.id());
+        RecipeRating rating = ratingService.getRatingByName(recipe.id(), authenticationService.getCurrentUsername());
 
-        if (ratings.isEmpty()) {
-            writeYellowLine("This recipe has not been rated yet.");
+        if (rating == null) {
+            writeYellowLine("You have not yet rated this recipe.");
             System.out.println();
 
             new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
             return;
         }
 
-        printRatings(ratings);
+        System.out.println(rating);
         System.out.println();
 
-        writeYellowLine("What do you want to do now?");
+        writeYellowLine("Do you want to change this rating?");
         printOptions();
         System.out.println();
 
-        int input = getNumberInputMinMax(0, 1);
+        int changeRatingInput = getNumberInputMinMax(0, 2);
         System.out.println();
 
-        if (input == 1) {
-            new YourSelectedRatingView(userService, authenticationService, recipeService, ratingService, recipe).display();
-            return;
+        if (changeRatingInput == 1) {
+            // TODO: Change rating
+            System.out.println("Change rating");
+        }
+        else if (changeRatingInput == 2) {
+            // TODO: Delete rating
+            System.out.println("Delete rating");
         }
 
         new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
     }
 
-    private void printRatings(List<RecipeRating> ratings) {
-        for (RecipeRating rating : ratings) {
-            System.out.println(rating);
-        }
-    }
-
     private void printOptions() {
-        System.out.println("1: Show only my rating");
+        System.out.println("1: Change this rating");
+        System.out.println("2: Delete this rating");
         System.out.println("0: Return to recipe");
     }
 }
