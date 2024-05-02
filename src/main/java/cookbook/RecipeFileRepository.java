@@ -80,7 +80,11 @@ public class RecipeFileRepository implements RecipeRepository {
         ratingDataHandler.updateRatingInDB(newRating);
     }
 
-    public void deleteRatingsOfRecipe(String recipeId) {
+    public void deleteRating(String ratingId) {
+        ratingDataHandler.deleteRatingFromDB(ratingId);
+    }
+
+    public void deleteAllRatingsOfRecipe(String recipeId) {
         List<RecipeRating> ratings = getRatingsOfRecipe(recipeId);
 
         for (RecipeRating rating : ratings) {

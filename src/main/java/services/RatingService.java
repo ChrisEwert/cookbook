@@ -72,6 +72,10 @@ public class RatingService {
     }
 
     public void deleteRatingsOfRecipe(String recipeId) {
-        recipeRepository.deleteRatingsOfRecipe(recipeId);
+        recipeRepository.deleteAllRatingsOfRecipe(recipeId);
+    }
+
+    public void deleteRating(String ratingId) {
+        recipeRepository.deleteRating(ratingId);
     }
 }

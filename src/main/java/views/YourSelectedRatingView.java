@@ -53,8 +53,19 @@ public class YourSelectedRatingView extends AbstractView {
             return;
         }
         else if (changeRatingInput == 2) {
-            // TODO: Delete rating
-            System.out.println("Delete rating");
+            writeYellowLine("Are you sure that you want to delete this rating? To delete it, press 1. To go back, press 0");
+            int deleteRatingInput = getNumberInputMinMax(0, 1);
+            System.out.println();
+
+            if (deleteRatingInput == 1) {
+                ratingService.deleteRating(rating.id());
+
+                writeGreenLine("Deleted rating");
+                System.out.println();
+
+                new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
+                return;
+            }
         }
 
         new RecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
