@@ -58,7 +58,7 @@ public class RatingView extends AbstractView {
         String username = authenticationService.getCurrentUsername();
 
         writeYellowLine("Enter how many stars out of 5 you would give this recipe");
-        int stars = getNumberInputMinMax(0, 5);
+        int stars = getNumberInputMinMax(1, 5);
         System.out.println();
 
         writeYellowLine("Enter a comment about the rating");

@@ -71,8 +71,10 @@ public class RatingFileDataHandler extends FileDataHandler {
         saveAllRatingsToDB(ratings);
     }
 
-    public void updateRatingInDB(String id, RecipeRating newRating) {
+    public void updateRatingInDB(RecipeRating newRating) {
         Map<String, RecipeRating> ratings = getAllRatingsFromDB();
+
+        String id = newRating.id();
 
         if (!ratings.containsKey(id)) {
             System.err.println("Error: Rating with ID " + id + " not found.");

@@ -49,8 +49,8 @@ public class YourSelectedRatingView extends AbstractView {
         System.out.println();
 
         if (changeRatingInput == 1) {
-            // TODO: Change rating
-            System.out.println("Change rating");
+            new ChangeRatingView(userService, authenticationService, recipeService, ratingService, recipe, rating).display();
+            return;
         }
         else if (changeRatingInput == 2) {
             // TODO: Delete rating

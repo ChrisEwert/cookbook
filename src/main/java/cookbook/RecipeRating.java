@@ -21,6 +21,26 @@ public record RecipeRating(
         );
     }
 
+    public RecipeRating updateRating(String author, int stars, String title, String comment) {
+        return new RecipeRating(
+            this.id(),
+            this.recipeId(),
+            author,
+            stars,
+            title,
+            comment
+        );
+    }
+
+    public RecipeRating(String id, String recipeId, String author, int stars, String title, String comment) {
+        this.id = id;
+        this.recipeId = recipeId;
+        this.author = author;
+        this.stars = stars;
+        this.title = title;
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

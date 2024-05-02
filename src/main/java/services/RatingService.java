@@ -33,6 +33,10 @@ public class RatingService {
         return false;
     }
 
+    public RecipeRating getRatingById(String id) {
+        return recipeRepository.getRatingById(id);
+    }
+
     public RecipeRating getRatingByName(String recipeId, String name) {
         return recipeRepository.getRatingByName(recipeId, name);
     }
@@ -47,6 +51,14 @@ public class RatingService {
         updateStarsOfRecipe(updatedRecipe);
     }
 
+    public void updateExistingRating(String ratingId, String author, int stars, String title, String comment) {
+        RecipeRating currentRating = recipeRepository.getRatingById(ratingId);
+
+        RecipeRating updatedRating = currentRating.updateRating(author, stars, title, comment);
+
+        recipeRepository.updateExistingRatingOfRecipe(updatedRating);
+    }
+
     public void updateStarsOfRecipe(Recipe recipe) {
         List<RecipeRating> ratings = getRatingsByRecipeId(recipe.id());
 
@@ -56,7 +68,7 @@ public class RatingService {
         }
         stars /= ratings.size();
 
-        recipeRepository.updateRatingOfRecipe(recipe, stars, ratings.size());
+        recipeRepository.updateRatingStarsOfRecipe(recipe, stars, ratings.size());
     }
 
     public void deleteRatingsOfRecipe(String recipeId) {

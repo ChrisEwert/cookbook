@@ -24,6 +24,12 @@ public class RecipeFileRepository implements RecipeRepository {
         recipeDataHandler.addRecipeToDB(recipe);
     }
 
+    public void updateRatingStarsOfRecipe(Recipe recipe, float stars, int ratingCount) {
+        Recipe newRecipe = recipe.changeRating(stars, ratingCount);
+
+        recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
+    }
+
     public void updateRecipe(String id, Recipe newRecipe) {
         recipeDataHandler.updateRecipeInDB(id, newRecipe);
     }
@@ -70,10 +76,8 @@ public class RecipeFileRepository implements RecipeRepository {
         ratingDataHandler.addRatingToDB(rating);
     }
 
-    public void updateRatingOfRecipe(Recipe recipe, float stars, int ratingCount) {
-        Recipe newRecipe = recipe.changeRating(stars, ratingCount);
-
-        recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
+    public void updateExistingRatingOfRecipe(RecipeRating newRating) {
+        ratingDataHandler.updateRatingInDB(newRating);
     }
 
     public void deleteRatingsOfRecipe(String recipeId) {
