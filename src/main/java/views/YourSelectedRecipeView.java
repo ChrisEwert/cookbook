@@ -48,10 +48,13 @@ public class YourSelectedRecipeView extends AbstractView {
                 recipeService.deleteRecipe(recipe.id());
 
                 writeGreenLine("Deleted the recipe");
+                System.out.println();
 
                 new YourRecipesView(userService, authenticationService, recipeService, ratingService).display();
-                return;
+            } else {
+                new ChangeYourRecipeView(userService, authenticationService, recipeService, ratingService, recipe).display();
             }
+            return;
         }
 
         new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
