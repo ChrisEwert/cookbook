@@ -3,12 +3,54 @@ package cookbook;
 import db.UserFileDataHandler;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CookbookFileRepositoryTest {
+
+    @Test
+    void getCurrentUsername() {
+        // ARRANGE
+        CookbookFileRepository repository = new CookbookFileRepository();
+        String expectedUsername = "New username";
+        repository.setCurrentUsername(expectedUsername);
+
+        // ACT
+        String actualUsername = repository.getCurrentUsername();
+
+        // ASSERT
+        assertThat(actualUsername)
+            .isEqualTo(expectedUsername);
+    }
+
+    @Test
+    void setCurrentUsername() {
+        // ARRANGE
+        CookbookFileRepository repository = new CookbookFileRepository();
+
+        // ACT
+        repository.setCurrentUsername("New username");
+
+        // ASSERT
+        assertThat(repository.getCurrentUsername())
+            .isNotNull();
+    }
+
+    @Test
+    void getCreationDate() {
+        // ARRANGE
+        CookbookFileRepository repository = new CookbookFileRepository();
+        LocalDate expectedCreationDate = LocalDate.now();
+
+        // ACT
+
+        // ASSERT
+        assertThat(repository.getCreationDate())
+            .isEqualTo(expectedCreationDate);
+    }
 
     @Test
     public void testGetAllUsers() {

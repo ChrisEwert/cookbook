@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class CookbookRepositoryMock implements CookbookRepository {
     private String currentUsername;
-    private LocalDate creationDate;
-    private Map<String, CookbookUser> allUsers;
-    private Map<String, Set<String>> bookmarkedRecipeIdsByUsername;
+    private final LocalDate creationDate;
+    private final Map<String, CookbookUser> allUsers;
+    private final Map<String, Set<String>> bookmarkedRecipeIdsByUsername;
 
     public CookbookRepositoryMock() {
         this.currentUsername = null;
