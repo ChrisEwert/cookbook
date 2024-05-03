@@ -14,6 +14,8 @@ public interface CookbookRepository {
 
     Map<String, CookbookUser> getAllUsers();
 
+    CookbookUser getUserByUsername(String username);
+
     void createNewUser(CookbookUser user);
 
     Set<String> getBookmarkedRecipeIdsByUsername(String username);

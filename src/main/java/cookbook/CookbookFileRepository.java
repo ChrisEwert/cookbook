@@ -7,8 +7,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class CookbookFileRepository implements CookbookRepository {
-    private final UserFileDataHandler userFileDataHandler = new UserFileDataHandler();
+    private final UserFileDataHandler userFileDataHandler;
     private Cookbook cookbook = new Cookbook();
+
+    public CookbookFileRepository() {
+        this.userFileDataHandler = new UserFileDataHandler();
+    }
+
+    public CookbookFileRepository(UserFileDataHandler userFileDataHandler) {
+        this.userFileDataHandler = userFileDataHandler;
+    }
 
     public String getCurrentUsername() {
         return cookbook.currentUsername();
