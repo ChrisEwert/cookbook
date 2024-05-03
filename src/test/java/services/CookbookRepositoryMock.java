@@ -1,4 +1,7 @@
-package cookbook;
+package services;
+
+import cookbook.CookbookRepository;
+import cookbook.CookbookUser;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,8 +17,11 @@ public class CookbookRepositoryMock implements CookbookRepository {
 
     public CookbookRepositoryMock() {
         this.currentUsername = null;
-        this.creationDate = null;
-        this.allUsers = new HashMap<>();
+        this.creationDate = LocalDate.now();
+        this.allUsers = Map.ofEntries(
+          Map.entry("John", new CookbookUser("John", "pw")),
+          Map.entry("Jane", new CookbookUser("Jane", "pw"))
+        );
         this.bookmarkedRecipeIdsByUsername = new HashMap<>();
     }
 

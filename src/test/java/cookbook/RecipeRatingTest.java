@@ -16,7 +16,12 @@ class RecipeRatingTest {
         String comment = "Test comment";
 
         // ACT
-        RecipeRating updatedRating = rating.updateRating(author, stars, title, comment);
+        RecipeRating updatedRating = rating.updateRating(
+            author,
+            stars,
+            title,
+            comment
+        );
 
         // ASSERT
         assertThat(updatedRating.id())

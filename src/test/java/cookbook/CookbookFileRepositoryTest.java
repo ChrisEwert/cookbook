@@ -12,22 +12,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CookbookFileRepositoryTest {
 
     @Test
-    void getCurrentUsername() {
+    void testGetCurrentUsername() {
         // ARRANGE
         CookbookFileRepository repository = new CookbookFileRepository();
-        String expectedUsername = "New username";
-        repository.setCurrentUsername(expectedUsername);
 
         // ACT
-        String actualUsername = repository.getCurrentUsername();
+        String username = repository.getCurrentUsername();
 
         // ASSERT
-        assertThat(actualUsername)
-            .isEqualTo(expectedUsername);
+        assertThat(username)
+            .isNull();
     }
 
     @Test
-    void setCurrentUsername() {
+    void testSetCurrentUsername() {
         // ARRANGE
         CookbookFileRepository repository = new CookbookFileRepository();
 
@@ -40,15 +38,16 @@ public class CookbookFileRepositoryTest {
     }
 
     @Test
-    void getCreationDate() {
+    void testGetCreationDate() {
         // ARRANGE
         CookbookFileRepository repository = new CookbookFileRepository();
         LocalDate expectedCreationDate = LocalDate.now();
 
         // ACT
+        LocalDate actualCreationDate = repository.getCreationDate();
 
         // ASSERT
-        assertThat(repository.getCreationDate())
+        assertThat(actualCreationDate)
             .isEqualTo(expectedCreationDate);
     }
 
