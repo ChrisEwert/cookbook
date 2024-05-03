@@ -10,6 +10,17 @@ public record RecipeRating(
     String title,
     String comment
 ) {
+    public RecipeRating() {
+        this(
+            UUID.randomUUID().toString(),
+            UUID.randomUUID().toString(),
+            "",
+            0,
+            "",
+            ""
+        );
+    }
+
     public RecipeRating(String recipeId, String author, int stars, String title, String comment) {
         this(
             UUID.randomUUID().toString(),
@@ -30,15 +41,6 @@ public record RecipeRating(
             title,
             comment
         );
-    }
-
-    public RecipeRating(String id, String recipeId, String author, int stars, String title, String comment) {
-        this.id = id;
-        this.recipeId = recipeId;
-        this.author = author;
-        this.stars = stars;
-        this.title = title;
-        this.comment = comment;
     }
 
     @Override

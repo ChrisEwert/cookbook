@@ -2,15 +2,14 @@ package cookbook;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CookbookTest {
 
     @Test
-    void changeCurrentUsername() {
+    void testChangeCurrentUsername() {
         // ARRANGE
         Cookbook cookbook = new Cookbook();
-
         String username = "New username";
 
         // ACT

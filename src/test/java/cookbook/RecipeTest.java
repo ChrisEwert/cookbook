@@ -2,7 +2,7 @@ package cookbook;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ class RecipeTest {
     void testUpdateRecipe() {
         // ARRANGE
         Recipe recipe = new Recipe();
-
         String name = "New name";
         String author = "New author";
         List<String> ingredients = List.of("Ingredient 1", "Ingredient 2");
@@ -63,7 +62,6 @@ class RecipeTest {
     void testChangeRating() {
         // ARRANGE
         Recipe recipe = new Recipe();
-
         float rating = 2.5f;
         int ratingCount = 10;
 
