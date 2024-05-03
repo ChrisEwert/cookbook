@@ -18,10 +18,9 @@ public class CookbookRepositoryMock implements CookbookRepository {
     public CookbookRepositoryMock() {
         this.currentUsername = null;
         this.creationDate = LocalDate.now();
-        this.allUsers = Map.ofEntries(
-          Map.entry("John", new CookbookUser("John", "pw")),
-          Map.entry("Jane", new CookbookUser("Jane", "pw"))
-        );
+        this.allUsers = new HashMap<>();
+        allUsers.put("John", new CookbookUser("John", "pw"));
+        allUsers.put("Jane", new CookbookUser("Jane", "pw"));
         this.bookmarkedRecipeIdsByUsername = new HashMap<>();
     }
 

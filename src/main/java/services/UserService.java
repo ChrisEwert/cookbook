@@ -16,7 +16,7 @@ public class UserService {
         this.cookbookRepository = cookbookRepository;
     }
 
-    private Map<String, CookbookUser> getAllUsers() {
+    public Map<String, CookbookUser> getAllUsers() {
         return cookbookRepository.getAllUsers();
     }
 

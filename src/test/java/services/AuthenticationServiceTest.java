@@ -6,10 +6,25 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AuthenticationServiceTest {
+
+    @Test
+    void getAllUsers() {
+        // ARRANGE
+        CookbookRepository cookbookRepository = new CookbookRepositoryMock();
+        AuthenticationService authenticationService = new AuthenticationService(cookbookRepository);
+
+        // ACT
+        Map<String, CookbookUser> users = authenticationService.getAllUsers();
+
+        // ASSERT
+        assertThat(users)
+            .isNotEmpty();
+    }
 
     @Test
     void testGetCookbookCreationDate() {
@@ -45,17 +60,17 @@ class AuthenticationServiceTest {
         // ARRANGE
         CookbookRepository cookbookRepository = new CookbookRepositoryMock();
         AuthenticationService authenticationService = new AuthenticationService(cookbookRepository);
-        String username_that_does_exist = "John";
-        String username_that_does_not_exist = "Bob";
+        String usernameThatDoesExist = "John";
+        String usernameThatDoesNotExist = "Bob";
 
         // ACT
-        boolean user_does_exist = authenticationService.userExists(username_that_does_exist);
-        boolean user_does_not_exist = authenticationService.userExists(username_that_does_not_exist);
+        boolean userDoesExist = authenticationService.userExists(usernameThatDoesExist);
+        boolean userDoesNotExist = authenticationService.userExists(usernameThatDoesNotExist);
 
         // ASSERT
-        assertThat(user_does_exist)
+        assertThat(userDoesExist)
             .isEqualTo(true);
-        assertThat(user_does_not_exist)
+        assertThat(userDoesNotExist)
             .isEqualTo(false);
     }
 
@@ -64,23 +79,23 @@ class AuthenticationServiceTest {
         // ARRANGE
         CookbookRepository cookbookRepository = new CookbookRepositoryMock();
         AuthenticationService authenticationService = new AuthenticationService(cookbookRepository);
-        CookbookUser user_with_right_password = new CookbookUser("John", "pw");
-        CookbookUser user_with_wrong_password = new CookbookUser("John", "password");
+        CookbookUser userWithRightPassword = new CookbookUser("John", "pw");
+        CookbookUser userWithWrongPassword = new CookbookUser("John", "password");
 
         // ACT
-        boolean password_is_right = authenticationService.credentialsMatch(
-            user_with_right_password.username(),
-            user_with_right_password.password()
+        boolean passwordIsRight = authenticationService.credentialsMatch(
+            userWithRightPassword.username(),
+            userWithRightPassword.password()
         );
-        boolean password_is_wrong = authenticationService.credentialsMatch(
-            user_with_wrong_password.username(),
-            user_with_wrong_password.password()
+        boolean passwordIsWrong = authenticationService.credentialsMatch(
+            userWithWrongPassword.username(),
+            userWithWrongPassword.password()
         );
 
         // ARRANGE
-        assertThat(password_is_right)
+        assertThat(passwordIsRight)
             .isEqualTo(true);
-        assertThat(password_is_wrong)
+        assertThat(passwordIsWrong)
             .isEqualTo(false);
     }
 
