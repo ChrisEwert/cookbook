@@ -42,4 +42,37 @@ class RecipeRatingTest {
             .isEqualTo(comment);
 
     }
+
+    @Test
+    void testToString() {
+        // ARRANGE
+        String recipeId = "Recipe ID";
+        String author = "Test author";
+        int stars = 5;
+        String title = "Test title";
+        String comment = "Test comment";
+        RecipeRating rating = new RecipeRating(recipeId, author, stars, title, comment);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("───────────────────\n");
+        builder.append(stars);
+        builder.append("⭑");
+        builder.append("\t\t\t");
+        builder.append(author);
+        builder.append("\n");
+        builder.append(title.toUpperCase());
+        builder.append("\n");
+        builder.append(comment);
+        builder.append("\n");
+        builder.append("───────────────────");
+
+        String expectedResult = builder.toString();
+
+        // ACT
+        String actualResult = rating.toString();
+
+        // ASSERT
+        assertThat(actualResult)
+            .isEqualTo(expectedResult);
+    }
 }

@@ -123,13 +123,6 @@ public record Recipe(
         builder.append(roundedRating);
     }
 
-    private void showRecipeCategories(StringBuilder builder) {
-        for (int i = 0; i < categories.size() - 1; i++) {
-            builder.append(categories.get(i)).append(", ");
-        }
-        builder.append(categories.get(categories.size() - 1));
-    }
-
     private void showRecipeCookingTime(StringBuilder builder) {
         int hours = cookingTimeInMinutes / 60;
         int remainingMinutes = cookingTimeInMinutes % 60;
@@ -140,6 +133,13 @@ public record Recipe(
         String time = formattedHours + ":" + formattedMinutes + " h";
 
         builder.append(time);
+    }
+
+    private void showRecipeCategories(StringBuilder builder) {
+        for (int i = 0; i < categories.size() - 1; i++) {
+            builder.append(categories.get(i)).append(", ");
+        }
+        builder.append(categories.get(categories.size() - 1));
     }
 
     private void showRecipeIngredients(StringBuilder builder) {

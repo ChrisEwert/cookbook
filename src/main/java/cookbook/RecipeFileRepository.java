@@ -9,42 +9,62 @@ import java.util.Map;
 import java.util.Objects;
 
 public class RecipeFileRepository implements RecipeRepository {
-    private final RecipeFileDataHandler recipeDataHandler = new RecipeFileDataHandler();
-    private final RatingFileDataHandler ratingDataHandler = new RatingFileDataHandler();
+    private final RecipeFileDataHandler recipeFileDataHandler;
+    private final RatingFileDataHandler ratingFileDataHandler;
+
+    public RecipeFileRepository() {
+        this.ratingFileDataHandler = new RatingFileDataHandler();
+        this.recipeFileDataHandler = new RecipeFileDataHandler();
+    }
+
+    public RecipeFileRepository(RecipeFileDataHandler recipeFileDataHandler) {
+        this.recipeFileDataHandler = recipeFileDataHandler;
+        this.ratingFileDataHandler = new RatingFileDataHandler();
+    }
+
+    public RecipeFileRepository(RatingFileDataHandler ratingFileDataHandler) {
+        this.recipeFileDataHandler = new RecipeFileDataHandler();
+        this.ratingFileDataHandler = ratingFileDataHandler;
+    }
+
+    public RecipeFileRepository(RecipeFileDataHandler recipeFileDataHandler, RatingFileDataHandler ratingFileDataHandler) {
+        this.recipeFileDataHandler = recipeFileDataHandler;
+        this.ratingFileDataHandler = ratingFileDataHandler;
+    }
 
     public Map<String, Recipe> getAllRecipes() {
-        return recipeDataHandler.getAllRecipesFromDB();
+        return recipeFileDataHandler.getAllRecipesFromDB();
     }
 
     public Recipe getRecipeById(String id) {
-        return recipeDataHandler.getRecipeById(id);
+        return recipeFileDataHandler.getRecipeById(id);
     }
 
     public void addRecipe(Recipe recipe) {
-        recipeDataHandler.addRecipeToDB(recipe);
+        recipeFileDataHandler.addRecipeToDB(recipe);
     }
 
     public void updateRatingStarsOfRecipe(Recipe recipe, float stars, int ratingCount) {
         Recipe newRecipe = recipe.changeRating(stars, ratingCount);
 
-        recipeDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
+        recipeFileDataHandler.updateRecipeInDB(recipe.id(), newRecipe);
     }
 
     public void updateRecipe(String id, Recipe newRecipe) {
-        recipeDataHandler.updateRecipeInDB(id, newRecipe);
+        recipeFileDataHandler.updateRecipeInDB(id, newRecipe);
     }
 
     public void deleteRecipe(String recipeId) {
-        recipeDataHandler.deleteRecipeFromDB(recipeId);
+        recipeFileDataHandler.deleteRecipeFromDB(recipeId);
     }
 
 
     public Map<String, RecipeRating> getAllRatings() {
-        return ratingDataHandler.getAllRatingsFromDB();
+        return ratingFileDataHandler.getAllRatingsFromDB();
     }
 
     public RecipeRating getRatingById(String id) {
-        return ratingDataHandler.getRatingById(id);
+        return ratingFileDataHandler.getRatingById(id);
     }
 
     public RecipeRating getRatingByName(String recipeId, String name) {
@@ -72,23 +92,24 @@ public class RecipeFileRepository implements RecipeRepository {
         return ratings;
     }
 
+    // TODO: You should not add the recipeId in the service, but here
     public void addRating(RecipeRating rating) {
-        ratingDataHandler.addRatingToDB(rating);
+        ratingFileDataHandler.addRatingToDB(rating);
     }
 
     public void updateExistingRatingOfRecipe(RecipeRating newRating) {
-        ratingDataHandler.updateRatingInDB(newRating);
+        ratingFileDataHandler.updateRatingInDB(newRating);
     }
 
     public void deleteRating(String ratingId) {
-        ratingDataHandler.deleteRatingFromDB(ratingId);
+        ratingFileDataHandler.deleteRatingFromDB(ratingId);
     }
 
     public void deleteAllRatingsOfRecipe(String recipeId) {
         List<RecipeRating> ratings = getRatingsOfRecipe(recipeId);
 
         for (RecipeRating rating : ratings) {
-            ratingDataHandler.deleteRatingFromDB(rating.id());
+            ratingFileDataHandler.deleteRatingFromDB(rating.id());
         }
     }
 }

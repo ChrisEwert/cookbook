@@ -15,7 +15,7 @@ public class AuthenticationService {
         this.cookbookRepository = cookbookRepository;
     }
 
-    public Map<String, CookbookUser> getAllUsers() {
+    private Map<String, CookbookUser> getAllUsers() {
         return cookbookRepository.getAllUsers();
     }
 

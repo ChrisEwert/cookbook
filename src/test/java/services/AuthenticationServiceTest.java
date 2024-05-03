@@ -6,25 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AuthenticationServiceTest {
-
-    @Test
-    void getAllUsers() {
-        // ARRANGE
-        CookbookRepository cookbookRepository = new CookbookRepositoryMock();
-        AuthenticationService authenticationService = new AuthenticationService(cookbookRepository);
-
-        // ACT
-        Map<String, CookbookUser> users = authenticationService.getAllUsers();
-
-        // ASSERT
-        assertThat(users)
-            .isNotEmpty();
-    }
 
     @Test
     void testGetCookbookCreationDate() {

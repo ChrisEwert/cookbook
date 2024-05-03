@@ -6,25 +6,10 @@ import cookbook.Recipe;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class UserServiceTest {
-
-    @Test
-    void testGetAllUsers() {
-        // ARRANGE
-        CookbookRepository cookbookRepository = new CookbookRepositoryMock();
-        UserService userService = new UserService(cookbookRepository);
-
-        // ACT
-        Map<String, CookbookUser> users = userService.getAllUsers();
-
-        // ASSERT
-        assertThat(users)
-            .isNotEmpty();
-    }
 
     @Test
     void testGetAllUsernames() {

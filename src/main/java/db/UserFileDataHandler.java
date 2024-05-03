@@ -78,7 +78,7 @@ public class UserFileDataHandler extends FileDataHandler {
             return;
         }
 
-        users.put(username, user);
+        users.put(username, user); // TODO: Change to replace?
 
         saveAllUsersToDB(users);
     }
