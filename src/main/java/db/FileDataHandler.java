@@ -8,6 +8,16 @@ public class FileDataHandler {
     final String directoryName = "db";
 
     public void createFile(Path filePath) {
+        Path directoryPath = filePath.getParent();
+        if (!Files.exists(directoryPath)) {
+            try {
+                Files.createDirectories(directoryPath);
+            } catch (IOException e) {
+                System.err.println("Could not create directory: " + directoryPath);
+                return;
+            }
+        }
+
         if (Files.exists(filePath)) {
             return;
         }
@@ -15,7 +25,7 @@ public class FileDataHandler {
         try {
             Files.createFile(filePath);
         } catch (IOException e) {
-            System.err.println("Could not create file");
+            System.err.println("Could not create file: " + filePath);
         }
     }
 }

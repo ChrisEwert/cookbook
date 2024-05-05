@@ -65,7 +65,8 @@ It allows users to create and share recipes.
 ## Service List
 * UserService: used for listing existing Users and creating new Users
 * AuthenticationService: used for logging in and logging out of the Cookbook
-* RecipeService: used for listing existing Recipes and creating new Recipes
+* RecipeService: used for listing, updating and deleting existing Recipes and creating new Recipes
+* RatingService: used for listing, updating and deleting existing Ratings and creating new Ratings
 
 ## DataHandler List
 * UserDataHandler: manages the connection to the file that stores the Users (db/users.json)
