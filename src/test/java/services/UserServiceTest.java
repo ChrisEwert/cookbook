@@ -47,10 +47,10 @@ class UserServiceTest {
         // ARRANGE
         CookbookRepository cookbookRepository = new CookbookRepositoryMock();
         UserService userService = new UserService(cookbookRepository);
-        String existingUsername = "John";
+        userService.createNewUser("Charles", "pw");
 
         // ACT
-        List<String> bookmarkedRecipeIds = userService.getBookmarkedRecipeIdsByUsername(existingUsername);
+        List<String> bookmarkedRecipeIds = userService.getBookmarkedRecipeIdsByUsername("Charles");
 
         // ASSERT
         assertThat(bookmarkedRecipeIds)
@@ -62,14 +62,15 @@ class UserServiceTest {
         // ARRANGE
         CookbookRepository cookbookRepository = new CookbookRepositoryMock();
         UserService userService = new UserService(cookbookRepository);
-        String existingUsername = "John";
+        String username = "Charles";
+        userService.createNewUser(username, "pw");
         Recipe recipe = new Recipe();
 
         // ACT
-        userService.bookmarkRecipe(existingUsername, recipe);
+        userService.bookmarkRecipe(username, recipe);
 
         // ASSERT
-        assertThat(userService.getBookmarkedRecipeIdsByUsername(existingUsername))
+        assertThat(userService.getBookmarkedRecipeIdsByUsername(username))
             .contains(recipe.id());
     }
 }

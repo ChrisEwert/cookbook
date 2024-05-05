@@ -17,9 +17,9 @@ public interface RecipeRepository {
 
     Map<String, RecipeRating> getAllRatings();
 
-    List<RecipeRating> getRatingsOfRecipe(String recipeId);
-
     RecipeRating getRatingById(String ratingId);
+
+    List<RecipeRating> getRatingsOfRecipe(String recipeId);
 
     RecipeRating getRatingOfRecipeByAuthor(String recipeId, String author);
 

@@ -70,13 +70,13 @@ public class RecipeRepositoryMock implements RecipeRepository {
     }
 
     @Override
-    public void addRecipe(Recipe recipe) {
-        recipes.put(recipe.id(), recipe);
+    public void addRecipe(String recipeId, Recipe recipe) {
+        recipes.put(recipeId, recipe);
     }
 
     @Override
     public void updateRecipe(String recipeId, Recipe newRecipe) {
-        recipes.replace(recipeId, newRecipe);
+        recipes.put(recipeId, newRecipe);
     }
 
     @Override
@@ -84,31 +84,36 @@ public class RecipeRepositoryMock implements RecipeRepository {
         recipes.remove(recipeId);
     }
 
+
     @Override
     public Map<String, RecipeRating> getAllRatings() {
         return ratings;
     }
 
     @Override
-    public List<RecipeRating> getRatingsOfRecipe(String recipeId) {
-        Map<String, RecipeRating> allRatings = getAllRatings();
-        List<RecipeRating> ratings = new ArrayList<>();
-
-        for (RecipeRating rating : allRatings.values()) {
-            if (rating.id().equals(recipeId)) {
-                ratings.add(rating);
-            }
-        }
-
-        return ratings;
+    public RecipeRating getRatingById(String ratingId) {
+        return ratings.get(ratingId);
     }
 
     @Override
-    public RecipeRating getRatingByName(String recipeId, String name) {
+    public List<RecipeRating> getRatingsOfRecipe(String recipeId) {
+        List<RecipeRating> ratingList = new ArrayList<>();
+
+        for (RecipeRating rating : ratings.values()) {
+            if (rating.id().equals(recipeId)) {
+                ratingList.add(rating);
+            }
+        }
+
+        return ratingList;
+    }
+
+    @Override
+    public RecipeRating getRatingOfRecipeByAuthor(String recipeId, String author) {
         List<RecipeRating> ratings = getRatingsOfRecipe(recipeId);
 
         for (RecipeRating rating : ratings) {
-            if (rating.author().equals(name)) {
+            if (rating.author().equals(author)) {
                 return rating;
             }
         }
@@ -117,13 +122,18 @@ public class RecipeRepositoryMock implements RecipeRepository {
     }
 
     @Override
-    public RecipeRating getRatingById(String id) {
-        return ratings.get(id);
+    public void addRating(String ratingId, RecipeRating rating) {
+        ratings.put(ratingId, rating);
     }
 
     @Override
-    public void addRating(RecipeRating rating) {
-        ratings.put(rating.id(), rating);
+    public void updateExistingRatingOfRecipe(String ratingId, RecipeRating updatedRating) {
+        ratings.put(ratingId, updatedRating);
+    }
+
+    @Override
+    public void deleteRating(String ratingId) {
+        ratings.remove(ratingId);
     }
 
     @Override
@@ -133,15 +143,5 @@ public class RecipeRepositoryMock implements RecipeRepository {
         for (RecipeRating rating : allRatings) {
             ratings.remove(rating.id());
         }
-    }
-
-    @Override
-    public void updateExistingRatingOfRecipe(RecipeRating updatedRating) {
-        ratings.replace(updatedRating.id(), updatedRating);
-    }
-
-    @Override
-    public void deleteRating(String ratingId) {
-        ratings.remove(ratingId);
     }
 }

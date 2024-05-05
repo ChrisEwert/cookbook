@@ -36,13 +36,13 @@ public class RecipeFileDataHandlerMock extends RecipeFileDataHandler {
     }
 
     @Override
-    public void addRecipeToDB(Recipe recipe) {
-        recipes.put(recipe.id(), recipe);
+    public void addRecipeToDB(String id, Recipe recipe) {
+        recipes.put(id, recipe);
     }
 
     @Override
     public void updateRecipeInDB(String id, Recipe newRecipe) {
-        recipes.replace(id, newRecipe);
+        recipes.put(id, newRecipe);
     }
 
     @Override

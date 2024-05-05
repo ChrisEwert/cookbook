@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RecipeFileRepositoryTest {
 
     @Test
-    void getAllRecipes() {
+    void testGetAllRecipes() {
         // ARRANGE
         RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler);
@@ -26,15 +26,16 @@ class RecipeFileRepositoryTest {
     }
 
     @Test
-    void getRecipeById() {
+    void testGetRecipeById() {
         // ARRANGE
         RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler);
         Recipe expectedRecipe = new Recipe();
-        repository.addRecipe(expectedRecipe);
+        String recipeId = expectedRecipe.id();
+        repository.addRecipe(recipeId, expectedRecipe);
 
         // ACT
-        Recipe actualRecipe = repository.getRecipeById(expectedRecipe.id());
+        Recipe actualRecipe = repository.getRecipeById(recipeId);
 
         // ASSERT
         assertThat(actualRecipe)
@@ -42,76 +43,59 @@ class RecipeFileRepositoryTest {
     }
 
     @Test
-    void addRecipe() {
+    void testAddRecipe() {
         // ARRANGE
         RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler);
         Recipe recipe = new Recipe();
+        String recipeId = recipe.id();
 
         // ACT
-        repository.addRecipe(recipe);
+        repository.addRecipe(recipeId, recipe);
 
         // ASSERT
-        assertThat(repository.getAllRecipes())
-            .isNotEmpty();
+        assertThat(repository.getRecipeById(recipeId))
+            .isNotNull();
     }
 
     @Test
-    void updateRatingStarsOfRecipe() {
+    void testUpdateRecipe() {
         // ARRANGE
         RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler);
         Recipe recipe = new Recipe();
-        repository.addRecipe(recipe);
-        float stars = 2.5f;
-        int ratingCount = 10;
+        String recipeId = recipe.id();
+        repository.addRecipe(recipeId, recipe);
+        Recipe updatedRecipe = recipe.updateRecipe("Name", "Author", List.of(), List.of(), List.of(), 5);
 
         // ACT
-        repository.updateRatingStarsOfRecipe(recipe, stars, ratingCount);
+        repository.updateRecipe(recipeId, updatedRecipe);
 
         // ASSERT
-        assertThat(repository.getRecipeById(recipe.id()).rating())
-            .isEqualTo(2.5f);
-        assertThat(repository.getRecipeById(recipe.id()).ratingCount())
-            .isEqualTo(ratingCount);
-    }
-
-    @Test
-    void updateRecipe() {
-        // ARRANGE
-        RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
-        RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler);
-        Recipe recipe = new Recipe();
-        repository.addRecipe(recipe);
-        Recipe updatedRecipe = new Recipe("Name", "Author", List.of(), List.of(), List.of(), 5);
-
-        // ACT
-        repository.updateRecipe(recipe.id(), updatedRecipe);
-
-        // ASSERT
-        assertThat(repository.getRecipeById(recipe.id()))
+        assertThat(repository.getRecipeById(recipeId))
             .isNotEqualTo(recipe)
             .isEqualTo(updatedRecipe);
     }
 
     @Test
-    void deleteRecipe() {
+    void testDeleteRecipe() {
         // ARRANGE
         RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler);
         Recipe recipe = new Recipe();
-        repository.addRecipe(recipe);
+        String recipeId = recipe.id();
+        repository.addRecipe(recipeId, recipe);
 
         // ACT
-        repository.deleteRecipe(recipe.id());
+        repository.deleteRecipe(recipeId);
 
         // ASSERT
-        assertThat(repository.getRecipeById(recipe.id()))
+        assertThat(repository.getRecipeById(recipeId))
             .isNull();
     }
 
     @Test
-    void getAllRatings() {
+    void testGetAllRatings() {
         // ARRANGE
         RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(ratingFileDataHandler);
@@ -125,15 +109,16 @@ class RecipeFileRepositoryTest {
     }
 
     @Test
-    void getRatingById() {
+    void testGetRatingById() {
         // ARRANGE
         RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(ratingFileDataHandler);
         RecipeRating expectedRating = new RecipeRating();
-        repository.addRating(expectedRating);
+        String ratingId = expectedRating.id();
+        repository.addRating(ratingId, expectedRating);
 
         // ACT
-        RecipeRating actualRating = repository.getRatingById(expectedRating.id());
+        RecipeRating actualRating = repository.getRatingById(ratingId);
 
         // ASSERT
         assertThat(actualRating)
@@ -141,29 +126,7 @@ class RecipeFileRepositoryTest {
     }
 
     @Test
-    void getRatingByName() {
-        // ARRANGE
-        RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
-        RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
-        RecipeFileRepository repository = new RecipeFileRepository(recipeFileDataHandler, ratingFileDataHandler);
-
-        Recipe existingRecipe = repository.getRecipeById("Recipe ID 1");
-        String existingAuthor = "John";
-        String nonExistingAuthor = "Bob";
-
-        // ACT
-        RecipeRating existingRating = repository.getRatingByName(existingRecipe.id(), existingAuthor);
-        RecipeRating nonExistingRating = repository.getRatingByName(existingRecipe.id(), nonExistingAuthor);
-
-        // ASSERT
-        assertThat(existingRating)
-            .isNotNull();
-        assertThat(nonExistingRating)
-            .isNull();
-    }
-
-    @Test
-    void getRatingsOfRecipe() {
+    void testGetRatingsOfRecipe() {
         // ARRANGE
         RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
         RecipeFileDataHandler recipeFileDataHandler = new RecipeFileDataHandlerMock();
@@ -179,35 +142,59 @@ class RecipeFileRepositoryTest {
     }
 
     @Test
-    void addRating() {
+    void testGetRatingByName() {
         // ARRANGE
         RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(ratingFileDataHandler);
-        RecipeRating rating = new RecipeRating();
+
+        String existingRecipeId = "Recipe ID 1";
+        String existingAuthor = "John";
+        String nonExistingAuthor = "Bob";
 
         // ACT
-        repository.addRating(rating);
+        RecipeRating existingRating = repository.getRatingOfRecipeByAuthor(existingRecipeId, existingAuthor);
+        RecipeRating nonExistingRating = repository.getRatingOfRecipeByAuthor(existingRecipeId, nonExistingAuthor);
 
         // ASSERT
-        assertThat(repository.getRatingById(rating.id()))
+        assertThat(existingRating)
             .isNotNull();
+        assertThat(nonExistingRating)
+            .isNull();
     }
 
     @Test
-    void updateExistingRatingOfRecipe() {
+    void testAddRating() {
         // ARRANGE
         RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(ratingFileDataHandler);
         RecipeRating rating = new RecipeRating();
-        repository.addRating(rating);
-        RecipeRating updatedRating = new RecipeRating(rating.id(), "Recipe ID 1", "Author", 5, "Title", "Comment");
+        String ratingId = rating.id();
 
         // ACT
-        repository.updateExistingRatingOfRecipe(updatedRating);
+        repository.addRating(ratingId, rating);
 
         // ASSERT
-        assertThat(repository.getRatingById(updatedRating.id()))
-            .isNotEqualTo(rating);
+        assertThat(repository.getRatingById(ratingId))
+            .isEqualTo(rating);
+    }
+
+    @Test
+    void testUpdateExistingRatingOfRecipe() {
+        // ARRANGE
+        RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
+        RecipeFileRepository repository = new RecipeFileRepository(ratingFileDataHandler);
+        RecipeRating rating = new RecipeRating();
+        String ratingId = rating.id();
+        repository.addRating(ratingId, rating);
+        RecipeRating updatedRating = new RecipeRating(ratingId, "Recipe ID 1", "Author", 5, "Title", "Comment");
+
+        // ACT
+        repository.updateExistingRatingOfRecipe(ratingId, updatedRating);
+
+        // ASSERT
+        assertThat(repository.getRatingById(ratingId))
+            .isNotEqualTo(rating)
+            .isEqualTo(updatedRating);
     }
 
     @Test
@@ -216,13 +203,14 @@ class RecipeFileRepositoryTest {
         RatingFileDataHandler ratingFileDataHandler = new RatingFileDataHandlerMock();
         RecipeFileRepository repository = new RecipeFileRepository(ratingFileDataHandler);
         RecipeRating rating = new RecipeRating();
-        repository.addRating(rating);
+        String ratingId = rating.id();
+        repository.addRating(ratingId, rating);
 
         // ACT
-        repository.deleteRating(rating.id());
+        repository.deleteRating(ratingId);
 
         // ASSERT
-        assertThat(repository.getRatingById(rating.id()))
+        assertThat(repository.getRatingById(ratingId))
             .isNull();
     }
 

@@ -57,6 +57,10 @@ public class RecipeFileRepository implements RecipeRepository {
         return ratingFileDataHandler.getAllRatingsFromDB();
     }
 
+    public RecipeRating getRatingById(String ratingId) {
+        return ratingFileDataHandler.getRatingById(ratingId);
+    }
+
     public List<RecipeRating> getRatingsOfRecipe(String recipeId) {
         Map<String, RecipeRating> allRatings = getAllRatings();
         List<RecipeRating> ratings = new ArrayList<>();
@@ -68,10 +72,6 @@ public class RecipeFileRepository implements RecipeRepository {
         }
 
         return ratings;
-    }
-
-    public RecipeRating getRatingById(String ratingId) {
-        return ratingFileDataHandler.getRatingById(ratingId);
     }
 
     public RecipeRating getRatingOfRecipeByAuthor(String recipeId, String author) {

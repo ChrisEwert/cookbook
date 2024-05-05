@@ -24,8 +24,8 @@ public class UserFileDataHandlerMock extends UserFileDataHandler {
     }
 
     @Override
-    public void saveUserToDB(CookbookUser user) {
-        users.put(user.username(), user);
+    public void saveUserToDB(String username, CookbookUser user) {
+        users.put(username, user);
     }
 
     @Override

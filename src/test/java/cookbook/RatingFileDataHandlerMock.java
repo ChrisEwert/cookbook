@@ -29,13 +29,13 @@ public class RatingFileDataHandlerMock extends RatingFileDataHandler {
     }
 
     @Override
-    public void addRatingToDB(RecipeRating rating) {
-        ratings.put(rating.id(), rating);
+    public void addRatingToDB(String id, RecipeRating rating) {
+        ratings.put(id, rating);
     }
 
     @Override
-    public void updateRatingInDB(RecipeRating newRating) {
-        ratings.replace(newRating.id(), newRating);
+    public void updateRatingInDB(String id, RecipeRating newRating) {
+        ratings.put(id, newRating);
     }
 
     @Override

@@ -22,6 +22,8 @@ public class CookbookRepositoryMock implements CookbookRepository {
         allUsers.put("John", new CookbookUser("John", "pw"));
         allUsers.put("Jane", new CookbookUser("Jane", "pw"));
         this.bookmarkedRecipeIdsByUsername = new HashMap<>();
+        bookmarkedRecipeIdsByUsername.put("John", new HashSet<>());
+        bookmarkedRecipeIdsByUsername.put("Jane", new HashSet<>());
     }
 
     @Override
@@ -50,18 +52,19 @@ public class CookbookRepositoryMock implements CookbookRepository {
     }
 
     @Override
-    public void createNewUser(CookbookUser user) {
-        allUsers.put(user.username(), user);
+    public void createNewUser(String username, CookbookUser user) {
+        allUsers.put(username, user);
+        bookmarkedRecipeIdsByUsername.put(username, new HashSet<>());
     }
 
     @Override
     public Set<String> getBookmarkedRecipeIdsByUsername(String username) {
-        return bookmarkedRecipeIdsByUsername.getOrDefault(username, new HashSet<>());
+        return bookmarkedRecipeIdsByUsername.get(username);
     }
 
     @Override
     public void addBookmarkedRecipeId(String username, String recipeId) {
-        Set<String> bookmarkedRecipeIds = bookmarkedRecipeIdsByUsername.getOrDefault(username, new HashSet<>());
+        Set<String> bookmarkedRecipeIds = bookmarkedRecipeIdsByUsername.get(username);
         bookmarkedRecipeIds.add(recipeId);
         bookmarkedRecipeIdsByUsername.put(username, bookmarkedRecipeIds);
     }

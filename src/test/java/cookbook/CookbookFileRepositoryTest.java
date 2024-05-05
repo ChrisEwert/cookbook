@@ -96,7 +96,7 @@ public class CookbookFileRepositoryTest {
         CookbookUser newUser = new CookbookUser();
 
         // ACT
-        repository.createNewUser(newUser);
+        repository.createNewUser(newUser.username(), newUser);
 
         // ASSERT
         assertThat(userFileDataHandler.getAllUsersFromDB())
@@ -109,7 +109,7 @@ public class CookbookFileRepositoryTest {
         UserFileDataHandler userFileDataHandler = new UserFileDataHandlerMock();
         CookbookFileRepository repository = new CookbookFileRepository(userFileDataHandler);
         CookbookUser newUser = new CookbookUser("John", "pw");
-        repository.createNewUser(newUser);
+        repository.createNewUser(newUser.username(), newUser);
         String recipeId = "New recipe ID";
         repository.addBookmarkedRecipeId(newUser.username(), recipeId);
         Set<String> expectedRecipeIds = Set.of(recipeId);
@@ -128,7 +128,7 @@ public class CookbookFileRepositoryTest {
         UserFileDataHandler userFileDataHandler = new UserFileDataHandlerMock();
         CookbookFileRepository repository = new CookbookFileRepository(userFileDataHandler);
         CookbookUser newUser = new CookbookUser("John", "pw");
-        repository.createNewUser(newUser);
+        repository.createNewUser(newUser.username(), newUser);
 
         // ACT
         repository.addBookmarkedRecipeId(newUser.username(), "New recipe ID");
