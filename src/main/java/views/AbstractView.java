@@ -51,7 +51,7 @@ public abstract class AbstractView implements View {
         }
     }
 
-    public int getNumberInputMinMax(int min, int max) {
+    public int getNumberInRange(int min, int max) {
         while (true) {
             System.out.println("Please enter a number between " + min + " and " + max);
             String input = getUserInput();
@@ -70,9 +70,9 @@ public abstract class AbstractView implements View {
         }
     }
 
-    public String getNumberInputMinMaxOrOptions(int min, int max, List<String> options) {
+    public String getNumberInRangeWithSpecialCases(int min, int max, List<String> exceptions) {
         StringBuilder optionBuilder = new StringBuilder();
-        for (String option : options) {
+        for (String option : exceptions) {
             optionBuilder
                 .append("'")
                 .append(option)
@@ -82,8 +82,8 @@ public abstract class AbstractView implements View {
             System.out.println("Please enter a number between " + min + " and " + max + " or one of those options: " + optionBuilder);
             String input = getUserInput();
 
-            for (String option : options) {
-                if (input.equalsIgnoreCase(option)) {
+            for (String exception : exceptions) {
+                if (input.equalsIgnoreCase(exception)) {
                     return input;
                 }
             }
