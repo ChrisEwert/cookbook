@@ -33,7 +33,14 @@ public record Recipe(
         );
     }
 
-    public Recipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
+    public Recipe(
+        String name,
+        String author,
+        List<String> ingredients,
+        List<String> content,
+        List<String> categories,
+        int cookingTimeInMinutes
+    ) {
         this(
             UUID.randomUUID().toString(),
             name,
@@ -48,34 +55,39 @@ public record Recipe(
         );
     }
 
-    public Recipe updateRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int cookingTimeInMinutes) {
-        return new Recipe(
-            this.id,
-            name,
-            author,
-            this.dateOfCreation,
-            ingredients,
-            content,
-            categories,
-            cookingTimeInMinutes,
-            this.rating,
-            this.ratingCount
-        );
+    public Recipe updateRecipe(
+        String name,
+        String author,
+        List<String> ingredients,
+        List<String> content,
+        List<String> categories,
+        int cookingTimeInMinutes
+    ) {
+        return new RecipeBuilder()
+            .withId(this.id)
+            .withName(name)
+            .withAuthor(author)
+            .withIngredients(ingredients)
+            .withContent(content)
+            .withCategories(categories)
+            .withCookingTimeInMinutes(cookingTimeInMinutes)
+            .withRating(this.rating)
+            .withRatingCount(this.ratingCount)
+            .build();
     }
 
     public Recipe changeRating(float rating, int ratingCount) {
-        return new Recipe(
-            this.id,
-            this.name,
-            this.author,
-            this.dateOfCreation,
-            this.ingredients,
-            this.content,
-            this.categories,
-            this.cookingTimeInMinutes,
-            rating,
-            ratingCount
-        );
+        return new RecipeBuilder()
+            .withId(this.id)
+            .withName(this.name)
+            .withAuthor(this.author)
+            .withIngredients(this.ingredients)
+            .withContent(this.content)
+            .withCategories(this.categories)
+            .withCookingTimeInMinutes(this.cookingTimeInMinutes)
+            .withRating(rating)
+            .withRatingCount(ratingCount)
+            .build();
     }
 
     @Override

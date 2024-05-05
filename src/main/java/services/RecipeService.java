@@ -1,6 +1,7 @@
 package services;
 
 import cookbook.Recipe;
+import cookbook.RecipeBuilder;
 import cookbook.RecipeRepository;
 
 import java.util.ArrayList;
@@ -54,7 +55,14 @@ public class RecipeService {
     }
 
     public void saveRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
-        Recipe recipe = new Recipe(name, author, ingredients, content, categories, minutes);
+        Recipe recipe = new RecipeBuilder()
+            .withName(name)
+            .withAuthor(author)
+            .withIngredients(ingredients)
+            .withContent(content)
+            .withCategories(categories)
+            .withCookingTimeInMinutes(minutes)
+            .build();
 
         recipeRepository.addRecipe(recipe);
     }
