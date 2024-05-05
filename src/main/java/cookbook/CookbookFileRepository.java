@@ -2,32 +2,35 @@ package cookbook;
 
 import db.UserFileDataHandler;
 
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
 
 public class CookbookFileRepository implements CookbookRepository {
     private final UserFileDataHandler userFileDataHandler;
-    private Cookbook cookbook = new Cookbook();
+    private final Cookbook cookbook;
 
     public CookbookFileRepository() {
         this.userFileDataHandler = new UserFileDataHandler();
+        this.cookbook = Cookbook.getInstance();
     }
 
     public CookbookFileRepository(UserFileDataHandler userFileDataHandler) {
         this.userFileDataHandler = userFileDataHandler;
+        this.cookbook = Cookbook.getInstance();
     }
 
     public String getCurrentUsername() {
-        return cookbook.currentUsername();
+        return cookbook.getCurrentUsername();
     }
 
     public void setCurrentUsername(String newUsername) {
-        cookbook = cookbook.changeCurrentUsername(newUsername);
+        cookbook.setCurrentUsername(newUsername);
     }
 
     public LocalDate getCreationDate() {
-        return cookbook.dateOfCreation();
+        return cookbook.getDateOfCreation();
     }
 
     public Map<String, CookbookUser> getAllUsers() {
@@ -57,5 +60,21 @@ public class CookbookFileRepository implements CookbookRepository {
         CookbookUser newUser = currentUser.updateBookmarkedRecipeIds(bookmarkedRecipeIds);
 
         userFileDataHandler.updateUserInDB(username, newUser);
+    }
+
+    public void deleteAllUsers() {
+        Map<String, CookbookUser> allUsers = getAllUsers();
+
+        for (String user : allUsers.keySet()) {
+            userFileDataHandler.deleteUserFromDB(user);
+        }
+
+        resetFile();
+    }
+
+    private void resetFile() {
+        userFileDataHandler.deleteDB();
+
+        userFileDataHandler.createFile(Path.of("db", "users.json"));
     }
 }

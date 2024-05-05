@@ -42,7 +42,7 @@ public class YourRecipesView extends AbstractView {
         printOptions(recipes);
         System.out.println();
 
-        int input = getNumberInputMinMax(0, recipes.size());
+        int input = getNumberInRange(0, recipes.size());
         System.out.println();
 
         if (input == 0) {

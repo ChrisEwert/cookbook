@@ -82,4 +82,23 @@ public class UserFileDataHandler extends FileDataHandler {
 
         saveAllUsersToDB(users);
     }
+
+    public void deleteUserFromDB(String username) {
+        Map<String, CookbookUser> users = getAllUsersFromDB();
+
+        if (!users.containsKey(username)) {
+            System.err.println("Error: User " + username + " not found.");
+        }
+
+        users.remove(username);
+
+        saveAllUsersToDB(users);
+    }
+
+    public void deleteDB() {
+        File file = new File(String.valueOf(filePath));
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 }

@@ -40,7 +40,7 @@ public class SelectAvailableUserView extends AbstractView {
         printOptions(usernames);
         System.out.println();
 
-        int userIndex = getNumberInputMinMax(0, usernames.size());
+        int userIndex = getNumberInRange(0, usernames.size());
         System.out.println();
 
         if (userIndex == 0) {

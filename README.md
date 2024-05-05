@@ -10,6 +10,8 @@ It allows users to create and share recipes.
 * read Recipes
 * categorize Recipes
 * bookmark Recipes
+* update existing Recipe
+* delete existing Recipe
 * list the Recipes of the active User
 * rate Recipes of other Users
 * read ratings of other Users
@@ -17,8 +19,6 @@ It allows users to create and share recipes.
 * add new Users
 
 ### Planned
-* update existing Recipe
-* delete existing Recipe
 * filter existing Recipes by Category or User
 * weekly plan
   * add Recipe to weekly plan
@@ -27,15 +27,15 @@ It allows users to create and share recipes.
 * create new Categories
 
 ## Ubiquitous Language
-* CookBook: a collection of recipes
-* Recipe: an entry in the CookBook
-* User: person interacting with the CookBook
+* Cookbook: a collection of Recipes
+* Recipe: an entry in the Cookbook
+* User: person interacting with the Cookbook
 * Author: User who created a Recipe
 * Category: brief description that helps with classifying and grouping Recipes
 * Rating: combination of a number of stars between 0 and 5, a comment and a title with the purpose of rating a Recipe
 
 ## Descriptions
-* CookBook 
+* Cookbook 
   * date of creation
   * active user
 * Recipe
@@ -51,6 +51,11 @@ It allows users to create and share recipes.
   * name
   * password
   * bookmarked recipes
+* Rating
+  * Recipe ID
+  * stars
+  * title
+  * comment
 
 ## Views
 * Views only print lines to the console

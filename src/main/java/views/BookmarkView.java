@@ -42,7 +42,7 @@ public class BookmarkView extends AbstractView {
         printOptions(bookmarkedIds);
         System.out.println();
 
-        int input = getNumberInputMinMax(0, bookmarkedIds.size());
+        int input = getNumberInRange(0, bookmarkedIds.size());
         System.out.println();
 
         if (input == 0) {

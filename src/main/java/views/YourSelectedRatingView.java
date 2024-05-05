@@ -45,7 +45,7 @@ public class YourSelectedRatingView extends AbstractView {
         printOptions();
         System.out.println();
 
-        int changeRatingInput = getNumberInputMinMax(0, 2);
+        int changeRatingInput = getNumberInRange(0, 2);
         System.out.println();
 
         if (changeRatingInput == 1) {
@@ -54,7 +54,7 @@ public class YourSelectedRatingView extends AbstractView {
         }
         else if (changeRatingInput == 2) {
             writeYellowLine("Are you sure that you want to delete this rating? To delete it, press 1. To go back, press 0");
-            int deleteRatingInput = getNumberInputMinMax(0, 1);
+            int deleteRatingInput = getNumberInRange(0, 1);
             System.out.println();
 
             if (deleteRatingInput == 1) {

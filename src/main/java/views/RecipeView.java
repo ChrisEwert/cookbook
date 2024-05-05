@@ -30,7 +30,7 @@ public class RecipeView extends AbstractView {
         printOptions();
         System.out.println();
 
-        int userInput = getNumberInputMinMax(0, 3);
+        int userInput = getNumberInRange(0, 3);
         System.out.println();
 
         if (userInput == 1) {

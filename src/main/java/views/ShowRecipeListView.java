@@ -42,7 +42,7 @@ public class ShowRecipeListView extends AbstractView {
         System.out.println();                                                                                           // TODO: Filter mechanic
 
         writeYellowLine("Enter the number of a recipe to read it or type 0 to go back to the recipe menu");
-        int recipeIndex = getNumberInputMinMax(0, allRecipes.size());
+        int recipeIndex = getNumberInRange(0, allRecipes.size());
         System.out.println();
 
         if (recipeIndex == 0) {

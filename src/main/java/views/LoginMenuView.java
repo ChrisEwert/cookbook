@@ -45,7 +45,7 @@ public class LoginMenuView extends AbstractView {
         printOptions();
         System.out.println();
 
-        int userMenuInput = getNumberInputMinMax(0, 2);
+        int userMenuInput = getNumberInRange(0, 2);
         System.out.println();
 
         if (Objects.equals(userMenuInput, 1)) {

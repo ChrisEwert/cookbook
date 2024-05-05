@@ -118,7 +118,7 @@ public class ChangeYourRecipeView extends AbstractView {
             printOptions(list, topicSingular);
 
             writeYellowLine("Enter the number of the " + topicSingular + " that you want to change. Type 0 if you are done with your changes. Type '+' to add a new " + topicSingular + ". Type '-' to remove a " + topicSingular + ".");
-            String input = getNumberInputMinMaxOrOptions(0, list.size(), List.of("+", "-"));
+            String input = getNumberInRangeWithSpecialCases(0, list.size(), List.of("+", "-"));
 
             if (Objects.equals(input, "+")) {
                 writeYellowLine("Enter the " + topicSingular + " that you want to add");
@@ -133,7 +133,7 @@ public class ChangeYourRecipeView extends AbstractView {
             if (Objects.equals(input, "-")) {
                 if (list.size() > 1) {
                     writeYellowLine("Enter the number of the " + topicSingular + " that you want to remove");
-                    int ingredientIndex = getNumberInputMinMax(1, list.size());
+                    int ingredientIndex = getNumberInRange(1, list.size());
 
                     list.remove(ingredientIndex-1);
                 } else {

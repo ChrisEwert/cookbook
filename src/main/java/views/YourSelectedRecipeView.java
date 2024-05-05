@@ -34,7 +34,7 @@ public class YourSelectedRecipeView extends AbstractView {
         printOptions();
         System.out.println();
 
-        int input = getNumberInputMinMax(0, 2);
+        int input = getNumberInRange(0, 2);
         System.out.println();
 
         if (input == 1) {
@@ -43,7 +43,7 @@ public class YourSelectedRecipeView extends AbstractView {
         }
         else if (input == 2) {
             writeYellowLine("Are you sure that you want to delete the recipe " + recipe.name() + "? Type 1 to delete it. Type 0 to go back");
-            int deleteInput = getNumberInputMinMax(0, 1);
+            int deleteInput = getNumberInRange(0, 1);
             System.out.println();
 
             if (deleteInput == 1) {

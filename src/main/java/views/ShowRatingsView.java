@@ -47,7 +47,7 @@ public class ShowRatingsView extends AbstractView {
         printOptions();
         System.out.println();
 
-        int input = getNumberInputMinMax(0, 1);
+        int input = getNumberInRange(0, 1);
         System.out.println();
 
         if (input == 1) {

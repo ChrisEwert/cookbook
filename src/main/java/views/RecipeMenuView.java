@@ -28,7 +28,7 @@ public class RecipeMenuView extends AbstractView {
         printOptions();
         System.out.println();
 
-        int input = getNumberInputMinMax(0, 5);
+        int input = getNumberInRange(0, 5);
         System.out.println();
 
         if (input == 1) {

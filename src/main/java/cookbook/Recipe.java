@@ -82,6 +82,9 @@ public record Recipe(
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
+        builder.append("═══════════════════════════════════════════════════════");
+        builder.append("\n");
+
         showRecipeName(builder);
         builder.append("\n");
 
@@ -105,7 +108,6 @@ public record Recipe(
     }
 
     private void showRecipeName(StringBuilder builder) {
-        builder.append("═══════════════════════════════════════════════════════\n");
         builder.append(" ").append(name).append("\n");
         builder.append("═══════════════════════════════════════════════════════");
     }
