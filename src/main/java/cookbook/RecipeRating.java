@@ -13,7 +13,7 @@ public record RecipeRating(
     public RecipeRating() {
         this(
             UUID.randomUUID().toString(),
-            UUID.randomUUID().toString(),
+            "",
             "",
             0,
             "",
@@ -61,7 +61,8 @@ public record RecipeRating(
     }
 
     private void showTopRow(StringBuilder builder) {
-        builder.append("───────────────────\n");
+        builder.append("───────────────────");
+        builder.append("\n");
         builder.append(stars);
         builder.append("⭑");
         builder.append("\t\t\t");

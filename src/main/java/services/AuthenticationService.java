@@ -19,14 +19,14 @@ public class AuthenticationService {
         return cookbookRepository.getAllUsers();
     }
 
+    public String getCurrentUsername() {
+        return cookbookRepository.getCurrentUsername();
+    }
+
     public String getCookbookCreationDate() {
         LocalDate date = cookbookRepository.getCreationDate();
 
         return date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
-
-    public String getCurrentUsername() {
-        return cookbookRepository.getCurrentUsername();
     }
 
     public boolean userExists(String username) {
@@ -36,8 +36,7 @@ public class AuthenticationService {
     }
 
     public boolean credentialsMatch(String username, String password) {
-        Map<String, CookbookUser> users = getAllUsers();
-        CookbookUser user = users.get(username);
+        CookbookUser user = cookbookRepository.getUserByUsername(username);
 
         return Objects.equals(user.password(), password);
     }

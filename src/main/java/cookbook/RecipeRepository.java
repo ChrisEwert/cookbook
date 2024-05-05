@@ -7,11 +7,11 @@ public interface RecipeRepository {
 
     Map<String, Recipe> getAllRecipes();
 
-    Recipe getRecipeById(String id);
+    Recipe getRecipeById(String recipeId);
 
-    void addRecipe(Recipe recipe);
+    void addRecipe(String recipeId, Recipe recipe);
 
-    void updateRecipe(String id, Recipe newRecipe);
+    void updateRecipe(String recipeId, Recipe updatedRecipe);
 
     void deleteRecipe(String recipeId);
 
@@ -19,17 +19,15 @@ public interface RecipeRepository {
 
     List<RecipeRating> getRatingsOfRecipe(String recipeId);
 
-    RecipeRating getRatingByName(String recipeId, String name);
+    RecipeRating getRatingById(String ratingId);
 
-    RecipeRating getRatingById(String id);
+    RecipeRating getRatingOfRecipeByAuthor(String recipeId, String author);
 
-    void addRating(RecipeRating rating);
+    void addRating(String ratingId, RecipeRating rating);
 
-    void updateRatingStarsOfRecipe(Recipe recipe, float stars, int ratingsCount);
-
-    void deleteAllRatingsOfRecipe(String recipeId);
-
-    void updateExistingRatingOfRecipe(RecipeRating updatedRating);
+    void updateExistingRatingOfRecipe(String ratingId, RecipeRating updatedRating);
 
     void deleteRating(String ratingId);
+
+    void deleteAllRatingsOfRecipe(String recipeId);
 }

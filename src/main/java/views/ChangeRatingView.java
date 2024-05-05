@@ -55,13 +55,13 @@ public class ChangeRatingView extends AbstractView {
         System.out.println(rating.stars());
 
         writeYellowLine("Enter a number between 1 and 5 to change the number of stars of the rating or type 0 to leave it as it is");
-        int newCount = getNumberInRange(0, 5);
+        int newStars = getNumberInRange(0, 5);
 
-        if (Objects.equals(newCount, 0)) {
-            newCount = rating.stars();
+        if (Objects.equals(newStars, 0)) {
+            newStars = rating.stars();
         }
 
-        return newCount;
+        return newStars;
     }
 
     private String getNewTitle() {

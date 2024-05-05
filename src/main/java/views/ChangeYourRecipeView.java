@@ -30,7 +30,7 @@ public class ChangeYourRecipeView extends AbstractView {
         System.out.println("  CHANGE RECIPE  ");
         System.out.println("└               ┘");
 
-        String id = recipe.id();
+        String recipeId = recipe.id();
 
         String author = authenticationService.getCurrentUsername();
 
@@ -53,9 +53,9 @@ public class ChangeYourRecipeView extends AbstractView {
         int newCookingTime = getNewCookingTime();
         System.out.println();
 
-        recipeService.updateRecipe(id, newName, author, newIngredients, newContent, newCategories, newCookingTime);
+        recipeService.updateRecipe(recipeId, newName, author, newIngredients, newContent, newCategories, newCookingTime);
 
-        Recipe updatedRecipe = recipeService.getRecipeById(id);
+        Recipe updatedRecipe = recipeService.getRecipeById(recipeId);
 
         new YourSelectedRecipeView(userService, authenticationService, recipeService, ratingService, updatedRecipe).display();
     }
@@ -79,7 +79,7 @@ public class ChangeYourRecipeView extends AbstractView {
         String topicSingular = "ingredient";
         String topicPlural = "ingredients";
 
-        return handleList(ingredients, topicSingular, topicPlural);
+        return getList(ingredients, topicSingular, topicPlural);
     }
 
     private List<String> getNewContent() {
@@ -87,7 +87,7 @@ public class ChangeYourRecipeView extends AbstractView {
         String topicSingular = "cooking step";
         String topicPlural = "cooking steps";
 
-        return handleList(content, topicSingular, topicPlural);
+        return getList(content, topicSingular, topicPlural);
     }
 
     private List<String> getNewCategories() {
@@ -95,7 +95,7 @@ public class ChangeYourRecipeView extends AbstractView {
         String topicSingular = "category";
         String topicPlural = "categories";
 
-        return handleList(categories, topicSingular, topicPlural);
+        return getList(categories, topicSingular, topicPlural);
     }
 
     private int getNewCookingTime() {
@@ -112,7 +112,7 @@ public class ChangeYourRecipeView extends AbstractView {
         return newTime;
     }
 
-    private List<String> handleList(List<String> list, String topicSingular, String topicPlural) {
+    private List<String> getList(List<String> list, String topicSingular, String topicPlural) {
         while(true) {
             writeYellowLine("Current " + topicPlural + " of the recipe");
             printOptions(list, topicSingular);

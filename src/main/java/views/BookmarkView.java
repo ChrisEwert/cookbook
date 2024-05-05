@@ -28,9 +28,9 @@ public class BookmarkView extends AbstractView {
         System.out.println("└                    ┘");
 
         String username = authenticationService.getCurrentUsername();
-        List<String> bookmarkedIds = userService.getBookmarkedRecipeIdsByUsername(username);
+        List<String> bookmarkedRecipeIds = userService.getBookmarkedRecipeIdsByUsername(username);
 
-        if (bookmarkedIds.isEmpty()) {
+        if (bookmarkedRecipeIds.isEmpty()) {
             writeYellowLine("There are no bookmarked recipes!");
             System.out.println();
 
@@ -39,10 +39,10 @@ public class BookmarkView extends AbstractView {
         }
 
         writeYellowLine("Select the number of the recipe that you want to read or type 0 to go back to the recipe menu");
-        printOptions(bookmarkedIds);
+        printOptions(bookmarkedRecipeIds);
         System.out.println();
 
-        int input = getNumberInRange(0, bookmarkedIds.size());
+        int input = getNumberInRange(0, bookmarkedRecipeIds.size());
         System.out.println();
 
         if (input == 0) {
@@ -50,8 +50,8 @@ public class BookmarkView extends AbstractView {
             return;
         }
 
-        String id = bookmarkedIds.get(input - 1);
-        Recipe selectedRecipe = recipeService.getRecipeById(id);
+        String recipeId = bookmarkedRecipeIds.get(input - 1);
+        Recipe selectedRecipe = recipeService.getRecipeById(recipeId);
         System.out.println(selectedRecipe);
         System.out.println();
 

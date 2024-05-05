@@ -67,6 +67,7 @@ public record Recipe(
             .withId(this.id)
             .withName(name)
             .withAuthor(author)
+            .withDateOfCreation(this.dateOfCreation)
             .withIngredients(ingredients)
             .withContent(content)
             .withCategories(categories)
@@ -81,6 +82,7 @@ public record Recipe(
             .withId(this.id)
             .withName(this.name)
             .withAuthor(this.author)
+            .withDateOfCreation(this.dateOfCreation)
             .withIngredients(this.ingredients)
             .withContent(this.content)
             .withCategories(this.categories)
@@ -120,15 +122,19 @@ public record Recipe(
     }
 
     private void showRecipeName(StringBuilder builder) {
-        builder.append(" ").append(name).append("\n");
+        builder.append(" ");
+        builder.append(name);
+        builder.append("\n");
         builder.append("═══════════════════════════════════════════════════════");
     }
 
     private void showRecipeMetadata(StringBuilder builder) {
-        builder.append(author).append("\t\t");
+        builder.append(author);
+        builder.append("\t\t");
         showRecipeRating(builder);
         builder.append("/5⭑ [");
-        builder.append(ratingCount).append(" rating(s)]\t\t");
+        builder.append(ratingCount);
+        builder.append(" rating(s)]\t\t");
         builder.append(dateOfCreation.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
 
@@ -157,17 +163,25 @@ public record Recipe(
     }
 
     private void showRecipeIngredients(StringBuilder builder) {
-        builder.append("Ingredients:\n");
+        builder.append("Ingredients:");
+        builder.append("\n");
         for (String ingredient : ingredients) {
-            builder.append("- ").append(ingredient).append("\n");
+            builder.append("- ");
+            builder.append(ingredient);
+            builder.append("\n");
         }
     }
 
     private void showRecipeCookingSteps(StringBuilder builder) {
-        builder.append("Cooking steps:\n");
+        builder.append("Cooking steps:");
+        builder.append("\n");
         for (int i = 0 ; i < content.size() ; i++) {
-            builder.append("STEP ").append(i+1).append("\n");
-            builder.append("\t").append(content.get(i)).append("\n");
+            builder.append("STEP ");
+            builder.append(i+1);
+            builder.append("\n");
+            builder.append("\t");
+            builder.append(content.get(i));
+            builder.append("\n");
         }
     }
 }

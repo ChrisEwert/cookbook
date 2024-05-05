@@ -32,7 +32,7 @@ It allows users to create and share recipes.
 * User: person interacting with the Cookbook
 * Author: User who created a Recipe
 * Category: brief description that helps with classifying and grouping Recipes
-* Rating: combination of a number of stars between 0 and 5, a comment and a title with the purpose of rating a Recipe
+* Rating: combination of a number of stars between 1 and 5, a comment and a title with the purpose of rating a Recipe
 
 ## Descriptions
 * Cookbook 

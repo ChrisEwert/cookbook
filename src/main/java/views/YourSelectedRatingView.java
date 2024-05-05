@@ -28,9 +28,9 @@ public class YourSelectedRatingView extends AbstractView {
         System.out.println("  YOUR RATING  ");
         System.out.println("└             ┘");
 
-        RecipeRating rating = ratingService.getRatingByName(recipe.id(), authenticationService.getCurrentUsername());
+        RecipeRating yourRating = ratingService.getRatingByAuthor(recipe.id(), authenticationService.getCurrentUsername());
 
-        if (rating == null) {
+        if (yourRating == null) {
             writeYellowLine("You have not yet rated this recipe.");
             System.out.println();
 
@@ -38,7 +38,7 @@ public class YourSelectedRatingView extends AbstractView {
             return;
         }
 
-        System.out.println(rating);
+        System.out.println(yourRating);
         System.out.println();
 
         writeYellowLine("Do you want to change this rating?");
@@ -49,7 +49,7 @@ public class YourSelectedRatingView extends AbstractView {
         System.out.println();
 
         if (changeRatingInput == 1) {
-            new ChangeRatingView(userService, authenticationService, recipeService, ratingService, recipe, rating).display();
+            new ChangeRatingView(userService, authenticationService, recipeService, ratingService, recipe, yourRating).display();
             return;
         }
         else if (changeRatingInput == 2) {
@@ -58,7 +58,7 @@ public class YourSelectedRatingView extends AbstractView {
             System.out.println();
 
             if (deleteRatingInput == 1) {
-                ratingService.deleteRating(rating.id());
+                ratingService.deleteRatingWithId(yourRating.id());
 
                 writeGreenLine("Deleted rating");
                 System.out.println();

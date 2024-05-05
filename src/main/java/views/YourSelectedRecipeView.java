@@ -48,7 +48,7 @@ public class YourSelectedRecipeView extends AbstractView {
 
             if (deleteInput == 1) {
                 recipeService.deleteRecipe(recipe.id());
-                ratingService.deleteRatingsOfRecipe(recipe.id());
+                ratingService.deleteRatingsOfRecipeWithId(recipe.id());
 
                 writeGreenLine("Deleted the recipe");
                 System.out.println();

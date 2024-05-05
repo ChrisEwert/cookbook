@@ -53,11 +53,6 @@ public class CreateNewRecipeView extends AbstractView {
         writeGreenLine("Saved recipe!");
         System.out.println();
 
-        // TODO Show last recipe
-//        Recipe lastRecipe = recipeService.getLastRecipe();
-//        writeGreenLine(lastRecipe.toString());
-//        System.out.println();
-
         new RecipeMenuView(userService, authenticationService, recipeService, ratingService).display();
     }
 

@@ -53,7 +53,7 @@ public class RatingView extends AbstractView {
     }
 
     private void createRating() {
-        String id = recipe.id();
+        String recipeId = recipe.id();
 
         String username = authenticationService.getCurrentUsername();
 
@@ -69,6 +69,6 @@ public class RatingView extends AbstractView {
         String title = getUserInput();
         System.out.println();
 
-        ratingService.addRating(id, username, stars, title, comment);
+        ratingService.addRating(recipeId, username, stars, title, comment);
     }
 }

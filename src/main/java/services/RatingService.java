@@ -13,16 +13,12 @@ public class RatingService {
         this.recipeRepository = recipeRepository;
     }
 
-    public Map<String, RecipeRating> getAllRatings() {
-        return recipeRepository.getAllRatings();
-    }
-
     public List<RecipeRating> getRatingsByRecipeId(String recipeId) {
         return recipeRepository.getRatingsOfRecipe(recipeId);
     }
 
-    public boolean hasRated(String username, String id) {
-        List<RecipeRating> ratings = getRatingsByRecipeId(id);
+    public boolean hasRated(String username, String recipeId) {
+        List<RecipeRating> ratings = getRatingsByRecipeId(recipeId);
 
         for (RecipeRating rating : ratings) {
             if (Objects.equals(rating.author(), username)) {
@@ -33,20 +29,16 @@ public class RatingService {
         return false;
     }
 
-    public RecipeRating getRatingById(String id) {
-        return recipeRepository.getRatingById(id);
+    public RecipeRating getRatingByAuthor(String recipeId, String author) {
+        return recipeRepository.getRatingOfRecipeByAuthor(recipeId, author);
     }
 
-    public RecipeRating getRatingByName(String recipeId, String name) {
-        return recipeRepository.getRatingByName(recipeId, name);
-    }
+    public void addRating(String recipeId, String author, int stars, String title, String comment) {
+        RecipeRating newRating = new RecipeRating(recipeId, author, stars, title, comment);
 
-    public void addRating(String id, String author, int rating, String title, String comment) {
-        RecipeRating newRating = new RecipeRating(id, author, rating, title, comment);
+        recipeRepository.addRating(newRating.id(), newRating);
 
-        recipeRepository.addRating(newRating);
-
-        Recipe updatedRecipe = recipeRepository.getRecipeById(id);
+        Recipe updatedRecipe = recipeRepository.getRecipeById(recipeId);
 
         updateStarsOfRecipe(updatedRecipe);
     }
@@ -56,7 +48,7 @@ public class RatingService {
 
         RecipeRating updatedRating = currentRating.updateRating(author, stars, title, comment);
 
-        recipeRepository.updateExistingRatingOfRecipe(updatedRating);
+        recipeRepository.updateExistingRatingOfRecipe(ratingId, updatedRating);
     }
 
     public void updateStarsOfRecipe(Recipe recipe) {
@@ -68,14 +60,16 @@ public class RatingService {
         }
         stars /= ratings.size();
 
-        recipeRepository.updateRatingStarsOfRecipe(recipe, stars, ratings.size());
+        Recipe newRecipe = recipe.changeRating(stars, ratings.size());
+
+        recipeRepository.updateRecipe(recipe.id(), newRecipe);
     }
 
-    public void deleteRatingsOfRecipe(String recipeId) {
+    public void deleteRatingsOfRecipeWithId(String recipeId) {
         recipeRepository.deleteAllRatingsOfRecipe(recipeId);
     }
 
-    public void deleteRating(String ratingId) {
+    public void deleteRatingWithId(String ratingId) {
         recipeRepository.deleteRating(ratingId);
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import cookbook.Recipe;
+import cookbook.RecipeFileRepository;
 import cookbook.RecipeRating;
 
 import java.io.File;
@@ -65,10 +66,10 @@ public class RecipeFileDataHandler extends FileDataHandler {
         }
     }
 
-    public void addRecipeToDB(Recipe recipe) {
+    public void addRecipeToDB(String id, Recipe recipe) {
         Map<String, Recipe> recipes = getAllRecipesFromDB();
 
-        recipes.put(recipe.id(), recipe);
+        recipes.put(id, recipe);
 
         saveAllRecipesToDB(recipes);
     }

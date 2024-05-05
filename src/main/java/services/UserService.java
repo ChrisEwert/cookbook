@@ -29,7 +29,7 @@ public class UserService {
     public void createNewUser(String username, String password) {
         CookbookUser user = new CookbookUser(username, password);
 
-        cookbookRepository.createNewUser(user);
+        cookbookRepository.createNewUser(username, user);
     }
 
     public List<String> getBookmarkedRecipeIdsByUsername(String username) {

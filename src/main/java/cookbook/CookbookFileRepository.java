@@ -2,7 +2,6 @@ package cookbook;
 
 import db.UserFileDataHandler;
 
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
@@ -41,8 +40,8 @@ public class CookbookFileRepository implements CookbookRepository {
         return userFileDataHandler.getUserByUsername(username);
     }
 
-    public void createNewUser(CookbookUser user) {
-        userFileDataHandler.saveUserToDB(user);
+    public void createNewUser(String username, CookbookUser user) {
+        userFileDataHandler.saveUserToDB(username, user);
     }
 
     public Set<String> getBookmarkedRecipeIdsByUsername(String username) {
@@ -60,21 +59,5 @@ public class CookbookFileRepository implements CookbookRepository {
         CookbookUser newUser = currentUser.updateBookmarkedRecipeIds(bookmarkedRecipeIds);
 
         userFileDataHandler.updateUserInDB(username, newUser);
-    }
-
-    public void deleteAllUsers() {
-        Map<String, CookbookUser> allUsers = getAllUsers();
-
-        for (String user : allUsers.keySet()) {
-            userFileDataHandler.deleteUserFromDB(user);
-        }
-
-        resetFile();
-    }
-
-    private void resetFile() {
-        userFileDataHandler.deleteDB();
-
-        userFileDataHandler.createFile(Path.of("db", "users.json"));
     }
 }

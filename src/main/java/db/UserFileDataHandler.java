@@ -62,10 +62,10 @@ public class UserFileDataHandler extends FileDataHandler {
         }
     }
 
-    public void saveUserToDB(CookbookUser user) {
+    public void saveUserToDB(String username, CookbookUser user) {
         Map<String, CookbookUser> listOfUsers = getAllUsersFromDB();
 
-        listOfUsers.put(user.username(), user);
+        listOfUsers.put(username, user);
 
         saveAllUsersToDB(listOfUsers);
     }
@@ -78,27 +78,8 @@ public class UserFileDataHandler extends FileDataHandler {
             return;
         }
 
-        users.put(username, user); // TODO: Change to replace?
+        users.put(username, user);
 
         saveAllUsersToDB(users);
-    }
-
-    public void deleteUserFromDB(String username) {
-        Map<String, CookbookUser> users = getAllUsersFromDB();
-
-        if (!users.containsKey(username)) {
-            System.err.println("Error: User " + username + " not found.");
-        }
-
-        users.remove(username);
-
-        saveAllUsersToDB(users);
-    }
-
-    public void deleteDB() {
-        File file = new File(String.valueOf(filePath));
-        if (file.exists()) {
-            file.delete();
-        }
     }
 }

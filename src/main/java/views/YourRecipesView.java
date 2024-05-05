@@ -28,9 +28,9 @@ public class YourRecipesView extends AbstractView {
         System.out.println("└              ┘");
 
         String currentUsername = authenticationService.getCurrentUsername();
-        List<Recipe> recipes = recipeService.getRecipesByAuthor(currentUsername);
+        List<Recipe> yourRecipes = recipeService.getRecipesByAuthor(currentUsername);
 
-        if (recipes.isEmpty()) {
+        if (yourRecipes.isEmpty()) {
             writeYellowLine("You have not created any recipes.");
             System.out.println();
 
@@ -39,10 +39,10 @@ public class YourRecipesView extends AbstractView {
         }
 
         writeYellowLine("Select the recipe that you want to read");
-        printOptions(recipes);
+        printOptions(yourRecipes);
         System.out.println();
 
-        int input = getNumberInRange(0, recipes.size());
+        int input = getNumberInRange(0, yourRecipes.size());
         System.out.println();
 
         if (input == 0) {
@@ -50,7 +50,7 @@ public class YourRecipesView extends AbstractView {
             return;
         }
 
-        Recipe selectedRecipe = recipes.get(input - 1);
+        Recipe selectedRecipe = yourRecipes.get(input - 1);
 
         new YourSelectedRecipeView(userService, authenticationService, recipeService, ratingService, selectedRecipe).display();
     }

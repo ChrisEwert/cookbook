@@ -26,9 +26,9 @@ public class SelectAvailableUserView extends AbstractView {
         System.out.println("  SELECT USER  ");
         System.out.println("└             ┘");
 
-        List<String> usernames = userService.getAllUsernames();
+        List<String> allUsernames = userService.getAllUsernames();
 
-        if (usernames.isEmpty()) {
+        if (allUsernames.isEmpty()) {
             writeYellowLine("There are no users yet.");
             System.out.println();
 
@@ -37,18 +37,18 @@ public class SelectAvailableUserView extends AbstractView {
         }
 
         writeYellowLine("Select the number of your username or type 0 to go back to the login menu");
-        printOptions(usernames);
+        printOptions(allUsernames);
         System.out.println();
 
-        int userIndex = getNumberInRange(0, usernames.size());
+        int selectedIndex = getNumberInRange(0, allUsernames.size());
         System.out.println();
 
-        if (userIndex == 0) {
+        if (selectedIndex == 0) {
             new LoginMenuView(userService, authenticationService, recipeService, ratingService).display();
             return;
         }
 
-        String username = usernames.get(userIndex - 1);
+        String username = allUsernames.get(selectedIndex - 1);
 
         new LoginView(userService, authenticationService, recipeService, ratingService, username).display();
     }

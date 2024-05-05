@@ -33,16 +33,16 @@ public class RecipeService {
         return null;
     }
 
-    public Recipe getRecipeById(String id) {
-        return recipeRepository.getRecipeById(id);
+    public Recipe getRecipeById(String recipeId) {
+        return recipeRepository.getRecipeById(recipeId);
     }
 
-    public List<Recipe> getRecipesByAuthor(String username) {
+    public List<Recipe> getRecipesByAuthor(String author) {
         Map<String, Recipe> recipes = getAllRecipes();
         List<Recipe> recipesList = new ArrayList<>();
 
         for (Recipe recipe : recipes.values()) {
-            if (recipe.author().equals(username)) {
+            if (recipe.author().equals(author)) {
                 recipesList.add(recipe);
             }
         }
@@ -54,7 +54,14 @@ public class RecipeService {
         return recipe.name().toUpperCase() + " by " + recipe.author() + " [" + Math.round(recipe.rating()) + "⭑]";
     }
 
-    public void saveRecipe(String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
+    public void saveRecipe(
+        String name,
+        String author,
+        List<String> ingredients,
+        List<String> content,
+        List<String> categories,
+        int minutes
+    ) {
         Recipe recipe = new RecipeBuilder()
             .withName(name)
             .withAuthor(author)
@@ -64,21 +71,29 @@ public class RecipeService {
             .withCookingTimeInMinutes(minutes)
             .build();
 
-        recipeRepository.addRecipe(recipe);
+        recipeRepository.addRecipe(recipe.id(), recipe);
     }
 
     public boolean isAuthor(String username, Recipe recipe) {
         return Objects.equals(recipe.author(), username);
     }
 
-    public void updateRecipe(String id, String name, String author, List<String> ingredients, List<String> content, List<String> categories, int minutes) {
-        Recipe newRecipe = getRecipeById(id);
+    public void updateRecipe(
+        String recipeId,
+        String name,
+        String author,
+        List<String> ingredients,
+        List<String> content,
+        List<String> categories,
+        int minutes
+    ) {
+        Recipe newRecipe = getRecipeById(recipeId);
         newRecipe = newRecipe.updateRecipe(name, author, ingredients, content, categories, minutes);
 
-        recipeRepository.updateRecipe(id, newRecipe);
+        recipeRepository.updateRecipe(recipeId, newRecipe);
     }
 
-    public void deleteRecipe(String id) {
-        recipeRepository.deleteRecipe(id);
+    public void deleteRecipe(String recipeId) {
+        recipeRepository.deleteRecipe(recipeId);
     }
 }
