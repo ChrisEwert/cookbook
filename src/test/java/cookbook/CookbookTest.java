@@ -2,24 +2,26 @@ package cookbook;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CookbookTest {
 
     @Test
-    void testChangeCurrentUsername() {
+    void testSetCurrentUsername() {
         // ARRANGE
         Cookbook cookbook = new Cookbook();
+        LocalDate expectedDate = LocalDate.now();
         String username = "New username";
 
         // ACT
-        Cookbook updatedCookbook = cookbook.changeCurrentUsername(username);
+        cookbook.setCurrentUsername(username);
 
         // ASSERT
-        assertThat(updatedCookbook.dateOfCreation())
-            .isEqualTo(cookbook.dateOfCreation());
-        assertThat(updatedCookbook.currentUsername())
-            .isNotEqualTo(cookbook.currentUsername())
+        assertThat(cookbook.getDateOfCreation())
+            .isEqualTo(expectedDate);
+        assertThat(cookbook.getCurrentUsername())
             .isEqualTo(username);
     }
 }
